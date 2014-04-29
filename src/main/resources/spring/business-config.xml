@@ -60,11 +60,4 @@
 
 	</beans>
 
-	<beans profile="spring-data-jpa">
-
-
-		<!-- Custom configuration for the custom implementation based on JPA -->
-		<bean id="owerRepository"
-			class="de.hs.furtwangen.bam.jee.configurator.springdatajpa.JpaOwnerRepositoryImpl" />
-	</beans>
 </beans>

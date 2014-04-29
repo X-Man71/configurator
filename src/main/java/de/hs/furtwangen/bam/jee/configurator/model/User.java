@@ -47,7 +47,7 @@ public class User extends BaseEntity {
 	private String phone;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "user_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authorities_id"))
+	@JoinTable(name = "user_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
 	private List<Authority> authoritiesList = new ArrayList<Authority>();
 
 	public String getFirstName() {

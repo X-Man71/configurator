@@ -1,5 +1,5 @@
-INSERT INTO users VALUES (1,'Christian','Henle','chris','$2a$10$WVPq/GcSLNcKECb.wIfGeuFD0etGZpkgh6cgxdzmdzlBGdgp7Jzh2', 'asdf@asdf.de', 'asdf GmbH', 'male', 'asdftown' 'asdfstreet 1', '33333', '016011111111');
-INSERT INTO users VALUES (2,'test','test','test','$2a$10$5GMyJxnb8405GyQ3rzhrQuke8DTtEoKJCq9Fhf8Y41zluFhPZa0Qi', 'asdf@asdf.de', 'asdf GmbH', 'male', 'asdftown' 'asdfstreet 1', '33333', '016011111111');
+INSERT INTO users VALUES (1,'Christian','Henle','chris','$2a$10$WVPq/GcSLNcKECb.wIfGeuFD0etGZpkgh6cgxdzmdzlBGdgp7Jzh2','christian@test.de','Test GmbH','male','Test Town','asdfstreet 1','33333','016011111111');
+INSERT INTO users VALUES (2,'test','test','test','$2a$10$5GMyJxnb8405GyQ3rzhrQuke8DTtEoKJCq9Fhf8Y41zluFhPZa0Qi','asdf@asdf.de','asdf GmbH','male','asdftown','asdfstreet 1','33333','016011111111');
 INSERT INTO authorities VALUES (1,'ROLE_ADMIN');
 INSERT INTO authorities VALUES (2,'test');
 INSERT INTO authorities VALUES (3,'ROLE_CUSTOMER');

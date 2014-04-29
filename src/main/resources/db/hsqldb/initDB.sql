@@ -19,12 +19,12 @@ CREATE TABLE IF NOT EXISTS users (
 	 phone 			VARCHAR(60) NOT NULL
 );  
 
-CREATE TABLE IF NOT EXISTS user_authorities (
+CREATE TABLE IF NOT EXISTS user_authority (
 	user_id 		INTEGER NOT NULL,
 	authority_id 	INTEGER NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS authorities (
+CREATE TABLE IF NOT EXISTS authority (
 	id 				INTEGER IDENTITY PRIMARY KEY,
 	name 			VARCHAR(60) NOT NULL
 );

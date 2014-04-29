@@ -9,7 +9,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
-@Entity(name = "authorities")
+@Entity(name = "authority")
 public class Authority {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

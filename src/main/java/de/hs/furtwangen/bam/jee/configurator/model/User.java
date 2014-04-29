@@ -81,6 +81,10 @@ public class User {
 	public void setAuthoritiesList(List<Authority> authoritiesList) {
 		this.authoritiesList = authoritiesList;
 	}
+	
+	public void add(Authorities authorities){
+		authoritiesList.add(authorities);
+	}
 
 	@Override
 	public String toString() {

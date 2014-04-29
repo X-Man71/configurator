@@ -86,5 +86,5 @@ CREATE TABLE user_authorities (
 
 create table authorities (
 	id INTEGER IDENTITY PRIMARY KEY,
-	authoritie VARCHAR(60) NOT NULL,	
+	authority VARCHAR(60) NOT NULL,	
 );

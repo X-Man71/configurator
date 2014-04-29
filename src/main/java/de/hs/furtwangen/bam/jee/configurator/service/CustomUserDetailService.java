@@ -14,7 +14,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.hs.furtwangen.bam.jee.configurator.model.Authorities;
+import de.hs.furtwangen.bam.jee.configurator.model.Authority;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
 
 @Service
@@ -40,7 +40,7 @@ public class CustomUserDetailService implements UserDetailsService {
 	}
 	
 	
-		public Collection<? extends GrantedAuthority> getAuthorities(List<Authorities> authoritiesList) 
+		public Collection<? extends GrantedAuthority> getAuthorities(List<Authority> authoritiesList) 
 		{
 			List<GrantedAuthority> authList = getGrantedAuthorities(getRoles(authoritiesList));
 			return authList;
@@ -51,12 +51,12 @@ public class CustomUserDetailService implements UserDetailsService {
 		 * @param role the numerical role
 		 * @return list of roles as as a list of {@link String}
 		 */
-		public List<String> getRoles(List<Authorities> authoritiesList) {
+		public List<String> getRoles(List<Authority> authoritiesList) {
 			List<String> roles = new ArrayList<String>();
 			
-			for(Authorities authoritie : authoritiesList)
+			for(Authority authority : authoritiesList)
 			{
-				roles.add(authoritie.getAuthoritie());
+				roles.add(authority.getAuthority());
 			}
 			return roles;
 		}

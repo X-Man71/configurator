@@ -10,24 +10,22 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.NotEmpty;
 
 @Entity(name = "authorities")
-public class Authorities {
+public class Authority {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@NotNull
 	@NotEmpty
-	@Column(name = "authoritie", unique = true)
-	private String authoritie;
+	@Column(name = "authority", unique = true)
+	private String authority;
 
-	public String getAuthoritie() {
-		return authoritie;
+	public String getAuthority() {
+		return authority;
 	}
 
-	public void setAuthoritie(String authoritie) {
-		this.authoritie = authoritie;
+	public void setAuthority(String authority) {
+		this.authority = authority;
 	}
-	
-	
 
 }

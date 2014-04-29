@@ -31,7 +31,7 @@ public class User {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authorities_id"))
-	private List<Authorities> authoritiesList = new ArrayList<Authorities>();
+	private List<Authority> authoritiesList = new ArrayList<Authority>();
 
 
 	public Long getId() {
@@ -74,11 +74,11 @@ public class User {
 		this.password = password;
 	}
 
-	public List<Authorities> getAuthoritiesList() {
+	public List<Authority> getAuthoritiesList() {
 		return authoritiesList;
 	}
 
-	public void setAuthoritiesList(List<Authorities> authoritiesList) {
+	public void setAuthoritiesList(List<Authority> authoritiesList) {
 		this.authoritiesList = authoritiesList;
 	}
 

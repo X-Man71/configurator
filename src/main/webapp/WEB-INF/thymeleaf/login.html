@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Simplicity Itself" />
+
+<title>DS Nagold Wellness</title>
+
+<link href="/resources/css/bootstrap.min.css" rel="stylesheet"
+	media="all" th:href="@{/resources/css/bootstrap.min.css}">
+</link>
+
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
+	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js}"></script>
+
+<script type="text/javascript" src="/resources/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/resources/js/bootstrap.js"
+	th:src="@{/resources/js/bootstrap.js}"></script>
+
+
+
+<style type="text/css">
+body {
+	padding-top: 40px;
+	padding-bottom: 40px;
+	background-color: #eee;
+}
+
+.form-signin {
+	max-width: 330px;
+	padding: 15px;
+	margin: 0 auto;
+}
+
+.form-signin .form-signin-heading,.form-signin .checkbox {
+	margin-bottom: 10px;
+}
+
+.form-signin .checkbox {
+	font-weight: normal;
+}
+
+.form-signin .form-control {
+	position: relative;
+	height: auto;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	padding: 10px;
+	font-size: 16px;
+}
+
+.form-signin .form-control:focus {
+	z-index: 2;
+}
+
+.form-signin input[type="text"] {
+	margin-bottom: -1px;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+}
+
+.form-signin input[type="password"] {
+	margin-bottom: 10px;
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+</style>
+<!-- See http://twitter.github.com/bootstrap/scaffolding.html#responsive -->
+<link href="/resources/css/bootstrap-responsive.min.css"
+	rel="stylesheet">
+</link>
+
+<!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+<!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+</head>
+<body>
+	<div class="container">
+		<!--  <form th:action="@{/admin}" method="get">-->
+		<form th:action="@{/admin/j_spring_security_check}" method="post"
+			class="form-signin" role="form">
+			<h2 class="form-signin-heading">Bitte Anmelden</h2>
+
+			<input type="text" id="j_username" name="j_username"
+				class="form-control" autofocus="" required=""
+				placeholder="Email address" /> <input type="password"
+				id="j_password" name="j_password" class="form-control" autofocus=""
+				required="" placeholder="Password" />
+
+			<!--  <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block"/>-->
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
+				in</button>
+				
+				<div class="alert alert-danger" th:if="${loginError}">Zugangsdaten nicht korrekt</div>
+		</form>
+	</div>
+</body>
+</html>

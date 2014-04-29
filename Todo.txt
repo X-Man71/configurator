@@ -1,0 +1,5 @@
+- Registration in Datenbank speichern (Oliver)
+- Formular zum Password ändern (Christian)
+- Eine HTML Seite fuer alle Veranstaltungsdaten (Johannes)
+- Spring WebFlow
+-

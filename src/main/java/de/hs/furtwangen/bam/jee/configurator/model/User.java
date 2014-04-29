@@ -6,41 +6,49 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
 @Entity(name = "user")
-public class User {
+public class User extends BaseEntity {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long id;
-
+	@Column(name = "firstname")
 	private String firstName;
 	
+	@Column(name = "lastname")
 	private String lastName;
 
 	@Column(unique = true)
 	private String username;
 	
+	@Column(name = "password")
 	private String password;
+	
+	@Column(name = "email")
+	private String email;
+	
+	@Column(name = "corporation")
+	private String corporation;
+	
+	@Column(name = "gender")
+	private String gender;
+	
+	@Column(name = "residence")
+	private String residence;
+	
+	@Column(name = "street")
+	private String street;
+	
+	@Column(name = "zipCode")
+	private String zipCode;
+	
+	@Column(name = "phone")
+	private String phone;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_authorities", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authorities_id"))
 	private List<Authority> authoritiesList = new ArrayList<Authority>();
-
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getFirstName() {
 		return firstName;
@@ -91,10 +99,61 @@ public class User {
 		return "User [firstName=" + firstName + ", lastName=" + lastName
 				+ ", username=" + username + ", password=" + password + "]";
 	}
-	
-	
 
-	
-	
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCorporation() {
+		return corporation;
+	}
+
+	public void setCorporation(String corporation) {
+		this.corporation = corporation;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
+	public String getResidence() {
+		return residence;
+	}
+
+	public void setResidence(String residence) {
+		this.residence = residence;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getZipCode() {
+		return zipCode;
+	}
+
+	public void setZipCode(String zipCode) {
+		this.zipCode = zipCode;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	
 }

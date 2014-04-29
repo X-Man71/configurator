@@ -3,18 +3,18 @@ package de.hs.furtwangen.bam.jee.configurator.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import de.hs.furtwangen.bam.jee.configurator.model.Authorities;
+import de.hs.furtwangen.bam.jee.configurator.model.Authority;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataAuthoritiesRepository;
 
 @Service
-public class AuthoritiesService {
+public class AuthorityService {
 	
 	@Autowired
 	private SpringDataAuthoritiesRepository springDataAuthoritiesRepository;
 	
-	public Authorities findAutoritie(String authoritie)
+	public Authority findAuthority(String name)
 	{
-		return springDataAuthoritiesRepository.findAuthoritiesByAuthoritie(authoritie);
+		return springDataAuthoritiesRepository.findAuthorityByName(name);
 	}
 
 }

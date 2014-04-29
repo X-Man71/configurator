@@ -17,15 +17,15 @@ public class Authority {
 	
 	@NotNull
 	@NotEmpty
-	@Column(name = "authority", unique = true)
-	private String authority;
+	@Column(name = "name", unique = true)
+	private String name;
 
-	public String getAuthority() {
-		return authority;
+	public String getName() {
+		return name;
 	}
 
-	public void setAuthority(String authority) {
-		this.authority = authority;
+	public void setName(String name) {
+		this.name = name;
 	}
 
 }

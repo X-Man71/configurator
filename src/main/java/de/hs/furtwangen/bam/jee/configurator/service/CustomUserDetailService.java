@@ -56,7 +56,7 @@ public class CustomUserDetailService implements UserDetailsService {
 			
 			for(Authority authority : authoritiesList)
 			{
-				roles.add(authority.getAuthority());
+				roles.add(authority.getName());
 			}
 			return roles;
 		}

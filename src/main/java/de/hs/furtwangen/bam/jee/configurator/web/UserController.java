@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import de.hs.furtwangen.bam.jee.configurator.model.Authorities;
+import de.hs.furtwangen.bam.jee.configurator.model.Authority;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.service.AuthoritiesService;
+import de.hs.furtwangen.bam.jee.configurator.service.AuthorityService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 
 @Controller
@@ -23,7 +23,7 @@ public class UserController {
 	private UserService userService;
 	
 	@Autowired
-	private AuthoritiesService authoritiesService;
+	private AuthorityService authorityService;
 
 	private static final String USER_SAVED_MESSAGE = "Benutzer angelegt";
 
@@ -38,8 +38,8 @@ public class UserController {
 	@RequestMapping(value = "/user/new", method = RequestMethod.POST)
 	public String saveRegistratedUser(@ModelAttribute("user") User user,
 			Model model, BindingResult result) {
-		Authorities authorities = authoritiesService.findAutoritie(ROLE_CUSTOMER);
-		user.add(authorities);
+		Authority authority = authorityService.findAuthority(ROLE_CUSTOMER);
+		user.add(authority);
 		userService.saveUser(user);
 		model.addAttribute("message", USER_SAVED_MESSAGE);
 

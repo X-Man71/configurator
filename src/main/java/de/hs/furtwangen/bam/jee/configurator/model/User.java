@@ -82,8 +82,8 @@ public class User {
 		this.authoritiesList = authoritiesList;
 	}
 	
-	public void add(Authorities authorities){
-		authoritiesList.add(authorities);
+	public void add(Authority authority){
+		authoritiesList.add(authority);
 	}
 
 	@Override

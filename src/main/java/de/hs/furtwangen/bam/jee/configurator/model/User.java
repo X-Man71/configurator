@@ -82,24 +82,6 @@ public class User extends BaseEntity {
 		this.password = password;
 	}
 
-	public List<Authority> getAuthoritiesList() {
-		return authoritiesList;
-	}
-
-	public void setAuthoritiesList(List<Authority> authoritiesList) {
-		this.authoritiesList = authoritiesList;
-	}
-	
-	public void add(Authority authority){
-		authoritiesList.add(authority);
-	}
-
-	@Override
-	public String toString() {
-		return "User [firstName=" + firstName + ", lastName=" + lastName
-				+ ", username=" + username + ", password=" + password + "]";
-	}
-
 	public String getEmail() {
 		return email;
 	}
@@ -155,5 +137,27 @@ public class User extends BaseEntity {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
+
+	public List<Authority> getAuthoritiesList() {
+		return authoritiesList;
+	}
+
+	public void setAuthoritiesList(List<Authority> authoritiesList) {
+		this.authoritiesList = authoritiesList;
+	}
+
+	@Override
+	public String toString() {
+		return "User [firstName=" + firstName + ", lastName=" + lastName
+				+ ", username=" + username + ", password=" + password
+				+ ", email=" + email + ", corporation=" + corporation
+				+ ", gender=" + gender + ", residence=" + residence
+				+ ", street=" + street + ", zipCode=" + zipCode + ", phone="
+				+ phone + ", authoritiesList=" + authoritiesList + "]";
+	}
+	
+	
+
+	
 	
 }

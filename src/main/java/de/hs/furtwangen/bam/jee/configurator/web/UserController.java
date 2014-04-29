@@ -32,18 +32,19 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 
-		return "/user/new";
+		return "/register";
 	}
 
 	@RequestMapping(value = "/user/new", method = RequestMethod.POST)
 	public String saveRegistratedUser(@ModelAttribute("user") User user,
 			Model model, BindingResult result) {
-		Authority authority = authorityService.findAuthority(ROLE_CUSTOMER);
+		System.out.println(user.toString());
+		/*Authority authority = authorityService.findAuthority(ROLE_CUSTOMER);
 		user.add(authority);
 		userService.saveUser(user);
-		model.addAttribute("message", USER_SAVED_MESSAGE);
+		model.addAttribute("message", USER_SAVED_MESSAGE);*/
 
-		return "/user/new";
+		return "/register";
 	}
 	
 	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)

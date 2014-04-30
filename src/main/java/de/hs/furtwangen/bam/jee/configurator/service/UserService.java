@@ -44,8 +44,16 @@ public class UserService
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 	    String name = auth.getName();
 	    User user = springDataUserRepository.findByUsername(name);
-	    user.setPassword(hashPassword(password.getPassword1()));
+	    user.setPassword(hashPassword(password.getNewPassword()));
 		springDataUserRepository.save(user);
+	}
+	
+	@Transactional
+	public String oldPasswordByUserName()
+	{
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	    String username = auth.getName();
+		return springDataUserRepository.findByUsername(username).getPassword();
 	}
 	
 	private String hashPassword(String rawPassword){

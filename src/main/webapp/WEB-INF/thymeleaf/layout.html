@@ -4,28 +4,39 @@
 
 <body>
 
-<div th:fragment="head">
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="navbar-inner">
-            <div class="container-fluid">
-                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </a>
-                <a class="brand" href="/">D&egrave;essere</a>
-                <div class="nav-collapse collapse">
-                    <p class="navbar-text pull-right">
+<div th:fragment="navbar">
+ <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
+			<div class="container">
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle" data-toggle="collapse"
+						data-target=".navbar-collapse">
+						<span class="icon-bar"></span> <span class="icon-bar"></span>
 
-                    </p>
-                    <ul class="nav">
-                        <li><a href="/">Startseite</a></li>
-                        <li><a href="/showBasket">Ihre Auswahl</a></li>
-                    </ul>
-                </div> <!--/.nav-collapse -->
-            </div>
-        </div>
-    </div>
+					</button>
+					<a class="navbar-brand" href="/">Configurator</a>
+				</div>
+
+				<div class="collapse navbar-collapse">
+					<ul class="nav navbar-nav">
+
+						<li class="active"><a href="/admin">Startseite</a></li>
+						<li><a href="/admin/showBooking">Auftr&auml;ge</a></li>
+						<li><a href="/admin/product/new">Produkt</a></li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown"><a href="#" class="dropdown-toggle"
+							data-toggle="dropdown"><span sec:authentication="name"></span><b
+								class="caret"></b></a>
+							<ul class="dropdown-menu">
+								<li><a th:href="@{/admin/j_spring_security_logout}">Logout</a></li>
+								<li><a th:href="@{/admin/userAttitude}">Einstellungen</a></li>
+							</ul></li>
+
+					</ul>
+				</div>
+
+			</div>
+		</div>
 
 </div>
 

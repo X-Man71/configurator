@@ -141,6 +141,10 @@ public class User extends BaseEntity {
 	public List<Authority> getAuthoritiesList() {
 		return authoritiesList;
 	}
+	
+	public void add(Authority authority){
+		authoritiesList.add(authority);
+	}
 
 	public void setAuthoritiesList(List<Authority> authoritiesList) {
 		this.authoritiesList = authoritiesList;

@@ -1,5 +1,5 @@
 - Registration in Datenbank speichern (Oliver)
-- Formular zum Password ändern (Christian)
+- Formular zum Password ändern (Christian) //Test schreiben für Password ändern
 - Eine HTML Seite fuer alle Veranstaltungsdaten (Johannes)
 - Spring WebFlow
--
+- Neuen Benutzer anlagen validation und überprüfung ob eMail oder Benutzername bereits exisitiert.

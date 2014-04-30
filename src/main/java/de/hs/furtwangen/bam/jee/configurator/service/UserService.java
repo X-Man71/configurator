@@ -23,6 +23,7 @@ public class UserService
 	@Transactional
 	public void saveUser(User user)
 	{
+		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		springDataUserRepository.save(user);
 	}
 	

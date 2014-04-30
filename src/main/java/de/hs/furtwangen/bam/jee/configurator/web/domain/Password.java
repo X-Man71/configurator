@@ -1,4 +1,4 @@
-package org.springframework.samples.petclinic.web.domain;
+package de.hs.furtwangen.bam.jee.configurator.web.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;

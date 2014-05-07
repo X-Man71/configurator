@@ -34,9 +34,6 @@ public class Event extends NamedEntity {
     private Set<Location> locations;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Set<Audio> audios;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Catering> caterings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
@@ -91,46 +88,6 @@ public class Event extends NamedEntity {
                 compName = compName.toLowerCase();
                 if (compName.equals(name)) {
                     return location;
-                }
-            }
-        }
-        return null;
-    }
-    
-    // AUDIOS
-    protected void setAudiosInternal(Set<Audio> audios) {
-        this.audios = audios;
-    }
-
-    protected Set<Audio> getAudiosInternal() {
-        if (this.audios == null) {
-            this.audios = new HashSet<Audio>();
-        }
-        return this.audios;
-    }
-
-    public List<Audio> getAudios() {
-        List<Audio> sortedAudios = new ArrayList<Audio>(getAudiosInternal());
-        PropertyComparator.sort(sortedAudios, new MutableSortDefinition("name", true, true));
-        return Collections.unmodifiableList(sortedAudios);
-    }
-
-    public void addAudio(Audio audio) {
-    	getAudiosInternal().add(audio);
-    }
-
-    public Audio getAudio(String name) {
-        return getAudio(name, false);
-    }
-
-    public Audio getAudio(String name, boolean ignoreNew) {
-        name = name.toLowerCase();
-        for (Audio audio : getAudiosInternal()) {
-            if (!ignoreNew || !audio.isNew()) {
-                String compName = audio.getName();
-                compName = compName.toLowerCase();
-                if (compName.equals(name)) {
-                    return audio;
                 }
             }
         }

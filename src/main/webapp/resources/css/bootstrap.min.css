@@ -722,6 +722,12 @@ pre code {
 	padding-right: 15px
 }
 
+.column {
+	width: 350px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 @media ( min-width :768px) {
 	.container {
 		width: 750px

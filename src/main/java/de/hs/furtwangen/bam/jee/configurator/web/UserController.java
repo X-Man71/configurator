@@ -32,7 +32,7 @@ public class UserController {
 	private static final String USER_SAVED_MESSAGE = "Benutzer angelegt";
 
 	@RequestMapping(value = "/user/new", method = RequestMethod.GET)
-	public String registrateNewUser(Model model) {
+	public String registerNewUser(Model model) {
 		User user = new User();
 		model.addAttribute("user", user);
 
@@ -40,7 +40,7 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/user/new", method = RequestMethod.POST)
-	public String saveRegistratedUser(@ModelAttribute("user") User user,
+	public String saveRegisteredUser(@ModelAttribute("user") User user,
 			Model model, BindingResult result) {
 		System.out.println(user.toString());
 		

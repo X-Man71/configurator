@@ -15,6 +15,12 @@ body {
 	margin: 0
 }
 
+#main {
+    margin: auto;
+    padding: 10px 20px 20px 20px;
+    width: 800px;
+}
+
 article,aside,details,figcaption,figure,footer,header,hgroup,main,nav,section,summary
 	{
 	display: block
@@ -1702,6 +1708,10 @@ output {
 	transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s
 }
 
+.OptionPlus {
+	margin: 0 40px;
+}
+
 .form-control:focus {
 	border-color: #66afe9;
 	outline: 0;
@@ -1752,7 +1762,9 @@ input[type=date] {
 	min-height: 20px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	padding-left: 20px
+	padding-left: 20px;
+	font-weight: bolder;
+	
 }
 
 .radio label,.checkbox label {
@@ -2274,9 +2286,8 @@ textarea.input-lg,select[multiple].input-lg {
 
 .btn-block {
 	display: block;
-	width: 100%;
-	padding-left: 0;
-	padding-right: 0
+	width: 30%;
+	margin: auto;
 }
 
 .btn-block+.btn-block {

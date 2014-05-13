@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Authority;
+import de.hs.furtwangen.bam.jee.configurator.model.Loan;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.AuthorityService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
@@ -37,6 +38,17 @@ public class UserController {
 		model.addAttribute("user", user);
 
 		return "/register";
+	}
+	
+	/*
+	 * take out a loan, BI-specific
+	 */
+	@RequestMapping(value = "/loan/new", method = RequestMethod.GET)
+	public String raiseCredit(Model model) {
+		Loan loan = new Loan();
+		model.addAttribute("loan", loan);
+		
+		return "/main";
 	}
 
 	@RequestMapping(value = "/user/new", method = RequestMethod.POST)

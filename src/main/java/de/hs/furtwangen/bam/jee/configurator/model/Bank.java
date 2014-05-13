@@ -28,4 +28,12 @@ public class Bank extends NamedEntity {
 		this.numberOfLoans = numberOfLoans;
 	}
 	
+	public List<Loan> getLoans() {
+		return loans;
+	}
+	
+	public void setLoans(List<Loan> loans) {
+		this.loans = loans;
+	}
+	
 }

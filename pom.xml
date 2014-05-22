@@ -117,7 +117,7 @@
 			<artifactId>thymeleaf-spring4</artifactId>
 			<version>2.1.2.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
 			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
@@ -212,8 +212,8 @@
 			<artifactId>spring-security-config</artifactId>
 			<version>3.2.3.RELEASE</version>
 		</dependency>
-		
-		
+
+
 
 
 		<!-- Database connection pool -->
@@ -384,6 +384,19 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- Spring Webflow EL -->
+		<dependency>
+			<groupId>ognl</groupId>
+			<artifactId>ognl</artifactId>
+			<version>2.7.3</version>
+		</dependency>
+
+		<!-- Spring Webflow -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>2.3.3.RELEASE</version>
+		</dependency>
 
 	</dependencies>
 

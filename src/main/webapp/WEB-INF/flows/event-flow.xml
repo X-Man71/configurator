@@ -4,7 +4,9 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/webflow
 			    http://www.springframework.org/schema/webflow/spring-webflow-1.0.xsd">
 
-	<start-state idref="showForm" />
+	<on-start>
+		<evaluate expression="bookingService.createBooking(hotelId, currentUser.name)" result="flowScope.booking" />
+	</on-start>
 	
 	<view-state id="showForm" view="form">
 		<render-actions>

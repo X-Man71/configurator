@@ -60,6 +60,17 @@
 			hierarchy). -->
 		<bean
 			class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+			
+			<!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking". -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+		<property name="order" value="-1"/>
+		<property name="flowRegistry" ref="flowRegistry" />
+	</bean>
+	
+	<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+		<property name="flowExecutor" ref="flowExecutor"/>
+	</bean>
 
 	</beans>
 

@@ -86,5 +86,21 @@
             </map>
         </property>
     </bean>
+    
+    
+    <!-- Resolves logical view names returned by Controllers to Tiles; a view name to resolve is treated as the name of a tiles definition -->
+	<bean id="tilesViewResolver" class="org.thymeleaf.spring4.view.AjaxThymeleafViewResolver">
+		<property name="viewClass" value="org.thymeleaf.extras.tiles2.spring4.web.view.FlowAjaxThymeleafTilesView"/>
+		<property name="templateEngine" ref="templateEngine"/>
+	</bean>
+  
+	<!-- Configures the Tiles layout system using a specific thymeleaf-enabled Tiles Configurer -->
+	<bean id="tilesConfigurer" class="org.thymeleaf.extras.tiles2.spring4.web.configurer.ThymeleafTilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/**/views.xml</value>
+			</list>
+		</property>
+	</bean>
 
 </beans>

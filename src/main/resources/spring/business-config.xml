@@ -17,6 +17,8 @@
 	<!-- import of Authentication and Authorition config -->
 	<import resource="security-config.xml" />
 	
+	<import resource="mvc-core-config.xml" />
+	
 	<!-- import of webflow configuration -->
 	<import resource="webflow-config.xml" />
 

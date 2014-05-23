@@ -31,27 +31,6 @@
     <!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies (Bootstrap, jQuery...) -->
     <mvc:resources mapping="/webjars/**" location="classpath:/META-INF/resources/webjars/"/>
 
-    <mvc:view-controller path="/" view-name="welcome" />
-
- 
-
-    <!--
-        - Message source for this context, loaded from localized "messages_xx" files.
-        - Files are stored inside src/main/resources
-    -->
-    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
-          p:basename="messages/messages"/>
-
-    <!--
-        - This bean resolves specific types of exceptions to corresponding logical 
-        - view names for error views.
-    -->
-    <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-        <!-- view name resolved using bean of type InternalResourceViewResolver (declared in mvc-view-config.xml) -->
-        <property name="defaultErrorView" value="exception"/>
-        <!-- results into 'WEB-INF/jsp/exception.jsp' -->
-        <property name="warnLogCategory" value="warn"/>
-        <!-- needed otherwise exceptions won't be logged anywhere -->
-    </bean>
+   
 
 </beans>

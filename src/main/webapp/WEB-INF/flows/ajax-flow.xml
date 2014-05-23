@@ -5,10 +5,8 @@
       	http://www.springframework.org/schema/webflow
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
-	<view-state id="home" view="home">
-		<transition on="updateData">
-			<render fragments="data" />
-		</transition>
+	<view-state id="intro" view="intro">
+	
 	</view-state>
 
 

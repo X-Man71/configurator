@@ -13,8 +13,7 @@ public class WelcomeController
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
   public String intro(Model model)
-  {
-    model.addAttribute("date",new Date().toString());
+  {  
     return "home";
   }
 }

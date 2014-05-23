@@ -5,8 +5,9 @@
 	
 <tiles-definitions>
 	
-	<definition name="location" extends="standardLayout" templateType="thymeleaf">
-		<put-attribute name="body" value="/flows/location.html :: content" type="thymeleaf"/>
+	<definition name="intro" extends="standardLayout">
+		<put-attribute name="body" value="flows/intro.html :: content" type="thymeleaf"/>
 	</definition>
-
+	
+	
 </tiles-definitions>

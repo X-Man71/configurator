@@ -14,7 +14,7 @@
          
     <bean id="templateResolver" 
         class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
-        <property name="prefix" value="/WEB-INF/thymeleaf/" />
+        <property name="prefix" value="/WEB-INF/" />
         <property name="suffix" value=".html" />
         <property name="templateMode" value="HTML5" />
         <!-- Template cache is set to false (default is true).        -->

@@ -22,9 +22,19 @@
 
 	<!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views -->
 	<bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"> 
-		<property name="viewResolvers" ref="thymeleafViewResolver"/>
+		<property name="viewResolvers" ref="tilesViewResolver"/>
 		<property name="useSpringBeanBinding" value="true" />
 	</bean>
+	
+	<!-- Installs a listener to apply Spring Security authorities -->
+	<bean id="securityFlowExecutionListener" class="org.springframework.webflow.security.SecurityFlowExecutionListener" />
+
+	<!-- Bootstraps JSR-303 validation and exposes it through Spring's Validator interface -->
+	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
+	
+	
+	
+
 	
 
 </beans>

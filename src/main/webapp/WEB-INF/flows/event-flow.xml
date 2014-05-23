@@ -6,7 +6,12 @@
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
 	<view-state id="intro" view="intro">
+	<transition on="proceed" to="secoundFlowPage" />
+	</view-state>
 	
+	
+	<view-state id="secoundFlowPage" view="secoundFlowPage">
+	<transition on="proceed" to="reviewBooking" />
 	</view-state>
 
 

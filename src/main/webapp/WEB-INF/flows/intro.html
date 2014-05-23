@@ -1,10 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
 </head>
+
 <body>
-<h1>Intro</h1>
+<h1>First Flow Page</h1>
+
+<!-- <body tiles:fragment="content"> -->
+  <form action="#"  th:action="${flowExecutionUrl}" method="post">
+  <button type="submit" id="proceed" name="_eventId_proceed">Proceed</button>
+                        <button type="submit" name="_eventId_cancel" >Cancel</button>
+</form>
 </body>
 </html>

@@ -26,7 +26,6 @@
     <bean id="templateResolver" 
         class="org.thymeleaf.templateresolver.ServletContextTemplateResolver">
         <property name="prefix" value="/WEB-INF/" />
-        <property name="suffix" value=".html" />
         <property name="templateMode" value="HTML5" />
         <!-- Template cache is set to false (default is true).        -->
     </bean>
@@ -35,16 +34,26 @@
         <property name="templateResolver" ref="templateResolver" />
         <property name="additionalDialects">
             <set>
-                <bean class="org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect" />
+              <bean class="org.thymeleaf.extras.tiles2.dialect.TilesDialect"/>
+                <bean class="org.thymeleaf.extras.springsecurity3.dialect.SpringSecurityDialect"/>
             </set>
         </property>
     </bean>
 
-    <bean id="thymeleafViewResolver" class="org.thymeleaf.spring4.view.AjaxThymeleafViewResolver">
-		<property name="viewClass"
-			value="org.thymeleaf.spring4.view.FlowAjaxThymeleafView" />
-		<property name="templateEngine" ref="templateEngine" />
-	</bean>     
+	
+	<!-- Resolves logical view names returned by Controllers to Tiles; a view name to resolve is treated as the name of a tiles definition -->
+	<bean id="tilesViewResolver" class="org.thymeleaf.spring4.view.AjaxThymeleafViewResolver">
+		<property name="viewClass" value="org.thymeleaf.extras.tiles2.spring4.web.view.FlowAjaxThymeleafTilesView"/>
+		<property name="templateEngine" ref="templateEngine"/>
+	</bean>
+	
+	<bean id="tilesConfigurer" class="org.thymeleaf.extras.tiles2.spring4.web.configurer.ThymeleafTilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/**/views.xml</value>
+			</list>
+		</property>
+	</bean>  
     
     
    

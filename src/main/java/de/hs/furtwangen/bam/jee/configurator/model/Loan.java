@@ -18,10 +18,10 @@ public class Loan extends NamedEntity {
 	@Column(name = "rate")
 	private double rate;
 	
-	@Column(name = "requestNo")
+	@Column(name = "requestno")
 	private int requestNo;
 	
-	@Column(name = "quoteNo")
+	@Column(name = "quoteno")
 	private int quoteNo;
 	
 	@Autowired

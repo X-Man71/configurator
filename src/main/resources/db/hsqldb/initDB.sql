@@ -29,17 +29,21 @@ CREATE TABLE IF NOT EXISTS authority (
 	name 			VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS events (
+CREATE TABLE IF NOT EXISTS banks (
   id         		INTEGER IDENTITY PRIMARY KEY,
   name 		 		VARCHAR(30),
-  date 				DATE NOT NULL
+  numberOfLoans 	INTEGER NOT NULL,
 );
-CREATE INDEX events_name ON events (name);
+CREATE INDEX banks_name ON banks (name);
 
-CREATE TABLE IF NOT EXISTS locations (
+CREATE TABLE IF NOT EXISTS loans (
   id         		INTEGER IDENTITY PRIMARY KEY,
-  name       		VARCHAR(30),
-  event_id   		INTEGER NOT NULL
+  name       		VARCHAR(30) NOT NULL,
+  status 			TINYINT NOT NULL,
+  rate 				DOUBLE NOT NULL,
+  requestno 		INTEGER NOT NULL,
+  quoteno 			INTEGER NOT NULL,
+  bank_id   		INTEGER NOT NULL
 );
-ALTER TABLE locations ADD CONSTRAINT fk_locations_events FOREIGN KEY (event_id) REFERENCES events (id);
-CREATE INDEX locations_name ON locations (name);
+ALTER TABLE loans ADD CONSTRAINT fk_loans_banks FOREIGN KEY (bank_id) REFERENCES banks (id);
+CREATE INDEX loans_name ON loans (name);

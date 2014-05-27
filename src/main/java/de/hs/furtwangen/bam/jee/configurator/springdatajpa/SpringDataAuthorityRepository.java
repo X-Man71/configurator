@@ -8,4 +8,5 @@ public interface SpringDataAuthorityRepository extends
 		CrudRepository<Authority, Long> {
 	
 	public Authority findAuthorityByName(String name);
+	
 }

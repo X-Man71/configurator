@@ -3,3 +3,5 @@ INSERT INTO users VALUES (2,'Oliver','Roevekamp','oliverr','$2a$10$5GMyJxnb8405G
 INSERT INTO authority VALUES (1,'ROLE_CUSTOMER');
 INSERT INTO user_authority VALUES (1,1);
 INSERT INTO user_authority VALUES (2,1);
+INSERT INTO banks VALUES (1, 'JMSBankA', 0);
+INSERT INTO banks VALUES (2, 'JMSBankB', 0);

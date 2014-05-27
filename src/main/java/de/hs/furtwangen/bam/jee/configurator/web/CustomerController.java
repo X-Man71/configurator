@@ -10,8 +10,6 @@ public class CustomerController {
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String admin(Model model) {
-
-		
 		return "/customer/startPage";
 	}
 

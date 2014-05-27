@@ -39,7 +39,7 @@ public class UserController {
 
 		return "/register";
 	}
-	
+
 	/*
 	 * take out a loan, BI-specific
 	 */
@@ -47,7 +47,7 @@ public class UserController {
 	public String raiseCredit(Model model) {
 		Loan loan = new Loan();
 		model.addAttribute("loan", loan);
-		
+
 		return "/main";
 	}
 
@@ -55,14 +55,12 @@ public class UserController {
 	public String saveRegisteredUser(@ModelAttribute("user") User user,
 			Model model, BindingResult result) {
 		System.out.println(user.toString());
-		
-		  Authority authority = authorityService.findAuthority(ROLE_CUSTOMER);
-		  user.add(authority);
-		  
-		  
-		  userService.saveUser(user);
-		  model.addAttribute("message", USER_SAVED_MESSAGE);
-		 
+
+		Authority authority = authorityService.findAuthority(ROLE_CUSTOMER);
+		user.add(authority);
+
+		userService.saveUser(user);
+		model.addAttribute("message", USER_SAVED_MESSAGE);
 
 		return "/register";
 	}
@@ -83,23 +81,22 @@ public class UserController {
 					"Ihre Eingaben sind nicht identisch");
 			return "changePassword";
 		}
-		
-		if(!isPasswordEqualsOldPassword(password))
-		{
+
+		if (!isPasswordEqualsOldPassword(password)) {
 			result.rejectValue("password1", "password1.missing",
 					"Ihre Eingabe des bisheringe Passwords ist nicht korrekt");
 			return "changePassword";
 		}
-		 userService.updatePassword(password);
-		   redirectAttributes.addFlashAttribute("messagePasswordChanged", "Successfully added the new event");
+		userService.updatePassword(password);
+		redirectAttributes.addFlashAttribute("messagePasswordChanged",
+				"Successfully added the new event");
 
 		return "redirect:/user/changePassword";
 	}
-	
-	private boolean isPasswordEqualsOldPassword(Password password)
-	{
-		return new BCryptPasswordEncoder().matches(password.getPassword1(), userService.oldPasswordByUserName());		
+
+	private boolean isPasswordEqualsOldPassword(Password password) {
+		return new BCryptPasswordEncoder().matches(password.getPassword1(),
+				userService.oldPasswordByUserName());
 	}
 
-	
 }

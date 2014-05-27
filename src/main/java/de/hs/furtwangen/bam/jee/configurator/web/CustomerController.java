@@ -12,5 +12,15 @@ public class CustomerController {
 	public String admin(Model model) {
 		return "/customer/startPage";
 	}
+	
+	@RequestMapping(value = "/customer/creditRequests", method = RequestMethod.GET)
+	public String credits(Model model) {
+		return "/customer/creditRequests";
+	}
 
+	@RequestMapping(value = "/customer/banks", method = RequestMethod.GET)
+	public String banks(Model model) {
+		return "/customer/banks";
+	}
+	
 }

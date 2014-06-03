@@ -24,6 +24,9 @@ public class Loan extends NamedEntity {
 	@Column(name = "quoteno")
 	private int quoteNo;
 	
+	@Column(name = "ssn")
+	private int SSN;
+	
 	@Autowired
 	@ManyToOne(fetch=FetchType.LAZY)
     // @JoinColumn("bank_id") not working in spring
@@ -67,6 +70,14 @@ public class Loan extends NamedEntity {
 
 	public void setBank(Bank bank) {
 		this.bank = bank;
+	}
+
+	public int getSSN() {
+		return SSN;
+	}
+
+	public void setSSN(int sSN) {
+		SSN = sSN;
 	}
 	
 }

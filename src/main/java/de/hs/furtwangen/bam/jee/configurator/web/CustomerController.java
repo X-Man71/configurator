@@ -23,4 +23,9 @@ public class CustomerController {
 		return "/customer/banks";
 	}
 	
+	@RequestMapping(value = "/customer/request", method = RequestMethod.GET)
+	public String request(Model model) {
+		return "/customer/request";
+	}
+	
 }

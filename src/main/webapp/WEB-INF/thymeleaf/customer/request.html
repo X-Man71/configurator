@@ -46,7 +46,7 @@ body {
 
 <div class="container">
 		<h2 class="form-register-heading">Bitte geben Sie hier Ihre Daten ein.</h2>
-		<form action="/loan/new" method="post" class="form-signin" role="form" th:object="${loan}">
+		<form action="/loanRequest/new" method="post" class="form-signin" role="form" th:object="${loanRequest}">
 			
 			<label for="InputName">Vorname</label>
 	    	<input type="text" th:field="*{status}" class="form-control" placeholder="last name"/>

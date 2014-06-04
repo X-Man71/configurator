@@ -19,4 +19,11 @@ public class LoanRequestController {
 		return "/customer/request";
 	}
 	
+	@RequestMapping(value = "/loanRequest/new", method = RequestMethod.GET)
+	public String registerNewUser(Model model) {
+		model.addAttribute("loanRequest", new LoanRequest());
+
+		return "/customer/request";
+	}
+	
 }

@@ -5,6 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import de.hs.furtwangen.bam.jee.configurator.model.LoanRequest;
+
 @Controller
 public class CustomerController {
 	
@@ -25,6 +27,7 @@ public class CustomerController {
 	
 	@RequestMapping(value = "/customer/request", method = RequestMethod.GET)
 	public String request(Model model) {
+		model.addAttribute("loanRequest", new LoanRequest());
 		return "/customer/request";
 	}
 	

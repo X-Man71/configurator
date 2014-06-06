@@ -48,19 +48,22 @@ body {
 		<h2 class="form-register-heading">Bitte geben Sie hier Ihre Daten ein.</h2>
 		<form action="/loanRequest/new" method="post" class="form-signin" role="form" th:object="${loanRequest}">
 			
-			<label for="InputName">Vorname</label>
-	    	<input type="text" th:field="*{status}" class="form-control" placeholder="last name"/>
+			<label for="InputName">RequestId</label>
+	    	<input type="text" th:field="*{requestId}" class="form-control" placeholder="last name"/>			
 			
-			<label for="InputVorname">Zuname</label>
-	    	<input type="text" th:field="*{firstName}" class="form-control" required=""
+			<label for="InputName">Vorname:</label>
+	    	<input type="text" th:field="*{firstname}" class="form-control" placeholder="last name"/>
+			
+			<label for="InputVorname">Nachname</label>
+	    	<input type="text" th:field="*{lastname}" class="form-control" required=""
 	    			maxlength="50" name="rate" size="45"	placeholder="first name"/>
 			
 			<label for="InputStrasse">Kreditbetrag</label>
-	    	<input type="text" th:field="*{requestno}" class="form-control" required=""
+	    	<input type="text" th:field="*{amount}" class="form-control" required=""
 	    			maxlength="50" name="Strasse" size="45"	placeholder="street"/>
 	    			
 	    	<label for="InputPlz">Laufzeit</label>
-	    	<input type="text" th:field="*{quoteno}" class="form-control" required=""
+	    	<input type="text" th:field="*{term}" class="form-control" required=""
 	    			maxlength="50" name="PLZ" size="45"	placeholder="zip code"/>
 			
 			<label for="InputOrt">SSN</label>

@@ -9,18 +9,25 @@ import javax.persistence.Table;
 @Entity(name = "loanRequests")
 @Table(name = "loanrequests")
 public class LoanRequest extends BaseEntity {
-
+	
 	@Column(name = "requestid")
-	private String requestId = UUID.randomUUID().toString();
+	private String requestId;
 
-	@Column(name = "creditvalue")
-	private double creditValue;
-
-	@Column(name = "duration")
-	private int duration;
-
-	@Column(name = "ssn")
-	private String SSN;
+	private String status;
+	
+	private String firstname;
+	
+	private String lastname;
+	
+	private double amount;
+	
+	private int term;
+	
+	private String ssn;
+	
+	public LoanRequest(){
+		requestId = UUID.randomUUID().toString();
+	}
 
 	public String getRequestId() {
 		return requestId;
@@ -30,28 +37,54 @@ public class LoanRequest extends BaseEntity {
 		this.requestId = requestId;
 	}
 
-	public double getCreditValue() {
-		return creditValue;
+	public String getStatus() {
+		return status;
 	}
 
-	public void setCreditValue(double creditValue) {
-		this.creditValue = creditValue;
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
-	public int getDuration() {
-		return duration;
+	public String getFirstname() {
+		return firstname;
 	}
 
-	public void setDuration(int duration) {
-		this.duration = duration;
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
 	}
 
-	public String getSSN() {
-		return SSN;
+	public String getLastname() {
+		return lastname;
 	}
 
-	public void setSSN(String sSN) {
-		SSN = sSN;
+	public void setLastname(String lastname) {
+		this.lastname = lastname;
 	}
 
+	public double getAmount() {
+		return amount;
+	}
+
+	public void setAmount(double amount) {
+		this.amount = amount;
+	}
+
+	public int getTerm() {
+		return term;
+	}
+
+	public void setTerm(int term) {
+		this.term = term;
+	}
+
+	public String getSsn() {
+		return ssn;
+	}
+
+	public void setSsn(String ssn) {
+		this.ssn = ssn;
+	}
+	
+	
+	
 }

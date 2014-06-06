@@ -11,14 +11,14 @@ public class SecurityController
 	public String getProductsAndOrderType(Model model) {
 
 		
-		return "/login";
+		return "login";
 	}
 	
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
 	public String index(Model model) {
 
 		
-		return "/index";
+		return "index";
 	}
 	
 	// Login form with error

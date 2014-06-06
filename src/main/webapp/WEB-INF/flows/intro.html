@@ -7,13 +7,13 @@
 <head>
 </head>
 
-<body>
-<h1>First Flow Page</h1>
+<body tiles:fragment="content">
+	<h1>First Flow Page</h1>
 
-<!-- <body tiles:fragment="content"> -->
-  <form action="#"  th:action="${flowExecutionUrl}" method="post">
-  <button type="submit" id="proceed" name="_eventId_proceed">Proceed</button>
-                        <button type="submit" name="_eventId_cancel" >Cancel</button>
-</form>
+	<!-- <body tiles:fragment="content"> -->
+	<form action="#" th:action="${flowExecutionUrl}" method="post">
+		<button type="submit" id="proceed" name="_eventId_proceed">Next</button>
+		<button type="submit" name="_eventId_cancel">Cancel</button>
+	</form>
 </body>
 </html>

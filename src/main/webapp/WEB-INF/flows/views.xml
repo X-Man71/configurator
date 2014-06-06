@@ -5,13 +5,13 @@
 
 <tiles-definitions>
 
-<!-- 	<definition name="intro" extends="standardLayout">
-		<put-attribute name="body" value="flows/intro.html :: footer"
-			type="thymeleaf" />
-	</definition> -->
-
- <definition name="intro" template="flows/intro.html" templateType="thymeleaf"/>
  
-  <definition name="secoundFlowPage" template="flows/secoundFlowPage.html" templateType="thymeleaf"/>
+<definition name="intro" extends="standardLayout">
+ 	<put-attribute name="body" value="/flows/intro.html :: content" type="thymeleaf"/>
+ </definition>
+ 
+ <definition name="secoundFlowPage" extends="standardLayout">
+ 	<put-attribute name="body" value="flows/secoundFlowPage.html :: content" type="thymeleaf"/>
+ </definition>
 
 </tiles-definitions>

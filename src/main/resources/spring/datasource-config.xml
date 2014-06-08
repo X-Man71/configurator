@@ -24,16 +24,17 @@
           p:driverClassName="${jdbc.driverClassName}" p:url="${jdbc.url}"
           p:username="${jdbc.username}" p:password="${jdbc.password}"/>
 
-    <!-- JNDI DataSource for JEE environments -->
-    <!--
-    <jee:jndi-lookup id="dataSource" jndi-name="java:comp/env/jdbc/petclinic"/>
-    -->
+   <bean id="flyway" class="org.flywaydb.core.Flyway"
+			init-method="migrate">
+			<property name="dataSource" ref="dataSource" />
+			<property name="locations" value="db/mysql" />
+		</bean>
 
     <!-- Database initializer. If any of the script fails, the initialization stops. -->
-    <!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. -->
+    <!-- As an alternative, for embedded databases see <jdbc:embedded-database/>. 
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="${jdbc.initLocation}"/>
         <jdbc:script location="${jdbc.dataLocation}"/>
-    </jdbc:initialize-database>
+    </jdbc:initialize-database>-->
 
 </beans>

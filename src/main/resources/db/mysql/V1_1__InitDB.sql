@@ -1,10 +1,5 @@
-DROP TABLE users IF EXISTS;
-DROP TABLE authorities IF EXISTS;
-DROP TABLE user_authorities IF EXISTS;
-DROP TABLE loan IF EXISTS;
-
 CREATE TABLE IF NOT EXISTS users (
- 	 id INTEGER IDENTITY PRIMARY KEY,
+ 	 id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
  	 firstName 		VARCHAR(10) NOT NULL,  
      lastName 		VARCHAR(60) NOT NULL,
      username 		VARCHAR(10) NOT NULL,  
@@ -12,31 +7,31 @@ CREATE TABLE IF NOT EXISTS users (
      email 			VARCHAR(60) NOT NULL,
 	 consumerRate INTEGER,
 	 consumerRateValideUntil DATE
-);  
+) engine=InnoDB; 
 
 CREATE TABLE IF NOT EXISTS user_authority (
 	user_id 		INTEGER NOT NULL,
 	authority_id 	INTEGER NOT NULL
-);
+) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS authority (
-	id 				INTEGER IDENTITY PRIMARY KEY,
+	id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	name 			VARCHAR(60) NOT NULL
-);
+) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS loan (
-  requestId     	INTEGER IDENTITY PRIMARY KEY,
+  requestId     	VARCHAR(30) PRIMARY KEY,
   status 			VARCHAR(30),
   amount 			DOUBLE,
   term				INTEGER,
-  quoteRate			DOUBLE NOT NULL,
+  quoteRate			DOUBLE,
   responseTime		DATE,
   user_id			INTEGER,
   bank_id			INTEGER
-);
+) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS bank (
-  id 				INTEGER IDENTITY PRIMARY KEY,
+  id INT(4) UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
   bankName			VARCHAR(30),
   minTerm			INTEGER,
   maxTerm			INTEGER,
@@ -45,7 +40,4 @@ CREATE TABLE IF NOT EXISTS bank (
   minConsumerRate	INTEGER,
   maxConsumerRate	INTEGER,
   bankType			VARCHAR(30)
-);
-
-
-
+) engine=InnoDB;

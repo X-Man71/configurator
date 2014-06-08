@@ -10,12 +10,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "loans")
+@Table(name = "loan")
 public class Loan {
 	
 	@Id
 	@Column(name = "requestId")
-	private Long requestId;
+	private String requestId;
 
 	@Column(name = "status")
 	private String status;	
@@ -33,15 +33,37 @@ public class Loan {
 	private Date responseTime;
 	
 	@ManyToOne
+	@JoinColumn(name = "bank_id")
+	private Bank bank;
+	
+	@ManyToOne
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	public Long getRequestId() {
+	
+
+	public String getRequestId() {
 		return requestId;
 	}
 
-	public void setRequestId(Long requestId) {
+	public void setRequestId(String requestId) {
 		this.requestId = requestId;
+	}
+
+	public Bank getBank() {
+		return bank;
+	}
+
+	public void setBank(Bank bank) {
+		this.bank = bank;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 	public String getStatus() {

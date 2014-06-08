@@ -5,7 +5,8 @@ CREATE TABLE IF NOT EXISTS users (
      username 		VARCHAR(10) NOT NULL,  
      password 		VARCHAR(60) NOT NULL,
      email 			VARCHAR(60) NOT NULL,
-	 consumerRate INTEGER,
+	 consumerRateNumber INTEGER,
+	 consumerRateLetter VARCHAR(5), 
 	 consumerRateValideUntil DATE
 ) engine=InnoDB; 
 
@@ -20,7 +21,7 @@ CREATE TABLE IF NOT EXISTS authority (
 ) engine=InnoDB;
 
 CREATE TABLE IF NOT EXISTS loan (
-  requestId     	VARCHAR(30) PRIMARY KEY,
+  requestId     	VARCHAR(60) PRIMARY KEY,
   status 			VARCHAR(30),
   amount 			DOUBLE,
   term				INTEGER,
@@ -39,5 +40,6 @@ CREATE TABLE IF NOT EXISTS bank (
   maxAmount			DOUBLE,
   minConsumerRate	INTEGER,
   maxConsumerRate	INTEGER,
-  bankType			VARCHAR(30)
+  bankType			VARCHAR(30),
+  jmsChannel		VARCHAR(30)
 ) engine=InnoDB;

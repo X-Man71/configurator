@@ -38,6 +38,10 @@ public class Bank extends BaseEntity {
 	@Column(name = "bankType")
 	private String bankType;
 	
+	@Column(name = "jmsChannel")
+	private String jmsChannel;
+	
+	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "bank", fetch = FetchType.EAGER)
 	private Set<Loan> loanSet = new HashSet<>();
 
@@ -112,6 +116,16 @@ public class Bank extends BaseEntity {
 	public void setLoanSet(Set<Loan> loanSet) {
 		this.loanSet = loanSet;
 	}
+
+	public String getJmsChannel() {
+		return jmsChannel;
+	}
+
+	public void setJmsChannel(String jmsChannel) {
+		this.jmsChannel = jmsChannel;
+	}
+	
+	
 
 		
 

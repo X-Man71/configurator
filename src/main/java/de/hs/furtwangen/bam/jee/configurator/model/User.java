@@ -35,8 +35,11 @@ public class User extends BaseEntity {
 	@Column(name = "email")
 	private String email;
 	
-	@Column(name = "consumerRate")
-	private int consumerRate;
+	@Column(name = "consumerRateNumber")
+	private int consumerRateNumber;
+	
+	@Column(name = "consumerRateLetter")
+	private String consumerRateLetter;
 	
 	@Column(name = "consumerRateValideUntil")
 	private Date consumerRateValideUntil;
@@ -88,12 +91,20 @@ public class User extends BaseEntity {
 		this.email = email;
 	}
 
-	public int getConsumerRate() {
-		return consumerRate;
+	public int getConsumerRateNumber() {
+		return consumerRateNumber;
 	}
 
-	public void setConsumerRate(int consumerRate) {
-		this.consumerRate = consumerRate;
+	public void setConsumerRateNumber(int consumerRateNumber) {
+		this.consumerRateNumber = consumerRateNumber;
+	}
+
+	public String getConsumerRateLetter() {
+		return consumerRateLetter;
+	}
+
+	public void setConsumerRateLetter(String consumerRateLetter) {
+		this.consumerRateLetter = consumerRateLetter;
 	}
 
 	public Date getConsumerRateValideUntil() {

@@ -7,6 +7,6 @@ import de.hs.furtwangen.bam.jee.configurator.model.Loan;
 
 public interface SpringDataLoanRepository extends CrudRepository<Loan, Long> {
 	
-	public Loan findByName(String name);
+
 	
 }

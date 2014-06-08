@@ -1,14 +1,19 @@
 package de.hs.furtwangen.bam.jee.configurator.web;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.hs.furtwangen.bam.jee.configurator.model.LoanRequest;
+import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 
 @Controller
 public class CustomerController {
+	
+	@Autowired
+	private UserService userService;
 	
 	@RequestMapping(value = "/customer", method = RequestMethod.GET)
 	public String admin(Model model) {
@@ -27,7 +32,11 @@ public class CustomerController {
 	
 	@RequestMapping(value = "/customer/request", method = RequestMethod.GET)
 	public String request(Model model) {
-		model.addAttribute("loanRequest", new LoanRequest());
+		LoanRequest loanRequest = new LoanRequest();		
+		Long userId = userService.getUserIdOfCurrentUser();		
+		loanRequest.setUserId(userId);
+		
+		model.addAttribute("loanRequest", loanRequest);
 		return "/customer/request";
 	}
 	

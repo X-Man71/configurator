@@ -1,37 +1,49 @@
 package de.hs.furtwangen.bam.jee.configurator.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 @Entity
 @Table(name = "loans")
-public class Loan extends NamedEntity {
+public class Loan {
+	
+	@Id
+	@Column(name = "requestId")
+	private Long requestId;
 
 	@Column(name = "status")
-	private String status;
+	private String status;	
 	
-	@Column(name = "rate")
-	private double rate;
+	@Column(name = "amount")
+	private double amount;
 	
-	@Column(name = "requestno")
-	private int requestNo;
+	@Column(name = "term")
+	private int term;
 	
-	@Column(name = "quoteno")
-	private int quoteNo;
+	@Column(name = "quoteRate")
+	private double quoteRate;
 	
-	@Column(name = "ssn")
-	private int SSN;
+	@Column(name = "responseTime")
+	private Date responseTime;
 	
-	@Autowired
-	@ManyToOne(fetch=FetchType.LAZY)
-    // @JoinColumn("bank_id") not working in spring
-	private Bank bank;
-	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private User user;
+
+	public Long getRequestId() {
+		return requestId;
+	}
+
+	public void setRequestId(Long requestId) {
+		this.requestId = requestId;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -40,44 +52,39 @@ public class Loan extends NamedEntity {
 		this.status = status;
 	}
 
-	public double getRate() {
-		return rate;
+	public double getAmount() {
+		return amount;
 	}
 
-	public void setRate(double rate) {
-		this.rate = rate;
+	public void setAmount(double amount) {
+		this.amount = amount;
 	}
 
-	public int getRequestNo() {
-		return requestNo;
+	public int getTerm() {
+		return term;
 	}
 
-	public void setRequestNo(int requestNo) {
-		this.requestNo = requestNo;
+	public void setTerm(int term) {
+		this.term = term;
 	}
 
-	public int getQuoteNo() {
-		return quoteNo;
+	public double getQuoteRate() {
+		return quoteRate;
 	}
 
-	public void setQuoteNo(int quoteNo) {
-		this.quoteNo = quoteNo;
+	public void setQuoteRate(double quoteRate) {
+		this.quoteRate = quoteRate;
 	}
 
-	public Bank getBank() {
-		return bank;
+	public Date getResponseTime() {
+		return responseTime;
 	}
 
-	public void setBank(Bank bank) {
-		this.bank = bank;
+	public void setResponseTime(Date responseTime) {
+		this.responseTime = responseTime;
 	}
-
-	public int getSSN() {
-		return SSN;
-	}
-
-	public void setSSN(int sSN) {
-		SSN = sSN;
-	}
+	
+	
+	
 	
 }

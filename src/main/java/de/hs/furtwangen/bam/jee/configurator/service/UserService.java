@@ -57,6 +57,12 @@ public class UserService
 		return springDataUserRepository.findByUsername(username).getPassword();
 	}
 	
+	public Long getUserIdOfCurrentUser(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	      String name = auth.getName();
+		return springDataUserRepository.findByUsername(name).getId();
+	}
+	
 	private String hashPassword(String rawPassword){
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.encode(rawPassword);

@@ -46,29 +46,31 @@ body {
 
 <div class="container">
 		<h2 class="form-register-heading">Bitte geben Sie hier Ihre Daten ein.</h2>
-		<form action="/loanRequest/new" method="post" class="form-signin" role="form" th:object="${loanRequest}">
+		<form action="http://localhost:8081/loanbroker" method="post" class="form-signin" role="form" th:object="${loanRequest}">
 			
-			<label for="InputName">RequestId</label>
-	    	<input type="text" th:field="*{requestId}" class="form-control" placeholder="last name"/>			
-			
-			<label for="InputName">Vorname:</label>
-	    	<input type="text" th:field="*{firstname}" class="form-control" placeholder="last name"/>
-			
-			<label for="InputVorname">Nachname</label>
-	    	<input type="text" th:field="*{lastname}" class="form-control" required=""
-	    			maxlength="50" name="rate" size="45"	placeholder="first name"/>
-			
-			<label for="InputStrasse">Kreditbetrag</label>
-	    	<input type="text" th:field="*{amount}" class="form-control" required=""
-	    			maxlength="50" name="Strasse" size="45"	placeholder="street"/>
+			<label for="RequestId">RequestId</label>
+	    	<input type="text" th:field="*{requestId}" class="form-control" placeholder="RequestId" readonly="readonly"/>	
+	    	
+	    	<label for="UserId">UserId</label>
+	    	<input type="text" th:field="*{userId}" class="form-control" placeholder="UserId" readonly="readonly"/>	 	 	
 	    			
-	    	<label for="InputPlz">Laufzeit</label>
-	    	<input type="text" th:field="*{term}" class="form-control" required=""
-	    			maxlength="50" name="PLZ" size="45"	placeholder="zip code"/>
 			
-			<label for="InputOrt">SSN</label>
-	    	<input type="text" th:field="*{ssn}" class="form-control" required=""
-	    			maxlength="50" name="Ort" size="45"	placeholder="residence"/>
+			<label for="Kreditbetrag">Kreditbetrag</label>
+	    	<input type="text" th:field="*{amount}" class="form-control" size="45" placeholder="Kreditbetrag"/>
+	    			
+	    	<label for="Laufzeit">Laufzeit</label>
+	    	<input type="text" th:field="*{term}" class="form-control" size="45" placeholder="Laufzeit"/>
+			
+			<label for="SSN">SSN</label>
+	    	<!--  <input type="text" th:field="*{ssn}" class="form-control" size="45" placeholder="SSN"/>-->
+	    	
+	    	<select name="ssn" size="3" class="form-control">
+      <option>testA</option>
+      <option>testB</option>
+      <option>testC</option>
+      <option>testD</option>
+      <option>testE</option>
+    </select>
 	    			
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Anfrage stellen</button>
 		</form>

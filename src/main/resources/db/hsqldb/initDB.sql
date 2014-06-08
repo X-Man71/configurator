@@ -1,8 +1,6 @@
 DROP TABLE users IF EXISTS;
 DROP TABLE authorities IF EXISTS;
 DROP TABLE user_authorities IF EXISTS;
-DROP TABLE events IF EXISTS;
-DROP TABLE locations IF EXISTS;
 
 CREATE TABLE IF NOT EXISTS users (
  	 id INTEGER IDENTITY PRIMARY KEY,
@@ -11,12 +9,8 @@ CREATE TABLE IF NOT EXISTS users (
      username 		VARCHAR(10) NOT NULL,  
      password 		VARCHAR(60) NOT NULL,
      email 			VARCHAR(60) NOT NULL,
-	 corporation 	VARCHAR(60) NOT NULL,
-	 gender 		VARCHAR(60) NOT NULL,
-	 residence 		VARCHAR(60) NOT NULL,
-	 street 		VARCHAR(60) NOT NULL,
-	 zipcode 		VARCHAR(60) NOT NULL,
-	 phone 			VARCHAR(60) NOT NULL
+	 consumerRate INTEGER,
+	 consumerRateValideUntil DATE
 );  
 
 CREATE TABLE IF NOT EXISTS user_authority (
@@ -29,21 +23,13 @@ CREATE TABLE IF NOT EXISTS authority (
 	name 			VARCHAR(60) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS banks (
-  id         		INTEGER IDENTITY PRIMARY KEY,
-  name 		 		VARCHAR(30),
-  numberOfLoans 	INTEGER NOT NULL,
-);
-CREATE INDEX banks_name ON banks (name);
 
 CREATE TABLE IF NOT EXISTS loans (
-  id         		INTEGER IDENTITY PRIMARY KEY,
-  name       		VARCHAR(30) NOT NULL,
-  status 			TINYINT NOT NULL,
-  rate 				DOUBLE NOT NULL,
-  requestno 		INTEGER NOT NULL,
-  quoteno 			INTEGER NOT NULL,
-  bank_id   		INTEGER NOT NULL
+  requestId     	INTEGER IDENTITY PRIMARY KEY,
+  status 			VARCHAR(30),
+  amount 			DOUBLE,
+  term				INTEGER,
+  quoteRate			DOUBLE NOT NULL,
+  responseTime		DATE,
+  user_id			INTEGER
 );
-ALTER TABLE loans ADD CONSTRAINT fk_loans_banks FOREIGN KEY (bank_id) REFERENCES banks (id);
-CREATE INDEX loans_name ON loans (name);

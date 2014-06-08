@@ -2,26 +2,15 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 
 import java.util.UUID;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
-
-@Entity(name = "loanRequests")
-@Table(name = "loanrequests")
-public class LoanRequest extends BaseEntity {
+public class LoanRequest {
 	
-	@Column(name = "requestid")
 	private String requestId;
-
-	private String status;
 	
-	private String firstname;
+	private Long userId;
 	
-	private String lastname;
+	private Double amount;
 	
-	private double amount;
-	
-	private int term;
+	private Integer term;
 	
 	private String ssn;
 	
@@ -37,43 +26,27 @@ public class LoanRequest extends BaseEntity {
 		this.requestId = requestId;
 	}
 
-	public String getStatus() {
-		return status;
+	public Long getUserId() {
+		return userId;
 	}
 
-	public void setStatus(String status) {
-		this.status = status;
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 
-	public String getFirstname() {
-		return firstname;
-	}
-
-	public void setFirstname(String firstname) {
-		this.firstname = firstname;
-	}
-
-	public String getLastname() {
-		return lastname;
-	}
-
-	public void setLastname(String lastname) {
-		this.lastname = lastname;
-	}
-
-	public double getAmount() {
+	public Double getAmount() {
 		return amount;
 	}
 
-	public void setAmount(double amount) {
+	public void setAmount(Double amount) {
 		this.amount = amount;
 	}
 
-	public int getTerm() {
+	public Integer getTerm() {
 		return term;
 	}
 
-	public void setTerm(int term) {
+	public void setTerm(Integer term) {
 		this.term = term;
 	}
 
@@ -86,5 +59,5 @@ public class LoanRequest extends BaseEntity {
 	}
 	
 	
-	
+
 }

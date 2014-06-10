@@ -39,18 +39,7 @@ public class UserController {
 
 		return "/register";
 	}
-
-	/*
-	 * take out a loan, BI-specific
-	 */
-	@RequestMapping(value = "/loan/new", method = RequestMethod.GET)
-	public String raiseCredit(Model model) {
-		Loan loan = new Loan();
-		model.addAttribute("loan", loan);
-
-		return "/main";
-	}
-
+	
 	@RequestMapping(value = "/user/new", method = RequestMethod.POST)
 	public String saveRegisteredUser(@ModelAttribute("user") User user,
 			Model model, BindingResult result) {
@@ -64,6 +53,19 @@ public class UserController {
 
 		return "/register";
 	}
+
+	/*
+	 * take out a loan, BI-specific
+	 */
+	@RequestMapping(value = "/loan/new", method = RequestMethod.GET)
+	public String raiseCredit(Model model) {
+		Loan loan = new Loan();
+		model.addAttribute("loan", loan);
+
+		return "/main";
+	}
+
+	
 
 	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)
 	public String changePasswordForm(Model model) {

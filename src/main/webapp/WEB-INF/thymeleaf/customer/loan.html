@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Christian Henle" />
+
+<title>Configurator</title>
+
+<link href="/resources/css/bootstrap.min.css" rel="stylesheet">
+</link>
+<style type="text/css">
+body {
+	background-color: #FFF;
+}
+</style>
+</head>
+<body>
+
+	<div th:include="layout :: navbar"></div>
+	<div class="container">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>RequestId</th>
+					<th>Status</th>
+					<th>Amount</th>
+					<th>Term</th>
+					<th>QuoteRate</th>
+					<th>ResponseTime</th>
+					<th>Bank</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="loan : ${loans}">
+					<td th:text="${loan.requestId}">...</td>
+					<td th:text="${loan.status}">...</td>
+					<td th:text="${loan.amount}">...</td>
+					<td th:text="${loan.term}">...</td>
+					<td th:text="${loan.quoteRate}">...</td>
+					<td th:text="${loan.responseTime}">...</td>
+					<td th:text="${loan.bank.bankName}">...</td>
+
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+	<script src="/resources/js/bootstrap.min.js"
+		th:href="@{/resources/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

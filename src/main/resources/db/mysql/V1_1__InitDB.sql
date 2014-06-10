@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS users (
      username 		VARCHAR(10) NOT NULL,  
      password 		VARCHAR(60) NOT NULL,
      email 			VARCHAR(60) NOT NULL,
-	 consumerRateNumber INTEGER,
+	 consumerRateNumber INTEGER(4),
 	 consumerRateLetter VARCHAR(5), 
 	 consumerRateValideUntil DATE
 ) engine=InnoDB; 

@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Loan;
-import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataLoanRepository;
 
 @Service

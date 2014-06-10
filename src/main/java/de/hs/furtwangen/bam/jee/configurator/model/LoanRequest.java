@@ -57,6 +57,15 @@ public class LoanRequest {
 	public void setSsn(String ssn) {
 		this.ssn = ssn;
 	}
+
+	@Override
+	public String toString() {
+		return "LoanRequest [requestId=" + requestId + ", userId=" + userId
+				+ ", amount=" + amount + ", term=" + term + ", ssn=" + ssn
+				+ "]";
+	}
+	
+	
 	
 	
 

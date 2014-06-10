@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.hs.furtwangen.bam.jee.configurator.model.LoanRequest;
+import de.hs.furtwangen.bam.jee.configurator.service.RequestService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 
 @Controller
@@ -38,6 +39,15 @@ public class CustomerController {
 		
 		model.addAttribute("loanRequest", loanRequest);
 		return "/customer/request";
+	}
+	
+	@RequestMapping(value = "/customer/request", method = RequestMethod.POST)
+	public String requestPost(Model model, LoanRequest loanRequest) {
+		
+		System.out.println(loanRequest.toString());
+		
+		new RequestService().sendRequest(loanRequest);
+		return "customer/loan";
 	}
 	
 }

@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Loan;
-import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.LoanService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 
@@ -26,10 +25,6 @@ public class LoanController {
 	public String registerNewUser(Model model) {
 
 	model.addAttribute("loans", loanService.findLoanByUser());
-		
-		/*for(Loan loan: loanService.findAll()){
-			System.out.println(loan.getRequestId()+" "+loan.getBank()+" "+loan.getTerm());
-		}*/
 		
 		return "customer/loan";
 	}

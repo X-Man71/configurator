@@ -47,7 +47,7 @@ public class CustomerController {
 		System.out.println(loanRequest.toString());
 		
 		new RequestService().sendRequest(loanRequest);
-		return "customer/loan";
+		return "redirect:/customer/loan";
 	}
 	
 }

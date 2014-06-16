@@ -13,6 +13,10 @@ public class EventService {
 	@Autowired
 	private SpringDataEventRepository springDataEventRepository;
 	
+	public Event createEvent(){
+		return new Event();
+	}
+	
 	@Transactional
 	public void save(Event event) {
 		springDataEventRepository.save(event);

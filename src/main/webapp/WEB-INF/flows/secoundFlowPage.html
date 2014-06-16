@@ -8,9 +8,24 @@
 </head>
 
 <body tiles:fragment="content">
-<h1>Secound Flow Page</h1>
 
-<p th:field="*{name}">Test</p>
+	<h1>Name Ihrer Veranstaltung:</h1>
+	<h3 th:text="${event.name}">Example Event</h3>
+
+
+	<form action="#" th:action="${flowExecutionUrl}" th:object="${location}"
+		method="post">
+
+ <p>Bitte geben Sie Ihren Veranstaltung Ort ein: <input type="text" th:field="*{name}" /></p>
+
+		<button type="submit" id="back" name="_eventId_back">Zurück</button>
+		<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+
+
+
+	</form>
+
+
 
 </body>
 </html>

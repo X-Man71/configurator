@@ -29,7 +29,7 @@ import org.springframework.core.style.ToStringCreator;
 public class Event extends NamedEntity implements Serializable {
    
 	private static final long serialVersionUID = -8602561360329162570L;
-
+	
 	@Column(name = "date")
     @NotEmpty
     private Date date;

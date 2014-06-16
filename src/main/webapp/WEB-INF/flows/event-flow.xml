@@ -4,25 +4,28 @@
 	xsi:schemaLocation="
       	http://www.springframework.org/schema/webflow
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
-
-	<var name="event" class="de.hs.furtwangen.bam.jee.configurator.model.Event" />
+	
+	<on-start>
+		<evaluate expression="eventService.createEvent()" result="flowScope.event" />
+	</on-start>
 
 	<!-- ID Bezeichnet den Zustand innerhalb des Flows -->
 	<!-- View Attribut definiert die View die dem Benutzer angezeigt werden 
 		soll. Bsp intro liefert dem Benutzer intro.html zurück -->
-	<view-state id="intro" view="intro">
-		<binder>
-			<binding property="name" />
-		</binder>
+	<view-state id="chooseNameForEvent" view="chooseNameForEvent" model="event">
+		
+		<on-render>
+			<render fragments="body" />
+		</on-render>
 		<transition on="proceed" to="secoundFlowPage">
 		</transition>
 	</view-state>
 
 
-	<view-state id="secoundFlowPage" view="secoundFlowPage">
-	<binder>
-			<binding property="name" />
-		</binder>
+	<view-state id="secoundFlowPage" view="secoundFlowPage" model="event">
+		<on-render>
+			<render fragments="body" />
+		</on-render>
 	
 		<transition on="proceed" to="reviewBooking" />
 	</view-state>

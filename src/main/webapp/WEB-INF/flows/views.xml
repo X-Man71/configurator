@@ -6,8 +6,8 @@
 <tiles-definitions>
 
  
-<definition name="intro" extends="standardLayout">
- 	<put-attribute name="body" value="/flows/intro.html :: content" type="thymeleaf"/>
+<definition name="chooseNameForEvent" extends="standardLayout">
+ 	<put-attribute name="body" value="/flows/chooseNameForEvent.html :: content" type="thymeleaf"/>
  </definition>
  
  <definition name="secoundFlowPage" extends="standardLayout">

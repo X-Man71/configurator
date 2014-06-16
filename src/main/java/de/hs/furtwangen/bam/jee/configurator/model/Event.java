@@ -26,9 +26,22 @@ import org.springframework.core.style.ToStringCreator;
  */
 @Entity
 @Table(name = "events")
-public class Event extends NamedEntity implements Serializable {
+public class Event extends BaseEntity implements Serializable {
    
 	private static final long serialVersionUID = -8602561360329162570L;
+	
+	
+	@Column(name = "name")
+    private String name;
+
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
 	
 	@Column(name = "date")
     @NotEmpty

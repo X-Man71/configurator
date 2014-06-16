@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-	xmlns:th="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -23,7 +25,7 @@
 	th:src="@{/resources/js/bootstrap.js}"></script>
 </head>
 
-<body>
+<body tiles:fragment="content">
 	<div class="container">
 		<h2 class="form-register-heading">Bitte geben Sie hier Ihre Daten ein.</h2>
 		<form action="/user/new" method="post" class="form-signin" role="form" th:object="${user}">

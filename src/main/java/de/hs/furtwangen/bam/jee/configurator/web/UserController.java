@@ -36,7 +36,7 @@ public class UserController {
 		User user = new User();
 		model.addAttribute("user", user);
 
-		return "/register";
+		return "register";
 	}
 
 	@RequestMapping(value = "/user/new", method = RequestMethod.POST)
@@ -52,7 +52,7 @@ public class UserController {
 		  model.addAttribute("message", USER_SAVED_MESSAGE);
 		 
 
-		return "/register";
+		return "register";
 	}
 
 	@RequestMapping(value = "/user/changePassword", method = RequestMethod.GET)

@@ -4,13 +4,20 @@
 	"http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
- 
- <definition name="home" extends="standardLayout">
- 	<put-attribute name="body" value="/home.html :: content" type="thymeleaf"/>
- </definition>
 
-<definition name="login" extends="standardLayout">
- 	<put-attribute name="body" value="/login.html :: content" type="thymeleaf"/>
- </definition>
+	<definition name="home" extends="standardLayout">
+		<put-attribute name="body" value="/home.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="login" extends="standardLayout">
+		<put-attribute name="body" value="/login.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="register" extends="standardLayout">
+		<put-attribute name="body" value="/register.html :: content"
+			type="thymeleaf" />
+	</definition>
 
 </tiles-definitions>

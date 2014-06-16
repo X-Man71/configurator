@@ -18,6 +18,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.beans.support.MutableSortDefinition;
 import org.springframework.beans.support.PropertyComparator;
 import org.springframework.core.style.ToStringCreator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  * Event entity.
@@ -45,6 +46,7 @@ public class Event extends BaseEntity implements Serializable {
 	
 	@Column(name = "date")
     @NotEmpty
+    @DateTimeFormat (pattern="dd.MM.YYYY")
     private Date date;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")

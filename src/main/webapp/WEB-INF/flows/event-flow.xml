@@ -4,7 +4,7 @@
 	xsi:schemaLocation="
       	http://www.springframework.org/schema/webflow
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
-	
+
 	<on-start>
 		<evaluate expression="eventService.createEvent()" result="flowScope.event" />
 	</on-start>
@@ -12,15 +12,20 @@
 	<!-- ID Bezeichnet den Zustand innerhalb des Flows -->
 	<!-- View Attribut definiert die View die dem Benutzer angezeigt werden 
 		soll. Bsp intro liefert dem Benutzer intro.html zurück -->
-	<view-state id="chooseNameForEvent" view="chooseNameForEvent" model="event">
-		
+	<view-state id="chooseNameForEvent" view="chooseNameForEvent"
+		model="event">
+
 		<transition on="proceed" to="secoundFlowPage">
 		</transition>
 	</view-state>
 
 
-	<view-state id="secoundFlowPage" view="secoundFlowPage" model="event">
-		
+	<view-state id="secoundFlowPage" view="secoundFlowPage"
+		model="event">
+
+		<on-entry>
+			<set name="flowScope.location" value="new de.hs.furtwangen.bam.jee.configurator.model.Location()" />
+		</on-entry>
 		<transition on="back" to="chooseNameForEvent" />
 		<transition on="proceed" to="reviewBooking" />
 	</view-state>

@@ -14,19 +14,14 @@
 		soll. Bsp intro liefert dem Benutzer intro.html zurück -->
 	<view-state id="chooseNameForEvent" view="chooseNameForEvent" model="event">
 		
-		<on-render>
-			<render fragments="body" />
-		</on-render>
 		<transition on="proceed" to="secoundFlowPage">
 		</transition>
 	</view-state>
 
 
 	<view-state id="secoundFlowPage" view="secoundFlowPage" model="event">
-		<on-render>
-			<render fragments="body" />
-		</on-render>
-	
+		
+		<transition on="back" to="chooseNameForEvent" />
 		<transition on="proceed" to="reviewBooking" />
 	</view-state>
 

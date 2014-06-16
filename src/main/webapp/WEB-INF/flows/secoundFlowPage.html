@@ -9,9 +9,22 @@
 
 <body tiles:fragment="content">
 
-<h1 th:text="${event.name}">Example Event</h1>
-<button type="submit" name="_eventId_cancel">Cancel</button>
-		<button type="submit" id="proceed" name="_eventId_proceed">Next</button>
+	<h1>Name Ihrer Veranstaltung:</h1>
+	<h3 th:text="${event.name}">Example Event</h3>
+
+
+	<form action="#" th:action="${flowExecutionUrl}" th:object="${event}"
+		method="post">
+
+
+
+		<button type="submit" id="back" name="_eventId_back">Zurück</button>
+		<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+
+
+
+	</form>
+
 
 
 </body>

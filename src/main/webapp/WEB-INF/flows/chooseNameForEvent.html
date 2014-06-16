@@ -8,13 +8,14 @@
 </head>
 
 <body tiles:fragment="content">
-	<h1>First Flow Page</h1>
-
+<div>
+<h1>Willkommen zur Konfiguration einer Veranstaltung</h1>
 	<form action="#" th:action="${flowExecutionUrl}" th:object="${event}" method="post">
 	
 	 <p>Name der Veranstaltung: <input type="text" th:field="*{name}" /></p>
 
 		<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
 	</form>
+	</div>
 </body>
 </html>

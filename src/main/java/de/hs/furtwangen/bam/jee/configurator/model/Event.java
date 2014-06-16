@@ -33,15 +33,6 @@ public class Event extends BaseEntity implements Serializable {
 	
 	@Column(name = "name")
     private String name;
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return this.name;
-    }
 	
 	@Column(name = "date")
     @NotEmpty
@@ -64,7 +55,19 @@ public class Event extends BaseEntity implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Security> securities;
+    
+    public Event(){
+    	locations = new HashSet<Location>();
+    }
 
+    
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return this.name;
+    }
     
     public Date getDate() {
         return this.date;

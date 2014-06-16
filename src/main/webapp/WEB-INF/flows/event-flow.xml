@@ -6,7 +6,8 @@
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
 	<on-start>
-		<evaluate expression="new de.hs.furtwangen.bam.jee.configurator.model.Event()" result="flowScope.event" />
+		<evaluate expression="new de.hs.furtwangen.bam.jee.configurator.model.Event()"
+			result="flowScope.event" />
 	</on-start>
 
 	<!-- ID Bezeichnet den Zustand innerhalb des Flows -->
@@ -20,23 +21,18 @@
 	</view-state>
 
 
-	<view-state id="locationName" view="locationName"
-		model="event">
-		<on-entry>
-			<set name="flowScope.location" value="new de.hs.furtwangen.bam.jee.configurator.model.Location()" />
-		</on-entry>
-		
-		<transition on="confirm" to="bookingConfirmed">
-			<evaluate expression="bookingService.persistBooking(booking)" />
-		</transition>
+	<view-state id="locationName" view="locationName" model="event">
 		
 		<transition on="back" to="chooseNameForEvent" />
-		<transition on="proceed" to="" />
+		<transition on="proceed" to="catering">
+		</transition>
 	</view-state>
 	
-	<view-state id="catering" view="catering">
-	
-	
+
+	<view-state id="catering" view="catering" model="event">
+
+		<transition on="back" to="locationName" />
+		<transition on="proceed" to="next"/>
 	</view-state>
 
 

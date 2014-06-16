@@ -1,10 +1,38 @@
 <!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
 
+<head>
+</head>
+
+<body tiles:fragment="content">
+	<div>
+		<h1>Catering</h1>
+		<h3 th:text="${event.name}">Example Event</h3>
+
+		<table>
+			<tr>
+				<td>Default</td>
+
+			</tr>
+			<tr th:each="location : ${event.locations}">
+				<td th:text="${location.name}">...</td>
+
+			</tr>
+
+
+		</table>
+		
+		<form action="#" th:action="${flowExecutionUrl}"
+		th:object="${event}" method="post">
+
+
+		<button type="submit" id="back" name="_eventId_back">Zurück</button>
+		<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+	</form>
+		
+	</div>
 </body>
 </html>

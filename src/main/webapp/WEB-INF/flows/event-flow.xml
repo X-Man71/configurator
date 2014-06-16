@@ -22,10 +22,10 @@
 
 	<view-state id="secoundFlowPage" view="secoundFlowPage"
 		model="event">
-
 		<on-entry>
 			<set name="flowScope.location" value="new de.hs.furtwangen.bam.jee.configurator.model.Location()" />
 		</on-entry>
+		
 		<transition on="back" to="chooseNameForEvent" />
 		<transition on="proceed" to="reviewBooking" />
 	</view-state>

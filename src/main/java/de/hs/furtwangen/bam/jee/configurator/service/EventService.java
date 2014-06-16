@@ -7,8 +7,5 @@ import de.hs.furtwangen.bam.jee.configurator.model.Event;
 @Service
 public class EventService {
 	
-	public Event createEvent(){
-		return new Event();
-	}
 
 }

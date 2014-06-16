@@ -5,6 +5,14 @@
       	http://www.springframework.org/schema/webflow
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
 
+
+
+
+  <var name="event"
+class="de.hs.furtwangen.bam.jee.configurator.model.Event"/>
+
+<!-- ID Bezeichnet den Zustand innerhalb des Flows  -->
+<!-- View Attribut definiert die View die dem Benutzer angezeigt werden soll. Bsp intro liefert dem Benutzer intro.html zurück -->
 	<view-state id="intro" view="intro">
 	<transition on="proceed" to="secoundFlowPage" />
 	</view-state>

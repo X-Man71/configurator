@@ -1,5 +1,6 @@
 package de.hs.furtwangen.bam.jee.configurator.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -25,8 +26,11 @@ import org.springframework.core.style.ToStringCreator;
  */
 @Entity
 @Table(name = "events")
-public class Event extends NamedEntity {
-    @Column(name = "date")
+public class Event extends NamedEntity implements Serializable {
+   
+	private static final long serialVersionUID = -8602561360329162570L;
+
+	@Column(name = "date")
     @NotEmpty
     private Date date;
 

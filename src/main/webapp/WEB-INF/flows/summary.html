@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+</head>
+
+<body tiles:fragment="content">
+
+	<h1>Ihr Event - Zusammenfassung</h1>
+	<h3 th:text="${event.name}">Example Event</h3>
+
+	<table>
+		<tr th:each="location : ${event.locations}">
+			<td th:text="${location.street}">...</td>
+			<td th:text="${location.town}">...</td>
+			<td th:text="${location.type}">...</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr th:each="catering : ${event.caterings}">
+			<td th:text="${catering.eating}">...</td>
+			<td th:text="${catering.eatingType}">...</td>
+			<td th:text="${catering.eatingPeople}">...</td>
+			<td th:text="${catering.drinking}">...</td>
+			<td th:text="${catering.drinkingPeople}">...</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr th:each="security : ${event.securities}">
+			<td th:text="${security.name}">...</td>
+			<td th:text="${security.numberOfProtectees}">...</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr th:each="light : ${event.lights}">
+			<td th:text="${light.name}">...</td>
+			<td th:text="${light.numberOfLights}">...</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr th:each="rigging : ${event.riggings}">
+			<td th:text="${rigging.name}">...</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr th:each="security : ${event.specialties}">
+			<td th:text="${specialty.subject}">...</td>
+			<td th:text="${specialty.comment}">...</td>
+		</tr>
+	</table>
+
+
+</body>
+</html>

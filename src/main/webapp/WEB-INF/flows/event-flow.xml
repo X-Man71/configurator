@@ -4,7 +4,7 @@
 	xsi:schemaLocation="
       	http://www.springframework.org/schema/webflow
       	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
-      	start-state="eventName">
+	start-state="eventName">
 
 	<on-start>
 		<evaluate expression="new de.hs.furtwangen.bam.jee.configurator.model.Event()"
@@ -48,8 +48,57 @@
 
 
 	<view-state id="security" view="security">
+		<on-entry>
+			<set name="flowScope.security"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.Security()" />
+		</on-entry>
+		<transition on="back" to="location" />
+		<transition on="proceed" to="light">
+			<evaluate expression="event.addSecurity(flowScope.security)" />
+		</transition>
+	</view-state>
 
 
+	<view-state id="light" view="light">
+		<on-entry>
+			<set name="flowScope.light"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.Light()" />
+		</on-entry>
+		<transition on="back" to="security" />
+		<transition on="proceed" to="rigging">
+			<evaluate expression="event.addLight(flowScope.light)" />
+		</transition>
+	</view-state>
 
+
+	<view-state id="rigging" view="rigging">
+		<on-entry>
+			<set name="flowScope.rigging"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.Rigging()" />
+		</on-entry>
+		<transition on="back" to="light" />
+		<transition on="proceed" to="specialty">
+			<evaluate expression="event.addRigging(flowScope.rigging)" />
+		</transition>
+	</view-state>
+
+
+	<view-state id="specialty" view="specialty">
+		<on-entry>
+			<set name="flowScope.specialty"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.Specialty()" />
+		</on-entry>
+		<transition on="back" to="rigging" />
+		<transition on="proceed" to="summary">
+			<evaluate expression="event.addSpecialty(flowScope.specialty)" />
+		</transition>
+	</view-state>
+
+
+	<view-state id="summary" view="summary">
+		<transition on="back" to="specialty" />
+		<transition on="proceed" to="specialty">
+			<!-- persist -->
+		</transition>
 	</view-state>
 </flow>

@@ -10,20 +10,36 @@
 <body tiles:fragment="content">
 
 	<h1>Security</h1>
-	
-	
-	<h3>Ihre Essens Eingabe</h3>
+
+	<h3 th:text="${event.name}">Example Event</h3>
+
 	<table>
-			<tr th:each="catering : ${event.caterings}">
-				<td th:text="${catering.eating}">...</td>
-				<td th:text="${catering.eatingType}">...</td>
-				<td th:text="${catering.eatingPeople}">...</td>
-				<td th:text="${catering.drinking}">...</td>
-				<td th:text="${catering.drinkingPeople}">...</td>
-				
-				
-			</tr>
-		</table>
-	
+		<tr th:each="catering : ${event.caterings}">
+			<td th:text="${catering.eating}">...</td>
+			<td th:text="${catering.eatingType}">...</td>
+			<td th:text="${catering.eatingPeople}">...</td>
+			<td th:text="${catering.drinking}">...</td>
+			<td th:text="${catering.drinkingPeople}">...</td>
+		</tr>
+	</table>
+
+	<form action="#" th:action="${flowExecutionUrl}"
+		th:object="${security}" method="post">
+
+		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
+			Veranstaltung stattfinden soll:</h3>
+		<p>
+			Name eines bevorzugten Sicherheitsdienstes: <input type="text" th:field="*{name}" />
+		</p>
+				<p>
+			Anzahl der G&auml;ste: <input type="text" th:field="*{numberOfProtectees}" />
+		</p>
+
+		<button class="btn btn-primary pull-right" type="submit" id="proceed"
+			name="_eventId_proceed">Weiter</button>
+		<button class="btn btn-primary pull-left" type="submit" id="back"
+			name="_eventId_back">Zur&uuml;ck</button>
+	</form>
+
 </body>
 </html>

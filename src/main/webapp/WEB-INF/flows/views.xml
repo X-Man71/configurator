@@ -5,21 +5,45 @@
 
 <tiles-definitions>
 
- 
-<definition name="eventName" extends="standardLayout">
- 	<put-attribute name="body" value="/flows/eventName.html :: content" type="thymeleaf"/>
- </definition>
- 
- <definition name="location" extends="standardLayout">
- 	<put-attribute name="body" value="flows/location.html :: content" type="thymeleaf"/>
- </definition>
- 
-  <definition name="catering" extends="standardLayout">
- 	<put-attribute name="body" value="flows/catering.html :: content" type="thymeleaf"/>
- </definition>
- 
-  <definition name="security" extends="standardLayout">
- 	<put-attribute name="body" value="flows/security.html :: content" type="thymeleaf"/>
- </definition>
+
+	<definition name="eventName" extends="standardLayout">
+		<put-attribute name="body" value="/flows/eventName.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="location" extends="standardLayout">
+		<put-attribute name="body" value="flows/location.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="catering" extends="standardLayout">
+		<put-attribute name="body" value="flows/catering.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="security" extends="standardLayout">
+		<put-attribute name="body" value="flows/security.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="light" extends="standardLayout">
+		<put-attribute name="body" value="flows/light.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="rigging" extends="standardLayout">
+		<put-attribute name="body" value="flows/rigging.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="specialty" extends="standardLayout">
+		<put-attribute name="body" value="flows/specialty.html :: content"
+			type="thymeleaf" />
+	</definition>
+
+	<definition name="summary" extends="standardLayout">
+		<put-attribute name="body" value="flows/summary.html :: content"
+			type="thymeleaf" />
+	</definition>
 
 </tiles-definitions>

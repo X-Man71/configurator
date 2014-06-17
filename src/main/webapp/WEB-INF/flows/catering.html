@@ -15,11 +15,7 @@
 
 		<table>
 			<tr th:each="location : ${event.locations}">
-				...
-
-				</td>
-				<td th:text="${locat
-				ion.street}">...</td>
+				<td th:text="${location.street}">...</td>
 				<td th:text="${location.town}">...</td>
 				<td th:text="${location.type}">...</td>
 
@@ -32,19 +28,19 @@
 			th:object="${catering}" method="post">
 
 			<p>
-				<input type="radio" id="Verpflegung" th:field="*{eating}"
-					value="true" /><label for="Verpflegung">Verpflegung</label> <input
-					type="radio" id="keine Verpflegung" th:field="*{eating}"
-					value="false" /><label for="keine Verpflegung">keine
-					Verpflegung</label>
+				<input type="radio" id="Verk&ouml;stigung" th:field="*{eating}"
+					value="true" /><label for="Verk&ouml;stigung">Verk&ouml;stigung</label> <input
+					type="radio" id="keine Verk&ouml;stigung" th:field="*{eating}"
+					value="false" /><label for="keine Verk&ouml;stigung">keine
+					Verk&ouml;stigung</label>
 			</p>
 
 			<p>
-				Welche Art von Verköstigung wünschen Sie: <input type="text"
+				Welche Art von Verk&ouml;stigung w&uuml;nschen Sie: <input type="text"
 					th:field="*{eatingType}" />
 			</p>
 			<p>
-				Nennen Sie uns die Anzahl an Personen die etwas essen möchten: <input
+				Nennen Sie uns die Anzahl an Personen die etwas essen m&ouml;chten: <input
 					type="text" th:field="*{eatingPeople}" />
 			</p>
 
@@ -59,12 +55,12 @@
 
 
 			<p>
-				Nennen Sie uns die Anzahl an Personen die etwas trinken möchten: <input
+				Nennen Sie uns die Anzahl an Personen die etwas trinken m&ouml;chten: <input
 					type="text" th:field="*{drinkingPeople}" />
 			</p>
 
 	
-		<button class="btn btn-primary pull-right" type="submit">Weiter</button>
+		<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
 		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
 	</form>
 	

@@ -8,11 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class EventController {
 
-	
-
 	@RequestMapping(value = "/eventoptions", method = RequestMethod.GET)
 	public String admin(Model model) {
-
 		
 		return "/eventoptions";
 	}

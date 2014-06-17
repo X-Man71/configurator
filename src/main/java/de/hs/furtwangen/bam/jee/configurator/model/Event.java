@@ -58,6 +58,9 @@ public class Event extends BaseEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Security> securities;
     
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    private Set<Specialty> specialties;
+    
     public Event(){
     	locations = new ArrayList<Location>();
     	caterings = new ArrayList<Catering>();
@@ -267,6 +270,27 @@ public class Event extends BaseEntity implements Serializable {
             }
         }
         return null;
+    }
+    
+    public void addSpecialty(Specialty specialty) {
+    	getSpecialtiesInternal().add(specialty);
+    }
+
+    protected void setSpecialtiesInternal(Set<Specialty> specialties) {
+        this.specialties = specialties;
+    }
+
+    protected Set<Specialty> getSpecialtiesInternal() {
+        if (this.specialties == null) {
+            this.specialties = new HashSet<Specialty>();
+        }
+        return this.specialties;
+    }
+
+    public List<Specialty> getSpecialties() {
+        List<Specialty> sortedSpecialties = new ArrayList<Specialty>(getSpecialtiesInternal());
+        PropertyComparator.sort(sortedSpecialties, new MutableSortDefinition("name", true, true));
+        return Collections.unmodifiableList(sortedSpecialties);
     }
     
     @Override

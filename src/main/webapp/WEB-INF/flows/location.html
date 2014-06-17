@@ -9,7 +9,7 @@
 </head>
 
 <body tiles:fragment="content">
-<div>
+
 	<h1>Name Ihrer Veranstaltung:</h1>
 	<h3 th:text="${event.name}">Example Event</h3>
 	<h3 th:text="${event.date}">Example Date</h3>
@@ -24,7 +24,7 @@
 				th:field="*{name}" />
 		</p>
 		<p>
-			Straße: <input type="text"
+			Stra&szlig;e: <input type="text"
 				th:field="*{street}" />
 		</p>
 		<p>
@@ -33,13 +33,13 @@
 		</p>
 		
 		<p>
-			Typ Veranstaltungsort (bsp. Stadthalle): <input type="text"
+			Typ des Veranstaltungsorts (bspw. Stadthalle): <input type="text"
 				th:field="*{type}" />
 		</p>
 
-		<button class="btn btn-primary pull-right" type="submit">Weiter</button>
+		<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
 		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
 	</form>
-	</div>
+	
 </body>
 </html>

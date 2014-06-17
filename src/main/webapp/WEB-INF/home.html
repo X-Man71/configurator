@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:tiles="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org" lang="en">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -34,6 +34,24 @@
 </head>
 
 <body tiles:fragment="content">
-<h1>test</h1>
+	<h1>test</h1>
+	Sie haben folgende M&ouml;glichkeiten:
+	<br />
+	<br />
+
+	<p>
+	<span sec:authorize="!isAuthenticated()">
+		<a href="/login">Login</a> |
+	</span>
+	<a href="/flows">Veranstaltung konfigurieren</a>
+	<span sec:authorize="hasRole('ROLE_ADMIN')"> |
+	<a href="/admin/orders">Auftr&auml;ge</a> |
+	<a href="/admin/customers">Kunden&uuml;bersicht</a>
+	</span>
+	<span sec:authorize="isAuthenticated()"> |
+		<a th:href="@{/admin/j_spring_security_logout}">Logout</a>
+	</span>
+	</p>
+
 </body>
 </html>

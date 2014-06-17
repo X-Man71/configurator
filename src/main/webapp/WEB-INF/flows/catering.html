@@ -15,12 +15,13 @@
 
 		<table>
 			<tr th:each="location : ${event.locations}">
-				<td th:text="${location.name}">
-				</td><td th:text="${location.street}"></td>
+				<td th:text="${location.name}"></td>
+				<td th:text="${location.street}"></td>
 				<td th:text="${location.town}"></td>
 				<td th:text="${location.type}"></td>
 			</tr>
 		</table>
+
 
 		<form action="#" th:action="${flowExecutionUrl}" th:object="${catering}" method="post">
 			<div class="col-lg-6">
@@ -34,7 +35,7 @@
 						</span>
 					</div>
 				</p>
-	
+
 				<p>
 					Welche Art von Verk&ouml;stigung w&uuml;nschen Sie: 
 					<input type="text" class="form-control" placeholder="Bsp. Buffet" th:field="*{eatingType}" />
@@ -72,5 +73,6 @@
 		
 	</form>
 	
+
 </body>
 </html>

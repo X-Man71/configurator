@@ -14,12 +14,25 @@
 
 
 	<form action="#" th:action="${flowExecutionUrl}"
-		th:object="${event}" method="post">
+		th:object="${location}" method="post">
 
-
+	<h3>Bitten geben Sie uns Informationen zum Ort an dem die Veranstaltung stattfinden soll:</h3>
 		<p>
-			Bitte geben Sie Ihren Veranstaltungs Ort ein: <input type="text"
-				th:field="*{locations}" />
+			Name des Orts <input type="text"
+				th:field="*{name}" />
+		</p>
+		<p>
+			Straße: <input type="text"
+				th:field="*{street}" />
+		</p>
+		<p>
+			Stadt: <input type="text"
+				th:field="*{town}" />
+		</p>
+		
+		<p>
+			Typ Veranstaltungsort (bsp. Stadthalle): <input type="text"
+				th:field="*{type}" />
 		</p>
 
 		<button type="submit" id="back" name="_eventId_back">Zurück</button>

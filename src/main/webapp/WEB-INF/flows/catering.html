@@ -12,13 +12,13 @@
 		<h1>Catering</h1>
 		<h3 th:text="${event.name}">Example Event</h3>
 
+		
 		<table>
-			<tr>
-				<td>Default</td>
-
-			</tr>
 			<tr th:each="location : ${event.locations}">
 				<td th:text="${location.name}">...</td>
+				<td th:text="${location.street}">...</td>
+				<td th:text="${location.town}">...</td>
+				<td th:text="${location.type}">...</td>
 
 			</tr>
 

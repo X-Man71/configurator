@@ -6,12 +6,12 @@
 <tiles-definitions>
 
  
-<definition name="chooseNameForEvent" extends="standardLayout">
- 	<put-attribute name="body" value="/flows/chooseNameForEvent.html :: content" type="thymeleaf"/>
+<definition name="eventName" extends="standardLayout">
+ 	<put-attribute name="body" value="/flows/eventName.html :: content" type="thymeleaf"/>
  </definition>
  
- <definition name="locationName" extends="standardLayout">
- 	<put-attribute name="body" value="flows/locationName.html :: content" type="thymeleaf"/>
+ <definition name="location" extends="standardLayout">
+ 	<put-attribute name="body" value="flows/location.html :: content" type="thymeleaf"/>
  </definition>
  
   <definition name="catering" extends="standardLayout">

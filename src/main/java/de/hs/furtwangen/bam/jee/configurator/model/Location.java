@@ -19,8 +19,21 @@ public class Location extends BaseEntity implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	
+	
+	public Location() {
+		super();
+		System.out.println("Constructor Location");
+	}
+
 	@Column(name = "name")
 	private String name;
+	
+	private String street;
+	
+	private String town;
+	
+	private String type;
 
 	public void setName(String name) {
 		this.name = name;
@@ -28,6 +41,32 @@ public class Location extends BaseEntity implements Serializable {
 
 	public String getName() {
 		return this.name;
+	}
+
+	public String getStreet() {
+		return street;
+	}
+
+	public void setStreet(String street) {
+		this.street = street;
+	}
+
+	public String getTown() {
+		return town;
+	}
+
+	public void setTown(String town) {
+		this.town = town;
+	}
+	
+	
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	@ManyToOne

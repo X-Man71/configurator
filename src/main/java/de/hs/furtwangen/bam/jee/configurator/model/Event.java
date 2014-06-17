@@ -39,7 +39,7 @@ public class Event extends BaseEntity implements Serializable {
     private Date date;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Set<Location> locations;
+    private List<Location> locations;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Audio> audios;
@@ -57,7 +57,7 @@ public class Event extends BaseEntity implements Serializable {
     private Set<Security> securities;
     
     public Event(){
-    	locations = new HashSet<Location>();
+    	locations = new ArrayList<Location>();
     }
 
     
@@ -77,47 +77,21 @@ public class Event extends BaseEntity implements Serializable {
         this.date = date;
     }
     
-    // LOCATIONS
-    protected void setLocationsInternal(Set<Location> locations) {
-        this.locations = locations;
-    }
-
-    protected Set<Location> getLocationsInternal() {
-        if (this.locations == null) {
-            this.locations = new HashSet<Location>();
-        }
-        return this.locations;
+    public void addLocation(Location location) {
+    	System.out.println(location.getName());
+    	locations.add(location);
     }
 
     public List<Location> getLocations() {
-        List<Location> sortedLocations = new ArrayList<Location>(getLocationsInternal());
-        PropertyComparator.sort(sortedLocations, new MutableSortDefinition("name", true, true));
-        return Collections.unmodifiableList(sortedLocations);
-    }
+		return locations;
+	}
 
-    public void addLocation(Location location) {
-    	getLocationsInternal().add(location);
-    }
+    public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
 
-    public Location getLocation(String name) {
-        return getLocation(name, false);
-    }
 
-    public Location getLocation(String name, boolean ignoreNew) {
-        name = name.toLowerCase();
-        for (Location location : getLocationsInternal()) {
-            if (!ignoreNew || !location.isNew()) {
-                String compName = location.getName();
-                compName = compName.toLowerCase();
-                if (compName.equals(name)) {
-                    return location;
-                }
-            }
-        }
-        return null;
-    }
-    
-    // AUDIOS
+	// AUDIOS
     protected void setAudiosInternal(Set<Audio> audios) {
         this.audios = audios;
     }

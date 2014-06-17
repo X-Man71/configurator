@@ -3,7 +3,8 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
       	http://www.springframework.org/schema/webflow
-      	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd">
+      	http://www.springframework.org/schema/webflow/spring-webflow-2.0.xsd"
+      	start-state="eventName">
 
 	<on-start>
 		<evaluate expression="new de.hs.furtwangen.bam.jee.configurator.model.Event()"
@@ -14,14 +15,12 @@
 	<!-- View Attribut definiert die View die dem Benutzer angezeigt werden 
 		soll. Bsp intro liefert dem Benutzer intro.html zurück -->
 	<view-state id="eventName" view="eventName" model="event">
-
 		<transition on="proceed" to="location">
 		</transition>
 	</view-state>
 
 
 	<view-state id="location" view="location" model="flowScope.location">
-
 		<on-entry>
 			<set name="flowScope.location"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Location()" />
@@ -36,27 +35,21 @@
 
 
 	<view-state id="catering" view="catering" model="flowScope.catering">
-
 		<on-entry>
 			<set name="flowScope.catering"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Catering()" />
 		</on-entry>
-
-		<transition on="back" to="location"/>
+		<transition on="back" to="location" />
 		<transition on="proceed" to="security">
 			<evaluate expression="event.addCatering(flowScope.catering)" />
 
 		</transition>
 	</view-state>
-	
-	
+
+
 	<view-state id="security" view="security">
-	
-	
-	
+
+
+
 	</view-state>
-
-
-
-
 </flow>

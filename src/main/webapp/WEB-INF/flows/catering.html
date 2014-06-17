@@ -15,8 +15,10 @@
 		<table>
 			<tr th:each="location : ${event.locations}">
 				...
-				<td th:text="${location.name}">
-				</td><td th:text="${location.street}">...</td>
+
+				</td>
+				<td th:text="${locat
+				ion.street}">...</td>
 				<td th:text="${location.town}">...</td>
 				<td th:text="${location.type}">...</td>
 
@@ -44,16 +46,17 @@
 				Nennen Sie uns die Anzahl an Personen die etwas essen möchten: <input
 					type="text" th:field="*{eatingPeople}" />
 			</p>
-			
+
 			<p>
 				<input type="radio" id="Bewirtung" th:field="*{drinking}"
 					value="true" /><label for="Bewirtung">Bewirtung</label> <input
 					type="radio" id="keine Bewirtung" th:field="*{drinking}"
-					value="false" /><label for="keine Bewirtung">keine Bewirtung</label>
+					value="false" /><label for="keine Bewirtung">keine
+					Bewirtung</label>
 			</p>
-			
-			
-			
+
+
+
 			<p>
 				Nennen Sie uns die Anzahl an Personen die etwas trinken möchten: <input
 					type="text" th:field="*{drinkingPeople}" />
@@ -62,9 +65,17 @@
 
 
 
+
+
 			<button type="submit" id="back" name="_eventId_back">Zurück</button>
 			<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
 		</form>
+
+		<address>
+			<strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br>
+			San Francisco, CA 94107<br> <abbr title="Phone">P:</abbr> (123)
+			456-7890
+		</address>
 
 	</div>
 </body>

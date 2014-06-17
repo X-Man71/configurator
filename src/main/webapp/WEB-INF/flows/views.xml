@@ -17,5 +17,9 @@
   <definition name="catering" extends="standardLayout">
  	<put-attribute name="body" value="flows/catering.html :: content" type="thymeleaf"/>
  </definition>
+ 
+  <definition name="security" extends="standardLayout">
+ 	<put-attribute name="body" value="flows/security.html :: content" type="thymeleaf"/>
+ </definition>
 
 </tiles-definitions>

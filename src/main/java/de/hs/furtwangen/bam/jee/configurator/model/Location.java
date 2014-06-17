@@ -23,7 +23,6 @@ public class Location extends BaseEntity implements Serializable {
 	
 	public Location() {
 		super();
-		System.out.println("Constructor Location");
 	}
 
 	@Column(name = "name")

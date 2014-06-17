@@ -13,8 +13,7 @@
 	<!-- ID Bezeichnet den Zustand innerhalb des Flows -->
 	<!-- View Attribut definiert die View die dem Benutzer angezeigt werden 
 		soll. Bsp intro liefert dem Benutzer intro.html zurück -->
-	<view-state id="eventName" view="eventName"
-		model="event">
+	<view-state id="eventName" view="eventName" model="event">
 
 		<transition on="proceed" to="location">
 		</transition>
@@ -31,15 +30,30 @@
 		<transition on="back" to="eventName">
 		</transition>
 		<transition on="proceed" to="catering">
-		<evaluate expression="event.addLocation(flowScope.location)" />
+			<evaluate expression="event.addLocation(flowScope.location)" />
 		</transition>
 	</view-state>
 
 
-	<view-state id="catering" view="catering" model="event">
+	<view-state id="catering" view="catering" model="flowScope.catering">
 
-		<transition on="back" to="location" />
-		<transition on="proceed" to="next" />
+		<on-entry>
+			<set name="flowScope.catering"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.Catering()" />
+		</on-entry>
+
+		<transition on="back" to="location"/>
+		<transition on="proceed" to="security">
+			<evaluate expression="event.addCatering(flowScope.catering)" />
+
+		</transition>
+	</view-state>
+	
+	
+	<view-state id="security" view="security">
+	
+	
+	
 	</view-state>
 
 

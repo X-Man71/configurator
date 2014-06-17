@@ -13,12 +13,12 @@
 
 	<!-- import the dataSource definition -->
 	<import resource="datasource-config.xml" />
-	
+
 	<!-- import of Authentication and Authorition config -->
 	<import resource="security-config.xml" />
-	
+
 	<import resource="mvc-core-config.xml" />
-	
+
 	<!-- import of webflow configuration -->
 	<import resource="webflow-config.xml" />
 
@@ -62,17 +62,18 @@
 			hierarchy). -->
 		<bean
 			class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-			
-			<!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking looks for a flow with id "hotels/booking". -->
-	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
-		<property name="order" value="-1"/>
-		<property name="flowRegistry" ref="flowRegistry" />
-	</bean>
-	
-	<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
-	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
-		<property name="flowExecutor" ref="flowExecutor"/>
-	</bean>
+
+		<!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking 
+			looks for a flow with id "hotels/booking". -->
+		<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+			<property name="order" value="-1" />
+			<property name="flowRegistry" ref="flowRegistry" />
+		</bean>
+
+		<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+		<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+			<property name="flowExecutor" ref="flowExecutor" />
+		</bean>
 
 	</beans>
 

@@ -13,6 +13,7 @@
 	<form action="#" th:action="${flowExecutionUrl}" th:object="${event}" method="post">
 	
 	 <p>Name der Veranstaltung: <input type="text" th:field="*{name}" /></p>
+	 <p>Datum der Veranstaltung: <input type="text" th:field="*{date}" /></p>
 
 		<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
 	</form>

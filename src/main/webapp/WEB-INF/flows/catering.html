@@ -5,10 +5,11 @@
 	xmlns:sec="http://www.thymeleaf.org" lang="en">
 
 <head>
+	
 </head>
 
 <body tiles:fragment="content">
-	<div>
+	
 		<h1>Catering</h1>
 		<h3 th:text="${event.name}">Example Event</h3>
 
@@ -62,21 +63,11 @@
 					type="text" th:field="*{drinkingPeople}" />
 			</p>
 
+	
+		<button class="btn btn-primary pull-right" type="submit">Weiter</button>
+		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
+	</form>
+	
 
-
-
-
-
-			<button type="submit" id="back" name="_eventId_back">Zurück</button>
-			<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
-		</form>
-
-		<address>
-			<strong>Twitter, Inc.</strong><br> 795 Folsom Ave, Suite 600<br>
-			San Francisco, CA 94107<br> <abbr title="Phone">P:</abbr> (123)
-			456-7890
-		</address>
-
-	</div>
 </body>
 </html>

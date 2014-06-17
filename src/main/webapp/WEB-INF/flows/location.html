@@ -5,6 +5,7 @@
 	xmlns:sec="http://www.thymeleaf.org" lang="en">
 
 <head>
+	
 </head>
 
 <body tiles:fragment="content">
@@ -36,8 +37,8 @@
 				th:field="*{type}" />
 		</p>
 
-		<button type="submit" id="back" name="_eventId_back">Zurück</button>
-		<button type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+		<button class="btn btn-primary pull-right" type="submit">Weiter</button>
+		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
 	</form>
 	</div>
 </body>

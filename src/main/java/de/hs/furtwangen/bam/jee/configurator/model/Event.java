@@ -42,12 +42,12 @@ public class Event extends BaseEntity implements Serializable {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private List<Location> locations;
+    
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
+    private List<Catering> caterings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Audio> audios;
-
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
-    private Set<Catering> caterings;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "event")
     private Set<Light> lights;
@@ -60,6 +60,7 @@ public class Event extends BaseEntity implements Serializable {
     
     public Event(){
     	locations = new ArrayList<Location>();
+    	caterings = new ArrayList<Catering>();
     }
 
     
@@ -80,7 +81,6 @@ public class Event extends BaseEntity implements Serializable {
     }
     
     public void addLocation(Location location) {
-    	System.out.println(location.getName());
     	locations.add(location);
     }
 
@@ -90,6 +90,20 @@ public class Event extends BaseEntity implements Serializable {
 
     public void setLocations(List<Location> locations) {
 		this.locations = locations;
+	}
+    
+    public void addCatering(Catering catering) {
+    	caterings.add(catering);
+    }
+
+
+	public List<Catering> getCaterings() {
+		return caterings;
+	}
+
+
+	public void setCaterings(List<Catering> caterings) {
+		this.caterings = caterings;
 	}
 
 
@@ -133,45 +147,7 @@ public class Event extends BaseEntity implements Serializable {
         return null;
     }
     
-    // CATERINGS
-    protected void setCateringsInternal(Set<Catering> caterings) {
-        this.caterings = caterings;
-    }
-
-    protected Set<Catering> getCateringsInternal() {
-        if (this.caterings == null) {
-            this.caterings = new HashSet<Catering>();
-        }
-        return this.caterings;
-    }
-
-    public List<Catering> getCaterings() {
-        List<Catering> sortedCaterings = new ArrayList<Catering>(getCateringsInternal());
-        PropertyComparator.sort(sortedCaterings, new MutableSortDefinition("name", true, true));
-        return Collections.unmodifiableList(sortedCaterings);
-    }
-
-    public void addCatering(Catering catering) {
-    	getCateringsInternal().add(catering);
-    }
-
-    public Catering getCatering(String name) {
-        return getCatering(name, false);
-    }
-
-    public Catering getCatering(String name, boolean ignoreNew) {
-        name = name.toLowerCase();
-        for (Catering catering : getCateringsInternal()) {
-            if (!ignoreNew || !catering.isNew()) {
-                String compName = catering.getName();
-                compName = compName.toLowerCase();
-                if (compName.equals(name)) {
-                    return catering;
-                }
-            }
-        }
-        return null;
-    }
+  
 
     // LIGHTS
     protected void setLightsInternal(Set<Light> lights) {

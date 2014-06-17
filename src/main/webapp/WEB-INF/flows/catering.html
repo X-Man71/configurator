@@ -9,31 +9,60 @@
 </head>
 
 <body tiles:fragment="content">
-	<div>
+	
 		<h1>Catering</h1>
 		<h3 th:text="${event.name}">Example Event</h3>
 
-		
 		<table>
 			<tr th:each="location : ${event.locations}">
-				<td th:text="${location.name}">...</td>
-				<td th:text="${location.street}">...</td>
+				...
+				<td th:text="${location.name}">
+				</td><td th:text="${location.street}">...</td>
 				<td th:text="${location.town}">...</td>
 				<td th:text="${location.type}">...</td>
 
 			</tr>
-
-
 		</table>
-		
-		<form action="#" th:action="${flowExecutionUrl}"
-		th:object="${event}" method="post">
 
+
+
+		<form action="#" th:action="${flowExecutionUrl}"
+			th:object="${catering}" method="post">
+
+			<p>
+				<input type="radio" id="Verpflegung" th:field="*{eating}"
+					value="true" /><label for="Verpflegung">Verpflegung</label> <input
+					type="radio" id="keine Verpflegung" th:field="*{eating}"
+					value="false" /><label for="keine Verpflegung">keine
+					Verpflegung</label>
+			</p>
+
+			<p>
+				Welche Art von Verköstigung wünschen Sie: <input type="text"
+					th:field="*{eatingType}" />
+			</p>
+			<p>
+				Nennen Sie uns die Anzahl an Personen die etwas essen möchten: <input
+					type="text" th:field="*{eatingPeople}" />
+			</p>
+			
+			<p>
+				<input type="radio" id="Bewirtung" th:field="*{drinking}"
+					value="true" /><label for="Bewirtung">Bewirtung</label> <input
+					type="radio" id="keine Bewirtung" th:field="*{drinking}"
+					value="false" /><label for="keine Bewirtung">keine Bewirtung</label>
+			</p>
+			
+			
+			
+			<p>
+				Nennen Sie uns die Anzahl an Personen die etwas trinken möchten: <input
+					type="text" th:field="*{drinkingPeople}" />
+			</p>
 	
 		<button class="btn btn-primary pull-right" type="submit">Weiter</button>
 		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
 	</form>
-		
-	</div>
+	
 </body>
 </html>

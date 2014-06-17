@@ -13,7 +13,8 @@
 
 <title>Configurator Login</title>
 
-<link href="/resources/css/bootstrap.min.css" rel="stylesheet" th:href="@{/resources/css/bootstrap.min.css}">
+<link href="/resources/css/bootstrap.min.css" rel="stylesheet"
+	th:href="@{/resources/css/bootstrap.min.css}">
 </link>
 
 
@@ -21,28 +22,29 @@
 body {
 	background-color: #FFF;
 }
-#footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 60px;
-  background-color: #f5f5f5;
-}
 
+#footer {
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+	/* Set the fixed height of the footer here */
+	height: 60px;
+	background-color: #f5f5f5;
+}
 
 /* Custom page CSS
 -------------------------------------------------- */
 /* Not required for template or sticky footer method. */
-
 .container {
-  width: auto;
-  max-width: 680px;
-  padding: 0 15px;
+	width: auto;
+	max-width: 780px;
+	padding: 0 15px;
 }
+
 .container .text-muted {
-  margin: 20px 0;
+	margin: 20px 0;
 }
+
 
 #content {
  padding-top:30px;
@@ -68,25 +70,22 @@ body {
 
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
-
-							<li class="active"><a href="/admin">Startseite</a></li>
 							<li><a href="/flows">Veranstaltung konfigurieren</a></li>
-							<li><a href="/admin/showBooking">Auftr&auml;ge</a></li>
-							<li><a href="/admin/product/new">Produkt</a></li>
-						</ul>
+							<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+								href="/admin/orders">Auftr&auml;ge</a></li>
+							<li sec:authorize="hasRole('ROLE_ADMIN')"><a
+								href="/admin/customers">Kunden&uuml;bersicht</a></li>
+								<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
+									<li class="dropdown"><a href="#" class="dropdown-toggle"
+										data-toggle="dropdown"> <span sec:authentication="name"></span>
+											<b class="caret"></b></a>
+										<ul class="dropdown-menu">
+											<li><a th:href="@{/admin/j_spring_security_logout}">Logout</a></li>
+											<li><a th:href="@{/admin/userAttitude}">Einstellungen</a></li>
+										</ul></li>
 
-						<div sec:authorize="isAuthenticated()">
-						<ul class="nav navbar-nav navbar-right">
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown"> <span sec:authentication="name"></span>
-									<b class="caret"></b></a>
-								<ul class="dropdown-menu">
-									<li><a th:href="@{/admin/j_spring_security_logout}">Logout</a></li>
-									<li><a th:href="@{/admin/userAttitude}">Einstellungen</a></li>
-								</ul></li>
-
+								</ul>
 						</ul>
-						</div>
 					</div>
 
 				</div>
@@ -107,18 +106,19 @@ body {
 
 			</div>
 		</div>
-		
-		
-		
+
+
+
 
 	</div>
-	
+
 	<div id="footer">
 		<div class="container">
-			<p class="text-muted">Business Architectures Master - Enterprise Software Architecture</p>
+			<p class="text-muted">Business Architectures Master - Enterprise
+				Software Architecture</p>
 		</div>
 	</div>
-	
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 	<script src="/resources/js/bootstrap.min.js"

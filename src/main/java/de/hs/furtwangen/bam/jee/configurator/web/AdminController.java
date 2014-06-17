@@ -10,9 +10,7 @@ public class AdminController {
 	
 	@RequestMapping(value = "/admin", method = RequestMethod.GET)
 	public String admin(Model model) {
-
-		
-		return "admin/startPage";
+		return "home";
 	}
 
 }

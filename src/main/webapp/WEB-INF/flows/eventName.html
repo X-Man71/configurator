@@ -12,12 +12,12 @@
 
 <h1>Willkommen zur Konfiguration einer Veranstaltung</h1>
 	<form action="#" th:action="${flowExecutionUrl}" th:object="${event}" method="post">
-	
-	 <p>Name der Veranstaltung: <input type="text" th:field="*{name}" /></p>
-	 <p>Datum der Veranstaltung: <input type="text" th:field="*{date}" /></p>
-
-		<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+		<div class="col-lg-6">
+			<p>Name der Veranstaltung: <input class="form-control" type="text" placeholder="Bsp. Rock am Ring" th:field="*{name}" /></p>
+			<p>Datum der Veranstaltung: <input class="form-control" type="text" placeholder="tt.mm.jjjj" th:field="*{date}" /></p>
 		
+			<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+		</div>	
 	</form>
 </body>
 </html>

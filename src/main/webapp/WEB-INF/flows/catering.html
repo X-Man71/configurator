@@ -15,53 +15,64 @@
 
 		<table>
 			<tr th:each="location : ${event.locations}">
-				<td th:text="${location.street}">...</td>
-				<td th:text="${location.town}">...</td>
-				<td th:text="${location.type}">...</td>
-
+				<td th:text="${location.name}"></td>
+				<td th:text="${location.street}"></td>
+				<td th:text="${location.town}"></td>
+				<td th:text="${location.type}"></td>
 			</tr>
 		</table>
 
 
-
-		<form action="#" th:action="${flowExecutionUrl}"
-			th:object="${catering}" method="post">
-
-			<p>
-				<input type="radio" id="Verk&ouml;stigung" th:field="*{eating}"
-					value="true" /><label for="Verk&ouml;stigung">Verk&ouml;stigung</label> <input
-					type="radio" id="keine Verk&ouml;stigung" th:field="*{eating}"
-					value="false" /><label for="keine Verk&ouml;stigung">keine
-					Verk&ouml;stigung</label>
-			</p>
-
-			<p>
-				Welche Art von Verk&ouml;stigung w&uuml;nschen Sie: <input type="text"
-					th:field="*{eatingType}" />
-			</p>
-			<p>
-				Nennen Sie uns die Anzahl an Personen die etwas essen m&ouml;chten: <input
-					type="text" th:field="*{eatingPeople}" />
-			</p>
-
-			<p>
-				<input type="radio" id="Bewirtung" th:field="*{drinking}"
-					value="true" /><label for="Bewirtung">Bewirtung</label> <input
-					type="radio" id="keine Bewirtung" th:field="*{drinking}"
-					value="false" /><label for="keine Bewirtung">keine
-					Bewirtung</label>
-			</p>
+		<form action="#" th:action="${flowExecutionUrl}" th:object="${catering}" method="post">
+			<div class="col-lg-6">
+				<p>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<input type="radio" id="Verpflegung" th:field="*{eating}" value="true" />
+							<label for="Verpflegung">Verpflegung</label> 
+							<input type="radio" id="keine Verpflegung" th:field="*{eating}"	value="false" />
+							<label for="keine Verpflegung">keine Verpflegung</label>
+						</span>
+					</div>
+				</p>
 
 
+				<p>
+					Welche Art von Verk&ouml;stigung w&uuml;nschen Sie: 
+					<input type="text" class="form-control" placeholder="Bsp. Buffet" th:field="*{eatingType}" />
+				</p>
+				
+				<p>
+					Nennen Sie uns die Anzahl an Personen die etwas essen m&ouml;chten: 
+					<input	type="text" class="form-control" placeholder="Bsp. 200" th:field="*{eatingPeople}" />
+				</p>
+				
+				<p>
+					<div class="input-group">
+						<span class="input-group-addon">
+							<input type="radio" id="Bewirtung" th:field="*{drinking}" value="true" />
+							<label for="Bewirtung">Bewirtung</label>
+							<input type="radio" id="keine Bewirtung" th:field="*{drinking}"	value="false" />
+							<label for="keine Bewirtung">keine Bewirtung</label>
+						</span>
+					</div>					
+				</p>
+				
+				<p>
+					Nennen Sie uns die Anzahl an Personen die etwas trinken m&ouml;chten: 
+					<input	type="text" class="form-control" placeholder="Bsp. 200" th:field="*{drinkingPeople}" />
+				</p>
+				
+				<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+				<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
+			
+			</div>
+			<div class="col-lg-6">
+				Zusammenfassung:
+			
+			</div>
+		
 
-			<p>
-				Nennen Sie uns die Anzahl an Personen die etwas trinken m&ouml;chten: <input
-					type="text" th:field="*{drinkingPeople}" />
-			</p>
-
-	
-		<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
 	</form>
 	
 

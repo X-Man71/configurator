@@ -19,26 +19,27 @@
 		th:object="${location}" method="post">
 
 	<h3>Bitten geben Sie uns Informationen zum Ort an dem die Veranstaltung stattfinden soll:</h3>
-		<p>
-			Name des Orts <input type="text"
-				th:field="*{name}" />
-		</p>
-		<p>
-			Stra&szlig;e: <input type="text"
-				th:field="*{street}" />
-		</p>
-		<p>
-			Stadt: <input type="text"
-				th:field="*{town}" />
-		</p>
-		
-		<p>
-			Typ des Veranstaltungsorts (bspw. Stadthalle): <input type="text"
-				th:field="*{type}" />
-		</p>
 
-		<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
+		<div class="col-lg-6">
+			<p>
+				Stadt: <input type="text" class="form-control" placeholder="Bsp. Furtwangen" th:field="*{town}" />
+			</p>
+			
+			<p>
+				Stra&szlig;e: <input type="text" class="form-control" placeholder="Bsp. Robert-Gerwig-Platz 1" th:field="*{street}" />
+			</p>
+
+			<p>
+				Location: <input type="text" class="form-control" placeholder="Bsp. Stadthalle" th:field="*{name}" />
+			</p>
+			
+			<p>
+				Typ Location: <input type="text" class="form-control" placeholder="Indoor oder Outdoor" th:field="*{type}" />
+			</p>
+	
+			<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
+			</div>
 	</form>
 	
 </body>

@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class CustomerController {
 	
-	@RequestMapping(value = "/customer", method = RequestMethod.GET)
-	public String admin(Model model) {
+	@RequestMapping(value = "/customer/checkout", method = RequestMethod.GET)
+	public String customerCheckout(Model model) {
 
 		
-		return "/customer/startPage";
+		return "/customer/checkout";
 	}
 
 }

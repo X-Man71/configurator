@@ -5,8 +5,13 @@
 	
 <tiles-definitions>
 
-	<definition name="admin/startPage" extends="standardLayout">
-		<put-attribute name="body" value="/admin/startPage.html :: content" type="thymeleaf"/>
+	<definition name="/admin/orders" extends="standardLayout">
+		<put-attribute name="body" value="/admin/orders.html :: content" type="thymeleaf"/>
+	</definition>
+	
+	
+	<definition name="/admin/customers" extends="standardLayout">
+		<put-attribute name="body" value="/admin/customers.html :: content" type="thymeleaf"/>
 	</definition>
 
 </tiles-definitions>

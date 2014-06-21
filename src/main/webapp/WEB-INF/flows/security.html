@@ -15,12 +15,12 @@
 
 	<table>
 
-		<tr th:each="catering : ${event.caterings}">
-			<td th:text="${catering.eating}">...</td>
-			<td th:text="${catering.eatingType}">...</td>
-			<td th:text="${catering.eatingPeople}">...</td>
-			<td th:text="${catering.drinking}">...</td>
-			<td th:text="${catering.drinkingPeople}">...</td>
+		<tr>
+			<td th:text="${event.catering.eating}">...</td>
+			<td th:text="${event.catering.eatingType}">...</td>
+			<td th:text="${event.catering.eatingPeople}">...</td>
+			<td th:text="${event.catering.drinking}">...</td>
+			<td th:text="${event.catering.drinkingPeople}">...</td>
 		</tr>
 	</table>
 

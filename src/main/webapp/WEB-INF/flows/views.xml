@@ -30,6 +30,11 @@
 		<put-attribute name="body" value="flows/light.html :: content"
 			type="thymeleaf" />
 	</definition>
+	
+	<definition name="audio" extends="standardLayout">
+		<put-attribute name="body" value="flows/audio.html :: content"
+			type="thymeleaf" />
+	</definition>
 
 	<definition name="rigging" extends="standardLayout">
 		<put-attribute name="body" value="flows/rigging.html :: content"

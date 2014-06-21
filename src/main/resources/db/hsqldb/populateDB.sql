@@ -9,4 +9,3 @@ INSERT INTO user_authority VALUES (2,1);
 INSERT INTO user_authority VALUES (3,3);
 INSERT INTO user_authority VALUES (4,3);
 INSERT INTO events VALUES (1, 'TestEvent', '2010-09-07');
-INSERT INTO locations VALUES (1, 'TestLocation', 1);

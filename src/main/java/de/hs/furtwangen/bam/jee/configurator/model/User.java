@@ -160,8 +160,4 @@ public class User extends BaseEntity {
 				+ phone + ", authoritiesList=" + authoritiesList + "]";
 	}
 	
-	
-
-	
-	
 }

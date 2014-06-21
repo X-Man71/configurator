@@ -15,21 +15,21 @@
 
 	<table>
 		<tr>
-			<td th:text="${event.security.name}">...</td>
-			<td th:text="${event.security.numberOfProtectees}">...</td>
+			<td th:text="${event.light.name}">...</td>
+			<td th:text="${event.light.numberOfLights}">...</td>
 		</tr>
 	</table>
 
 	<form action="#" th:action="${flowExecutionUrl}"
-		th:object="${light}" method="post">
+		th:object="${audio}" method="post">
 
 		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
 			Veranstaltung stattfinden soll:</h3>
 		<p>
-			Name eines bevorzugten Lichtdienstes: <input type="text" th:field="*{name}" />
+			Name eines bevorzugten Audiodienstes: <input type="text" th:field="*{name}" />
 		</p>
 				<p>
-			Anzahl der Lichter: <input type="text" th:field="*{numberOfLights}" />
+			Anzahl der Audios: <input type="text" th:field="*{numberOfLights}" />
 		</p>
 
 		<button class="btn btn-primary pull-right" type="submit" id="proceed"

@@ -14,9 +14,8 @@
 	<h3 th:text="${event.name}">Example Event</h3>
 
 	<table>
-		<tr th:each="security : ${event.lights}">
-			<td th:text="${light.name}">...</td>
-			<td th:text="${light.numberOfLights}">...</td>
+		<tr>
+			<td th:text="${event.audio.name}">...</td>
 		</tr>
 	</table>
 

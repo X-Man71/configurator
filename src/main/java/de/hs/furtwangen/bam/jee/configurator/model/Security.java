@@ -4,8 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -15,15 +19,20 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "securities")
-public class Security extends BaseEntity implements Serializable {
+public class Security implements Serializable {
 
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@ManyToOne
-    @JoinColumn(name = "event_id")
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "securityId")
+    private Integer id;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
     private Event event;
     
 	@Column(name = "name" )

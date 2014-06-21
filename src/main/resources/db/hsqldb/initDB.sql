@@ -35,11 +35,3 @@ CREATE TABLE IF NOT EXISTS events (
   date 				DATE NOT NULL
 );
 CREATE INDEX events_name ON events (name);
-
-CREATE TABLE IF NOT EXISTS locations (
-  id         		INTEGER IDENTITY PRIMARY KEY,
-  name       		VARCHAR(30),
-  event_id   		INTEGER NOT NULL
-);
-ALTER TABLE locations ADD CONSTRAINT fk_locations_events FOREIGN KEY (event_id) REFERENCES events (id);
-CREATE INDEX locations_name ON locations (name);

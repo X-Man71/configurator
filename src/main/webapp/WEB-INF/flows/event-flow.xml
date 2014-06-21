@@ -29,7 +29,7 @@
 		<transition on="back" to="eventName">
 		</transition>
 		<transition on="proceed" to="catering">
-			<evaluate expression="event.addLocation(flowScope.location)" />
+			<evaluate expression="event.setLocation(flowScope.location)" />
 		</transition>
 	</view-state>
 
@@ -41,7 +41,7 @@
 		</on-entry>
 		<transition on="back" to="location" />
 		<transition on="proceed" to="security">
-			<evaluate expression="event.addCatering(flowScope.catering)" />
+			<evaluate expression="event.setCatering(flowScope.catering)" />
 
 		</transition>
 	</view-state>
@@ -54,7 +54,7 @@
 		</on-entry>
 		<transition on="back" to="location" />
 		<transition on="proceed" to="light">
-			<evaluate expression="event.addSecurity(flowScope.security)" />
+			<evaluate expression="event.setSecurity(flowScope.security)" />
 		</transition>
 	</view-state>
 
@@ -66,7 +66,19 @@
 		</on-entry>
 		<transition on="back" to="security" />
 		<transition on="proceed" to="rigging">
-			<evaluate expression="event.addLight(flowScope.light)" />
+			<evaluate expression="event.setLight(flowScope.light)" />
+		</transition>
+	</view-state>
+	
+	
+	<view-state id="audio" view="audio">
+		<on-entry>
+			<set name="flowScope.audio"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.Audio()" />
+		</on-entry>
+		<transition on="back" to="light" />
+		<transition on="proceed" to="rigging">
+			<evaluate expression="event.setAudio(flowScope.audio)" />
 		</transition>
 	</view-state>
 
@@ -76,9 +88,9 @@
 			<set name="flowScope.rigging"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Rigging()" />
 		</on-entry>
-		<transition on="back" to="light" />
+		<transition on="back" to="audio" />
 		<transition on="proceed" to="specialty">
-			<evaluate expression="event.addRigging(flowScope.rigging)" />
+			<evaluate expression="event.setRigging(flowScope.rigging)" />
 		</transition>
 	</view-state>
 
@@ -90,7 +102,7 @@
 		</on-entry>
 		<transition on="back" to="rigging" />
 		<transition on="proceed" to="summary">
-			<evaluate expression="event.addSpecialty(flowScope.specialty)" />
+			<evaluate expression="event.setSpecialty(flowScope.specialty)" />
 		</transition>
 	</view-state>
 

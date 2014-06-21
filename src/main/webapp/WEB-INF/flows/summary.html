@@ -14,47 +14,53 @@
 	<h3 th:text="${event.name}">Example Event</h3>
 
 	<table>
-		<tr th:each="location : ${event.locations}">
-			<td th:text="${location.street}">...</td>
-			<td th:text="${location.town}">...</td>
-			<td th:text="${location.type}">...</td>
+		<tr>
+			<td th:text="${event.location.street}">...</td>
+			<td th:text="${event.location.town}">...</td>
+			<td th:text="${event.location.type}">...</td>
 		</tr>
 	</table>
 
 	<table>
-		<tr th:each="catering : ${event.caterings}">
-			<td th:text="${catering.eating}">...</td>
-			<td th:text="${catering.eatingType}">...</td>
-			<td th:text="${catering.eatingPeople}">...</td>
-			<td th:text="${catering.drinking}">...</td>
-			<td th:text="${catering.drinkingPeople}">...</td>
+		<tr>
+			<td th:text="${event.catering.eating}">...</td>
+			<td th:text="${event.catering.eatingType}">...</td>
+			<td th:text="${event.catering.eatingPeople}">...</td>
+			<td th:text="${event.catering.drinking}">...</td>
+			<td th:text="${event.catering.drinkingPeople}">...</td>
 		</tr>
 	</table>
 
 	<table>
-		<tr th:each="security : ${event.securities}">
-			<td th:text="${security.name}">...</td>
-			<td th:text="${security.numberOfProtectees}">...</td>
+		<tr>
+			<td th:text="${event.security.name}">...</td>
+			<td th:text="${event.security.numberOfProtectees}">...</td>
 		</tr>
 	</table>
 
 	<table>
-		<tr th:each="light : ${event.lights}">
-			<td th:text="${light.name}">...</td>
-			<td th:text="${light.numberOfLights}">...</td>
+		<tr>
+			<td th:text="${event.light.name}">...</td>
+			<td th:text="${event.light.numberOfLights}">...</td>
 		</tr>
 	</table>
 
 	<table>
-		<tr th:each="rigging : ${event.riggings}">
-			<td th:text="${rigging.name}">...</td>
+		<tr>
+			<td th:text="${event.audio.name}">...</td>
 		</tr>
 	</table>
 
 	<table>
-		<tr th:each="security : ${event.specialties}">
-			<td th:text="${specialty.subject}">...</td>
-			<td th:text="${specialty.comment}">...</td>
+		<tr>
+			<td th:text="${event.rigging.name}">...</td>
+		</tr>
+	</table>
+
+	<table>
+		<tr>
+			<td th:text="${event.specialty.subject}">...</td>
+			<td th:text="${event.specialty.comment}">...</td>
 		</tr>
 	</table>
 

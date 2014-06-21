@@ -14,8 +14,8 @@
 	<h3 th:text="${event.name}">Example Event</h3>
 
 	<table>
-		<tr th:each="rigging : ${event.riggings}">
-			<td th:text="${rigging.name}">...</td>
+		<tr>
+			<td th:text="${event.rigging.name}">...</td>
 		</tr>
 	</table>
 

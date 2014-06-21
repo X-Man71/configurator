@@ -4,8 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -15,16 +19,15 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "locations")
-public class Location extends BaseEntity implements Serializable {
+public class Location implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
-	
-	
-	public Location() {
-		super();
-	}
 
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "locationId")
+    private Integer id;
+	
 	@Column(name = "name")
 	private String name;
 	
@@ -34,6 +37,13 @@ public class Location extends BaseEntity implements Serializable {
 	
 	private String type;
 
+	@OneToOne(fetch = FetchType.LAZY)
+	@PrimaryKeyJoinColumn
+	private Event event;
+	
+	public Location() {
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -58,8 +68,6 @@ public class Location extends BaseEntity implements Serializable {
 		this.town = town;
 	}
 	
-	
-
 	public String getType() {
 		return type;
 	}
@@ -67,10 +75,6 @@ public class Location extends BaseEntity implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-
-	@ManyToOne
-	@JoinColumn(name = "event_id")
-	private Event event;
 
 	protected void setEvent(Event event) {
 		this.event = event;

@@ -1,5 +1,3 @@
-- Registration in Datenbank speichern (Oliver)
-- Formular zum Password ändern (Christian) //Test schreiben für Password ändern
-- Eine HTML Seite fuer alle Veranstaltungsdaten (Johannes)
-- Spring WebFlow
-- Neuen Benutzer anlagen validation und überprüfung ob eMail oder Benutzername bereits exisitiert.
+- bessere designs, insbesondere des flows
+- entities kreativer gestalten (viele haben nur einen namen) -> dabei aber auch bitte column names spezifizieren!
+- persistence des event objektes inklusiver detached entities am ende des flows

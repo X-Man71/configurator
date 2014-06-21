@@ -20,22 +20,30 @@
 		</tr>
 	</table>
 
-	<form action="#" th:action="${flowExecutionUrl}"
-		th:object="${light}" method="post">
+	<form action="#" th:action="${flowExecutionUrl}" th:object="${light}"
+		method="post">
 
 		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
 			Veranstaltung stattfinden soll:</h3>
-		<p>
-			Name eines bevorzugten Lichtdienstes: <input type="text" th:field="*{name}" />
-		</p>
-				<p>
-			Anzahl der Lichter: <input type="text" th:field="*{numberOfLights}" />
-		</p>
 
-		<button class="btn btn-primary pull-right" type="submit" id="proceed"
-			name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back"
-			name="_eventId_back">Zur&uuml;ck</button>
+		<div class="col-lg-6">
+
+			<p>
+				Name eines bevorzugten Lichtdienstes: <input type="text"
+					class="form-control" placeholder="Bsp. Sample Light Service"
+					th:field="*{name}" />
+			</p>
+			<p>
+				Anzahl der Lichter: <input type="text" class="form-control" placeholder="Bsp. Sample Security" th:field="*{numberOfLights}" />
+			</p>
+
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+
+		</div>
+
 	</form>
 
 </body>

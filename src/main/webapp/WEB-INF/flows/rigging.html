@@ -19,19 +19,27 @@
 		</tr>
 	</table>
 
-	<form action="#" th:action="${flowExecutionUrl}"
-		th:object="${rigging}" method="post">
+	<form action="#" th:action="${flowExecutionUrl}" th:object="${rigging}"
+		method="post">
 
 		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
 			Veranstaltung stattfinden soll:</h3>
-		<p>
-			Name eines bevorzugten Aufhaengungsdienstes: <input type="text" th:field="*{name}" />
-		</p>
 
-		<button class="btn btn-primary pull-right" type="submit" id="proceed"
-			name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back"
-			name="_eventId_back">Zur&uuml;ck</button>
+		<div class="col-lg-6">
+
+			<p>
+				Name eines bevorzugten Aufhaengungsdienstes: <input type="text"
+					class="form-control" placeholder="Bsp. Sample Rigging Service"
+					th:field="*{name}" />
+			</p>
+
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+
+		</div>
+
 	</form>
 
 </body>

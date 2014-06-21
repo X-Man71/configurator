@@ -24,17 +24,25 @@
 
 		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
 			Veranstaltung stattfinden soll:</h3>
-		<p>
-			Betreff: <input type="text" th:field="*{subject}" />
-		</p>
-		<p>
-			Kommmentar: <input type="text" th:field="*{comment}" />
-		</p>
 
-		<button class="btn btn-primary pull-right" type="submit" id="proceed"
-			name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back"
-			name="_eventId_back">Zur&uuml;ck</button>
+		<div class="col-lg-6">
+
+			<p>
+				Betreff: <input type="text" class="form-control"
+					placeholder="Bsp. Sample Subject" th:field="*{subject}" />
+			</p>
+			<p>
+				Kommmentar: <input type="text" class="form-control"
+					placeholder="Bsp. Sample Comment" th:field="*{comment}" />
+			</p>
+
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+
+		</div>
+
 	</form>
 
 </body>

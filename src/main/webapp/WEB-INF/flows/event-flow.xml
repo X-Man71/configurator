@@ -69,8 +69,8 @@
 			<evaluate expression="event.setLight(flowScope.light)" />
 		</transition>
 	</view-state>
-	
-	
+
+
 	<view-state id="audio" view="audio">
 		<on-entry>
 			<set name="flowScope.audio"
@@ -103,14 +103,24 @@
 		<transition on="back" to="rigging" />
 		<transition on="proceed" to="summary">
 			<evaluate expression="event.setSpecialty(flowScope.specialty)" />
+			<evaluate expression="eventService.save(flowScope.event)" />
 		</transition>
 	</view-state>
 
 
 	<view-state id="summary" view="summary">
 		<transition on="back" to="specialty" />
-		<transition on="proceed" to="specialty">
-			<!-- persist -->
+		<transition on="proceed" to="success">
+			<evaluate expression="eventService.save(flowScope.event)" />
 		</transition>
 	</view-state>
+
+
+	<view-state id="success" view="success">
+		<transition on="back" to="summary" />
+		<transition on="proceed" to="success">
+			<!-- nothing -->
+		</transition>
+	</view-state>
+
 </flow>

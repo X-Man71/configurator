@@ -26,20 +26,27 @@
 
 	<form action="#" th:action="${flowExecutionUrl}"
 		th:object="${security}" method="post">
-
+		
 		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
-			Veranstaltung stattfinden soll:</h3>
-		<p>
-			Name eines bevorzugten Sicherheitsdienstes: <input type="text" th:field="*{name}" />
-		</p>
-				<p>
-			Anzahl der G&auml;ste: <input type="text" th:field="*{numberOfProtectees}" />
-		</p>
+				Veranstaltung stattfinden soll:</h3>
+		
+		<div class="col-lg-6">
+			<p>
+				Name eines bevorzugten Sicherheitsdienstes: 
+				<input type="text" class="form-control" placeholder="Bsp. Sample Security" th:field="*{name}" />
+			</p>
+			<p>
+				Anzahl der G&auml;ste: 
+				<input type="text" class="form-control" placeholder="Bsp. 1000" th:field="*{numberOfProtectees}" />
+			</p>
 
-		<button class="btn btn-primary pull-right" type="submit" id="proceed"
-			name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back"
-			name="_eventId_back">Zur&uuml;ck</button>
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+				
+		</div>
+		
 	</form>
 
 

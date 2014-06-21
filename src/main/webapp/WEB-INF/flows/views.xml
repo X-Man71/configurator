@@ -51,4 +51,9 @@
 			type="thymeleaf" />
 	</definition>
 
+	<definition name="success" extends="standardLayout">
+		<put-attribute name="body" value="flows/success.html :: content"
+			type="thymeleaf" />
+	</definition>
+
 </tiles-definitions>

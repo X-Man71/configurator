@@ -9,44 +9,36 @@
 
 <body tiles:fragment="content">
 
-	<h1>Security</h1>
-
-	<h3 th:text="${event.name}">Example Event</h3>
-
-	<table>
-
-		<tr>
-			<td th:text="${event.catering.eating}">...</td>
-			<td th:text="${event.catering.eatingType}">...</td>
-			<td th:text="${event.catering.eatingPeople}">...</td>
-			<td th:text="${event.catering.drinking}">...</td>
-			<td th:text="${event.catering.drinkingPeople}">...</td>
-		</tr>
-	</table>
-
 	<form action="#" th:action="${flowExecutionUrl}"
 		th:object="${security}" method="post">
-		
-		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
-				Veranstaltung stattfinden soll:</h3>
-		
+
 		<div class="col-lg-6">
+
+			<h2>Ihre Veranstaltung:</h2>
+			<h4 th:text="${event.name}">Example Event</h4>
+			<span>am </span> <span th:text="${event.date}">Beispieldatum</span>
+
+			<h4>Bitten geben Sie uns Informationen zum Sicherheitsdienst:</h4>
+
+			<br />
+
 			<p>
-				Name eines bevorzugten Sicherheitsdienstes: 
-				<input type="text" class="form-control" placeholder="Bsp. Sample Security" th:field="*{name}" />
+				Name eines bevorzugten Sicherheitsdienstes: <input type="text"
+					class="form-control" placeholder="Bsp. Sample Security"
+					th:field="*{name}" />
 			</p>
 			<p>
-				Anzahl der G&auml;ste: 
-				<input type="text" class="form-control" placeholder="Bsp. 1000" th:field="*{numberOfProtectees}" />
+				Anzahl der G&auml;ste: <input type="text" class="form-control"
+					placeholder="Bsp. 1000" th:field="*{numberOfProtectees}" />
 			</p>
 
 			<button class="btn btn-primary pull-right" type="submit" id="proceed"
 				name="_eventId_proceed">Weiter</button>
 			<button class="btn btn-primary pull-left" type="submit" id="back"
 				name="_eventId_back">Zur&uuml;ck</button>
-				
+
 		</div>
-		
+
 	</form>
 
 

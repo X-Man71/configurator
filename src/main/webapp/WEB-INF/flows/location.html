@@ -5,42 +5,51 @@
 	xmlns:sec="http://www.thymeleaf.org" lang="en">
 
 <head>
-	
+
 </head>
 
 <body tiles:fragment="content">
 
-	<h1>Name Ihrer Veranstaltung:</h1>
-	<h3 th:text="${event.name}">Example Event</h3>
-	<h3 th:text="${event.date}">Example Date</h3>
-
-
 	<form action="#" th:action="${flowExecutionUrl}"
 		th:object="${location}" method="post">
 
-	<h3>Bitten geben Sie uns Informationen zum Ort an dem die Veranstaltung stattfinden soll:</h3>
-
 		<div class="col-lg-6">
+
+			<h2>Ihre Veranstaltung:</h2>
+			<h4 th:text="${event.name}">Example Event</h4>
+			<span>am </span> <span th:text="${event.date}">Beispieldatum</span>
+
+			<h4>Bitten geben Sie uns Informationen zum Ort, an dem die
+				Veranstaltung stattfinden soll:</h4>
+
+			<br />
+
 			<p>
-				Stadt: <input type="text" class="form-control" placeholder="Bsp. Furtwangen" th:field="*{town}" />
-			</p>
-			
-			<p>
-				Stra&szlig;e: <input type="text" class="form-control" placeholder="Bsp. Robert-Gerwig-Platz 1" th:field="*{street}" />
+				Stadt: <input type="text" class="form-control"
+					placeholder="Bsp. Furtwangen" th:field="*{town}" />
 			</p>
 
 			<p>
-				Location: <input type="text" class="form-control" placeholder="Bsp. Stadthalle" th:field="*{name}" />
+				Stra&szlig;e: <input type="text" class="form-control"
+					placeholder="Bsp. Robert-Gerwig-Platz 1" th:field="*{street}" />
 			</p>
-			
+
 			<p>
-				Typ Location: <input type="text" class="form-control" placeholder="Indoor oder Outdoor" th:field="*{type}" />
+				Location: <input type="text" class="form-control"
+					placeholder="Bsp. Stadthalle" th:field="*{name}" />
 			</p>
-	
-			<button class="btn btn-primary pull-right" type="submit" id="proceed" name="_eventId_proceed">Weiter</button>
-			<button class="btn btn-primary pull-left" type="submit" id="back" name="_eventId_back">Zur&uuml;ck</button>
-			</div>
+
+			<p>
+				Typ Location: <input type="text" class="form-control"
+					placeholder="Indoor oder Outdoor" th:field="*{type}" />
+			</p>
+
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+		</div>
 	</form>
-	
+
 </body>
 </html>

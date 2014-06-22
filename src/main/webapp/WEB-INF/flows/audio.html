@@ -9,33 +9,37 @@
 
 <body tiles:fragment="content">
 
-	<h1>Beleuchtung</h1>
+	<form action="#" th:action="${flowExecutionUrl}" th:object="${audio}"
+		method="post">
 
-	<h3 th:text="${event.name}">Example Event</h3>
+		<div class="col-lg-6">
 
-	<table>
-		<tr>
-			<td th:text="${event.light.name}">...</td>
-			<td th:text="${event.light.numberOfLights}">...</td>
-		</tr>
-	</table>
+			<h2>Ihre Veranstaltung:</h2>
+			<h4 th:text="${event.name}">Example Event</h4>
+			<span>am </span> <span th:text="${event.date}">Beispieldatum</span>
 
-	<form action="#" th:action="${flowExecutionUrl}"
-		th:object="${audio}" method="post">
+			<h4>Bitten geben Sie uns Informationen zur musikalischen Unterhaltung:</h4>
 
-		<h3>Bitten geben Sie uns Informationen zum Ort an dem die
-			Veranstaltung stattfinden soll:</h3>
-		<p>
-			Name eines bevorzugten Audiodienstes: <input type="text" th:field="*{name}" />
-		</p>
-				<p>
-			Anzahl der Audios: <input type="text" th:field="*{numberOfLights}" />
-		</p>
+			<br />
 
-		<button class="btn btn-primary pull-right" type="submit" id="proceed"
-			name="_eventId_proceed">Weiter</button>
-		<button class="btn btn-primary pull-left" type="submit" id="back"
-			name="_eventId_back">Zur&uuml;ck</button>
+
+			<h3>Bitten geben Sie uns Informationen zum Ort an dem die
+				Veranstaltung stattfinden soll:</h3>
+			<p>
+				Name eines bevorzugten Audiodienstes: <input type="text"
+					th:field="*{name}" />
+			</p>
+			<p>
+				Anzahl der Audios: <input type="text" th:field="*{numberOfLights}" />
+			</p>
+
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+
+		</div>
+
 	</form>
 
 </body>

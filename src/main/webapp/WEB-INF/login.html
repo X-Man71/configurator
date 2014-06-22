@@ -44,14 +44,13 @@
 
 			<input type="text" id="j_username" name="j_username"
 				class="form-control" autofocus="" required=""
-				placeholder="Email address" /> 
+				placeholder="Benutzername" /> 
 			<input type="password"
 				id="j_password" name="j_password" class="form-control"
-				required="" placeholder="Password" />
+				required="" placeholder="Passwort" />
 
 			<!--  <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block"/>-->
-			<button class="btn btn-lg btn-primary btn-block" type="submit">Sign
-				in</button>
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
 				
 				<div class="alert alert-danger" th:if="${loginError}">Zugangsdaten nicht korrekt</div>
 			<a href="/user/new"><h5 class="form-register-link">Neuen Account anlegen</h5></a>	

@@ -101,26 +101,21 @@
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Specialty()" />
 		</on-entry>
 		<transition on="back" to="rigging" />
-		<transition on="proceed" to="summary">
+		<transition on="proceed" to="end-state">
 			<evaluate expression="event.setSpecialty(flowScope.specialty)" />
-			<evaluate expression="eventService.save(flowScope.event)" />
 		</transition>
 	</view-state>
 
 
-	<view-state id="summary" view="summary">
-		<transition on="back" to="specialty" />
-		<transition on="proceed" to="success">
-			<evaluate expression="eventService.save(flowScope.event)" />
-		</transition>
-	</view-state>
+	<end-state id="end-state" view="summary">
+		<on-entry>
+			<evaluate expression="eventService.save(event)" result="flowScope.event"></evaluate>
+		</on-entry>
+	</end-state>
 
 
-	<view-state id="success" view="success">
-		<transition on="back" to="summary" />
-		<transition on="proceed" to="success">
-			<!-- nothing -->
-		</transition>
-	</view-state>
+	<!-- <view-state id="summary" view="summary"> <transition on="back" to="specialty" 
+		/> <transition on="proceed" to="success"> <evaluate expression="eventService.save(flowScope.event)" 
+		/> </transition> </view-state> -->
 
 </flow>

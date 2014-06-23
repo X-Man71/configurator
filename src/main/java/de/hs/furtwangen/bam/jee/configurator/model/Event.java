@@ -9,7 +9,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -28,7 +27,7 @@ public class Event extends BaseEntity implements Serializable {
 	private String name;
 
 	@Column(name = "date")
-	@NotEmpty
+	//@NotEmpty
 	@DateTimeFormat(pattern = "dd.MM.YYYY")
 	private Date date;
 
@@ -91,6 +90,7 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setLocation(Location location) {
+		System.out.println("Location "+location.getName());
 		this.location = location;
 	}
 
@@ -99,6 +99,7 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setCatering(Catering catering) {
+		System.out.println("Catering "+catering.getEatingType());
 		this.catering = catering;
 	}
 
@@ -107,6 +108,8 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setAudio(Audio audio) {
+		System.out.println("Audio "+audio.getName());
+		audio.setEvent(this);
 		this.audio = audio;
 	}
 
@@ -115,6 +118,7 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setLight(Light light) {
+		System.out.println("Lights "+light.getName());
 		this.light = light;
 	}
 
@@ -123,6 +127,7 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setRigging(Rigging rigging) {
+		System.out.println("Rigging "+rigging.getName());
 		this.rigging = rigging;
 	}
 
@@ -131,6 +136,7 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setSecurity(Security security) {
+		System.out.println("Security "+security.getName());
 		this.security = security;
 	}
 
@@ -139,6 +145,7 @@ public class Event extends BaseEntity implements Serializable {
 	}
 
 	public void setSpecialty(Specialty specialty) {
+		System.out.println("Specialty "+specialty.getComment()+" "+specialty.getSubject());
 		this.specialty = specialty;
 	}
 

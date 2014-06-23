@@ -2,6 +2,7 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,14 +29,21 @@ public class Catering implements Serializable {
 	@Column(name = "cateringId")
     private Integer id;
 
+	@Column(name = "eating")
+	@Basic(optional = false)
 	private boolean eating;
 	
+	@Column(name = "eatingType")
 	private String eatingType;
 	
+	@Column(name = "eatingPeople")
 	private int eatingPeople;
 	
+	@Column(name = "drinking")
+	@Basic(optional = false)
 	private boolean drinking;
 	
+	@Column(name = "drinkingPeople")
 	private int drinkingPeople;
 	
 	@OneToOne(fetch = FetchType.LAZY)

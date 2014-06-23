@@ -38,7 +38,7 @@ public class Audio implements Serializable {
 	@PrimaryKeyJoinColumn
     private Event event;
     
-    protected void setEvent(Event event) {
+    public void setEvent(Event event) {
         this.event = event;
     }
 

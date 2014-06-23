@@ -31,10 +31,13 @@ public class Location implements Serializable {
 	@Column(name = "name")
 	private String name;
 	
+	@Column(name = "street")
 	private String street;
 	
+	@Column(name = "town")
 	private String town;
 	
+	@Column(name = "type")
 	private String type;
 
 	@OneToOne(fetch = FetchType.LAZY)

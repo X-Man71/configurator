@@ -42,12 +42,11 @@
 		<transition on="back" to="location" />
 		<transition on="proceed" to="security">
 			<evaluate expression="event.setCatering(flowScope.catering)" />
-
 		</transition>
 	</view-state>
 
 
-	<view-state id="security" view="security">
+	<view-state id="security" view="security" model="flowScope.security">
 		<on-entry>
 			<set name="flowScope.security"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Security()" />
@@ -59,19 +58,19 @@
 	</view-state>
 
 
-	<view-state id="light" view="light">
+	<view-state id="light" view="light" model="flowScope.light">
 		<on-entry>
 			<set name="flowScope.light"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Light()" />
 		</on-entry>
 		<transition on="back" to="security" />
-		<transition on="proceed" to="rigging">
+		<transition on="proceed" to="audio">
 			<evaluate expression="event.setLight(flowScope.light)" />
 		</transition>
 	</view-state>
 
 
-	<view-state id="audio" view="audio">
+	<view-state id="audio" view="audio" model="flowScope.audio">
 		<on-entry>
 			<set name="flowScope.audio"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Audio()" />
@@ -83,7 +82,7 @@
 	</view-state>
 
 
-	<view-state id="rigging" view="rigging">
+	<view-state id="rigging" view="rigging" model="flowScope.rigging">
 		<on-entry>
 			<set name="flowScope.rigging"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Rigging()" />
@@ -95,7 +94,7 @@
 	</view-state>
 
 
-	<view-state id="specialty" view="specialty">
+	<view-state id="specialty" view="specialty" model="flowScope.specialty">
 		<on-entry>
 			<set name="flowScope.specialty"
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Specialty()" />
@@ -112,10 +111,5 @@
 			<evaluate expression="eventService.save(event)" result="flowScope.event"></evaluate>
 		</on-entry>
 	</end-state>
-
-
-	<!-- <view-state id="summary" view="summary"> <transition on="back" to="specialty" 
-		/> <transition on="proceed" to="success"> <evaluate expression="eventService.save(flowScope.event)" 
-		/> </transition> </view-state> -->
 
 </flow>

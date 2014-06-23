@@ -17,7 +17,6 @@ public class EventService {
 	public void save(Event event) {
 		System.out.println("Event: "+event.getDate()+ " Audio "+event.getAudio().getName());
 		
-		
 		springDataEventRepository.save(event);
 	}
 	

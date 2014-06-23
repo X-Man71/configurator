@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 /**
  * Security entity.
@@ -18,7 +17,6 @@ import javax.persistence.Table;
  * @author Oliver Rövekamp
  */
 @Entity
-@Table(name = "securities")
 public class Security implements Serializable {
 
     /**
@@ -41,7 +39,7 @@ public class Security implements Serializable {
 	@Column(name = "numberOfProtectees" )
     private int numberOfProtectees;
 
-    protected void setEvent(Event event) {
+    public void setEvent(Event event) {
         this.event = event;
     }
 

@@ -3,13 +3,14 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
-import org.springframework.core.style.ToStringCreator;
 import org.springframework.format.annotation.DateTimeFormat;
 
 /**
@@ -18,45 +19,41 @@ import org.springframework.format.annotation.DateTimeFormat;
  * @author Oliver Rövekamp
  */
 @Entity
-@Table(name = "events")
-public class Event extends BaseEntity implements Serializable {
+public class Event implements Serializable {
 
 	private static final long serialVersionUID = -8602561360329162570L;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    protected Integer id;
+	
 	@Column(name = "name")
 	private String name;
 
 	@Column(name = "date")
-	//@NotEmpty
 	@DateTimeFormat(pattern = "dd.MM.YYYY")
 	private Date date;
 
-	@OneToOne
-	@JoinColumn(name="locationId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Location location;
 
-	@OneToOne
-	@JoinColumn(name="cateringId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Catering catering;
 
-	@OneToOne
-	@JoinColumn(name="audioId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Audio audio;
 
-	@OneToOne
-	@JoinColumn(name="lightId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Light light;
 
-	@OneToOne
-	@JoinColumn(name="riggingId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Rigging rigging;
 
-	@OneToOne
-	@JoinColumn(name="securityId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Security security;
 
-	@OneToOne
-	@JoinColumn(name="specialtyId")
+	@OneToOne(cascade = CascadeType.ALL)
 	private Specialty specialty;
 
 	public Event() {
@@ -67,6 +64,14 @@ public class Event extends BaseEntity implements Serializable {
 		this.security = new Security();
 		this.rigging = new Rigging();
 		this.specialty = new Specialty();
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public void setName(String name) {
@@ -149,11 +154,4 @@ public class Event extends BaseEntity implements Serializable {
 		this.specialty = specialty;
 	}
 
-	@Override
-	public String toString() {
-		return new ToStringCreator(this)
-
-		.append("id", this.getId()).append("new", this.isNew())
-				.append("date", this.date).toString();
-	}
 }

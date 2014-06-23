@@ -25,7 +25,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 /**
  * Models a {@link Vet Vet's} specialty (for example, dentistry).
@@ -33,7 +32,6 @@ import javax.persistence.Table;
  * @author Juergen Hoeller
  */
 @Entity
-@Table(name = "specialties")
 public class Specialty implements Serializable {
 	
 	/**
@@ -64,7 +62,7 @@ public class Specialty implements Serializable {
 		this.comment = comment;
 	}
 
-	protected void setEvent(Event event) {
+	public void setEvent(Event event) {
         this.event = event;
     }
 

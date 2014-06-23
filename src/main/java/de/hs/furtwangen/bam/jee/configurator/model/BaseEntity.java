@@ -28,10 +28,10 @@ import javax.persistence.MappedSuperclass;
  */
 @MappedSuperclass
 public class BaseEntity {
+	
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
-
 
     public void setId(Integer id) {
         this.id = id;

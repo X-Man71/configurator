@@ -30,6 +30,7 @@
 		</transition>
 		<transition on="proceed" to="catering">
 			<evaluate expression="event.setLocation(flowScope.location)" />
+			<evaluate expression="flowScope.location.setEvent(event)" />
 		</transition>
 	</view-state>
 
@@ -42,6 +43,7 @@
 		<transition on="back" to="location" />
 		<transition on="proceed" to="security">
 			<evaluate expression="event.setCatering(flowScope.catering)" />
+			<evaluate expression="flowScope.catering.setEvent(event)" />
 		</transition>
 	</view-state>
 
@@ -54,6 +56,7 @@
 		<transition on="back" to="location" />
 		<transition on="proceed" to="light">
 			<evaluate expression="event.setSecurity(flowScope.security)" />
+			<evaluate expression="flowScope.security.setEvent(event)" />
 		</transition>
 	</view-state>
 
@@ -66,6 +69,7 @@
 		<transition on="back" to="security" />
 		<transition on="proceed" to="audio">
 			<evaluate expression="event.setLight(flowScope.light)" />
+			<evaluate expression="flowScope.light.setEvent(event)" />
 		</transition>
 	</view-state>
 
@@ -78,6 +82,7 @@
 		<transition on="back" to="light" />
 		<transition on="proceed" to="rigging">
 			<evaluate expression="event.setAudio(flowScope.audio)" />
+			<evaluate expression="flowScope.audio.setEvent(event)" />
 		</transition>
 	</view-state>
 
@@ -90,6 +95,7 @@
 		<transition on="back" to="audio" />
 		<transition on="proceed" to="specialty">
 			<evaluate expression="event.setRigging(flowScope.rigging)" />
+			<evaluate expression="flowScope.rigging.setEvent(event)" />
 		</transition>
 	</view-state>
 
@@ -102,6 +108,7 @@
 		<transition on="back" to="rigging" />
 		<transition on="proceed" to="end-state">
 			<evaluate expression="event.setSpecialty(flowScope.specialty)" />
+			<evaluate expression="flowScope.specialty.setEvent(event)" />
 		</transition>
 	</view-state>
 

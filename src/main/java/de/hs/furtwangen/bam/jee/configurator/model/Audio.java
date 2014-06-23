@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 /**
  * Audio entity.
@@ -18,7 +16,6 @@ import javax.persistence.Table;
  * @author Oliver Rövekamp
  */
 @Entity
-@Table(name = "audios")
 public class Audio implements Serializable {
 
 	/**
@@ -28,18 +25,18 @@ public class Audio implements Serializable {
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "audioId")
+//	@Column(name = "audioId")
     private Integer id;
 	
 	@Column(name = "name")
 	private String name;
 	
-	@OneToOne(fetch = FetchType.LAZY)
+	@OneToOne
 	@PrimaryKeyJoinColumn
     private Event event;
     
     public void setEvent(Event event) {
-        this.event = event;
+    	this.event = event;
     }
 
     public Event getEvent() {

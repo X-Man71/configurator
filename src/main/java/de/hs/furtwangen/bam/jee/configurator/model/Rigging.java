@@ -10,7 +10,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 /**
  * Rigging entity.
@@ -18,7 +17,6 @@ import javax.persistence.Table;
  * @author Oliver Rövekamp
  */
 @Entity
-@Table(name = "riggings")
 public class Rigging implements Serializable {
 
     /**
@@ -46,7 +44,7 @@ public class Rigging implements Serializable {
 		this.name = name;
 	}
 
-	protected void setEvent(Event event) {
+	public void setEvent(Event event) {
         this.event = event;
     }
 

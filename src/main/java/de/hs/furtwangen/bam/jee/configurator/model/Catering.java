@@ -11,7 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
-import javax.persistence.Table;
 
 /**
  * Catering entity.
@@ -19,7 +18,6 @@ import javax.persistence.Table;
  * @author Oliver Rövekamp
  */
 @Entity
-@Table(name = "caterings")
 public class Catering implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -90,7 +88,7 @@ public class Catering implements Serializable {
 		this.drinkingPeople = drinkingPeople;
 	}
 
-	protected void setEvent(Event event) {
+	public void setEvent(Event event) {
         this.event = event;
     }
 

@@ -115,8 +115,10 @@
 
 	<view-state id="summary" view="summary">
 
-		<transition on="back" to="summary" />
+		<transition on="back" to="specialty" />
 		<transition on="proceed" to="checkout" />
+		<transition on="register" to="registerflow" />
+		
 
 	</view-state>
 
@@ -127,8 +129,19 @@
 			<evaluate expression="eventService.save(event,currentUser.name)"></evaluate>
 		</on-entry>
 
+		
+	</view-state>
+	
+	<view-state id="registerflow" view="registerflow" model="flowScope.user">
+		<on-entry>
+			<set name="flowScope.user"
+				value="new de.hs.furtwangen.bam.jee.configurator.model.User()" />
+		</on-entry>
+	
+		<transition on="proceed" to="checkout"> 
+			<evaluate expression="userService.saveCustomer(flowScope.user)" />
+		</transition>
 		<transition on="back" to="summary" />
-		<transition on="proceed" to="next" />
 
 	</view-state>
 

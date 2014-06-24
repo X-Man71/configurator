@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import de.hs.furtwangen.bam.jee.configurator.model.Authority;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.AuthorityService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
@@ -20,8 +19,6 @@ import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
 @Controller
 public class UserController {
-
-	private static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
 
 	@Autowired
 	private UserService userService;
@@ -43,15 +40,12 @@ public class UserController {
 	public String saveRegisteredUser(@ModelAttribute("user") User user,
 			Model model, BindingResult result) {
 		System.out.println(user.toString());
-		
-		  Authority authority = authorityService.findAuthority(ROLE_CUSTOMER);
-		  user.add(authority);
-		  
-		  
-		  userService.saveUser(user);
-		  model.addAttribute("message", USER_SAVED_MESSAGE);
-		 
 
+		
+
+		userService.saveCustomer(user);
+		model.addAttribute("message", USER_SAVED_MESSAGE);
+		
 		return "register";
 	}
 
@@ -71,23 +65,24 @@ public class UserController {
 					"Ihre Eingaben sind nicht identisch");
 			return "changePassword";
 		}
-		
-		if(!isPasswordEqualsOldPassword(password))
-		{
+
+		if (!isPasswordEqualsOldPassword(password)) {
 			result.rejectValue("password1", "password1.missing",
 					"Ihre Eingabe des bisheringe Passwords ist nicht korrekt");
 			return "changePassword";
 		}
-		 userService.updatePassword(password);
-		   redirectAttributes.addFlashAttribute("messagePasswordChanged", "Successfully added the new event");
+		userService.updatePassword(password);
+		redirectAttributes.addFlashAttribute("messagePasswordChanged",
+				"Successfully added the new event");
 
 		return "redirect:/user/changePassword";
 	}
-	
-	private boolean isPasswordEqualsOldPassword(Password password)
-	{
-		return new BCryptPasswordEncoder().matches(password.getPassword1(), userService.oldPasswordByUserName());		
-	}
 
+	private boolean isPasswordEqualsOldPassword(Password password) {
+		return new BCryptPasswordEncoder().matches(password.getPassword1(),
+				userService.oldPasswordByUserName());
+	}
 	
+
+
 }

@@ -1,6 +1,10 @@
 package de.hs.furtwangen.bam.jee.configurator.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -8,7 +12,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.hs.furtwangen.bam.jee.configurator.model.Authority;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataAuthorityRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
@@ -20,11 +26,21 @@ public class UserService
 	@Autowired
 	private SpringDataUserRepository springDataUserRepository;
 	
+	@Autowired
+	private SpringDataAuthorityRepository springDataAuthorityRepository;
+	
+	private static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
+	
 	@Transactional
-	public void saveUser(User user)
+	public void saveCustomer(User user)
 	{
+		Authority authority = springDataAuthorityRepository.findAuthorityByName(ROLE_CUSTOMER);
+		user.add(authority);
+		
+		loginUserAfterRegister(user,authority);
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		springDataUserRepository.save(user);
+		
 	}
 	
 	@Transactional
@@ -60,5 +76,15 @@ public class UserService
 	private String hashPassword(String rawPassword){
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.encode(rawPassword);
+	}
+	
+	private void loginUserAfterRegister(User user, Authority authority){
+		List<String> roles = new ArrayList<String>();
+		roles.add(authority.getName());
+
+		SecurityContextHolder.getContext().setAuthentication(
+				new UsernamePasswordAuthenticationToken(user.getUsername(),
+						user.getPassword(), CustomUserDetailService.getGrantedAuthorities(roles)));
+
 	}
 }

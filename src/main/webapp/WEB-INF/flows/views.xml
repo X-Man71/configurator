@@ -60,5 +60,10 @@
 		<put-attribute name="body" value="flows/success.html :: content"
 			type="thymeleaf" />
 	</definition>
+	
+	<definition name="registerflow" extends="standardLayout">
+		<put-attribute name="body" value="flows/registerflow.html :: content"
+			type="thymeleaf" />
+	</definition>
 
 </tiles-definitions>

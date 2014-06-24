@@ -1,3 +1,3 @@
-- bessere designs, insbesondere des flows
+- bessere designs, insbesondere des flows (JB)
 - entities kreativer gestalten (viele haben nur einen namen) -> dabei aber auch bitte column names spezifizieren!
 - persistence des event objektes inklusiver detached entities am ende des flows

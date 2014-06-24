@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:tiles="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org" lang="en">
+
+<head>
+
+</head>
+
+<body tiles:fragment="content">
+
+	<form action="#" th:action="${flowExecutionUrl}"
+		th:object="${location}" method="post">
+
+<h4 th:text="${currentUser}">CurrentUser</h4>
+	
+			<button class="btn btn-primary pull-right" type="submit" id="proceed"
+				name="_eventId_proceed">Weiter</button>
+			<button class="btn btn-primary pull-left" type="submit" id="back"
+				name="_eventId_back">Zur&uuml;ck</button>
+
+	</form>
+
+</body>
+</html>

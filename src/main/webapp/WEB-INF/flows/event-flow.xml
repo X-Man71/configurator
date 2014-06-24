@@ -106,17 +106,30 @@
 				value="new de.hs.furtwangen.bam.jee.configurator.model.Specialty()" />
 		</on-entry>
 		<transition on="back" to="rigging" />
-		<transition on="proceed" to="end-state">
+		<transition on="proceed" to="summary">
 			<evaluate expression="event.setSpecialty(flowScope.specialty)" />
 			<evaluate expression="flowScope.specialty.setEvent(event)" />
 		</transition>
 	</view-state>
 
 
-	<view-state id="end-state" view="summary">
+	<view-state id="summary" view="summary">
+
+		<transition on="back" to="summary" />
+		<transition on="proceed" to="checkout" />
+
+	</view-state>
+
+	<view-state id="checkout" view="checkout" model="currentUser">
+		<secured attributes="ROLE_CUSTOMER" />
+
 		<on-entry>
 			<evaluate expression="eventService.save(event)"></evaluate>
 		</on-entry>
+
+		<transition on="back" to="summary" />
+		<transition on="proceed" to="next" />
+
 	</view-state>
 
 </flow>

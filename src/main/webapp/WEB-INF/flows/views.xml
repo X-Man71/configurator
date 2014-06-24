@@ -50,6 +50,11 @@
 		<put-attribute name="body" value="flows/summary.html :: content"
 			type="thymeleaf" />
 	</definition>
+	
+	<definition name="checkout" extends="standardLayout">
+		<put-attribute name="body" value="flows/checkout.html :: content"
+			type="thymeleaf" />
+	</definition>
 
 	<definition name="success" extends="standardLayout">
 		<put-attribute name="body" value="flows/success.html :: content"

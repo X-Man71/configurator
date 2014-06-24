@@ -10,6 +10,8 @@
 
 <body tiles:fragment="content">
 
+<form action="#" th:action="${flowExecutionUrl}" method="post">
+
 	<h1>Ihr Event - Zusammenfassung</h1>
 	<h3 th:text="${event.name}">Example Event</h3>
 
@@ -63,7 +65,7 @@
 			<td th:text="${event.specialty.comment}">...</td>
 		</tr>
 	</table>
-
+</form>
 
 </body>
 </html>

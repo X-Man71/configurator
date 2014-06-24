@@ -113,10 +113,10 @@
 	</view-state>
 
 
-	<end-state id="end-state" view="summary">
+	<view-state id="end-state" view="summary">
 		<on-entry>
-			<evaluate expression="eventService.save(event)" result="flowScope.event"></evaluate>
+			<evaluate expression="eventService.save(event)"></evaluate>
 		</on-entry>
-	</end-state>
+	</view-state>
 
 </flow>

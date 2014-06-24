@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,6 +57,10 @@ public class Event implements Serializable {
 
 	@OneToOne(cascade = CascadeType.ALL)
 	private Specialty specialty;
+	
+	@ManyToOne
+    @JoinColumn(name = "user_userId")
+    private User user;
 
 	public Event() {
 		this.location = new Location();
@@ -152,6 +158,14 @@ public class Event implements Serializable {
 	public void setSpecialty(Specialty specialty) {
 		System.out.println("Specialty "+specialty.getComment()+" "+specialty.getSubject());
 		this.specialty = specialty;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

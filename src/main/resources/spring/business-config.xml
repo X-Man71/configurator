@@ -45,8 +45,14 @@
 				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
 					p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
 			</property>
-			<!-- gDickens: BOTH Persistence Unit and Packages to Scan are NOT compatible, 
-				persistenceUnit will win -->
+			<!-- Activate this for auto creation of Tables 
+			<property name="jpaProperties">
+				<props>
+
+					<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+				</props>
+			</property>
+			 -->
 			<property name="persistenceUnitName" value="EventConfigurator" />
 			<property name="packagesToScan" value="de.hs.furtwangen.bam.jee.configurator" />
 		</bean>

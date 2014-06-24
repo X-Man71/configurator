@@ -34,8 +34,15 @@ DROP TABLE caterings IF EXISTS;
 
 CREATE TABLE IF NOT EXISTS event (
   id         			INTEGER IDENTITY PRIMARY KEY,
-  name 		 			VARCHAR(30),
-  date 					DATE NOT NULL
+  name 		 			VARCHAR(60),
+  date 					datetime,
+  audio_id INTEGER NOT NULL,
+  catering_cateringId INTEGER NOT NULL,
+  light_lightId INTEGER NOT NULL,
+  location_locationId INTEGER NOT NULL,
+  rigging_riggingId INTEGER NOT NULL,
+  security_securityId INTEGER NOT NULL,
+  specialty_specialtyId INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS audio (
@@ -45,8 +52,8 @@ CREATE TABLE IF NOT EXISTS audio (
 
 CREATE TABLE IF NOT EXISTS catering (
 	cateringId			INTEGER IDENTITY PRIMARY KEY,
-	eating 				INTEGER NOT NULL,
-	eatingType			TINYINT,
+	eating 				TINYINT,
+	eatingType			VARCHAR(100),
 	eatingPeople		INTEGER NOT NULL,
 	drinking 			TINYINT,
 	drinkingPeople		INTEGER NOT NULL

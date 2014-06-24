@@ -42,7 +42,8 @@ CREATE TABLE IF NOT EXISTS event (
   location_locationId INTEGER NOT NULL,
   rigging_riggingId INTEGER NOT NULL,
   security_securityId INTEGER NOT NULL,
-  specialty_specialtyId INTEGER NOT NULL
+  specialty_specialtyId INTEGER NOT NULL,
+  user_userId INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS audio (

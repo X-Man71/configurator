@@ -2,13 +2,16 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity(name = "users")
 public class User extends BaseEntity {
@@ -49,6 +52,9 @@ public class User extends BaseEntity {
 	@ManyToMany(fetch = FetchType.EAGER)
 	@JoinTable(name = "user_authority", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "authority_id"))
 	private List<Authority> authoritiesList = new ArrayList<Authority>();
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    private Set<Event> events;
 
 	public String getFirstName() {
 		return firstName;
@@ -158,6 +164,14 @@ public class User extends BaseEntity {
 				+ ", gender=" + gender + ", residence=" + residence
 				+ ", street=" + street + ", zipCode=" + zipCode + ", phone="
 				+ phone + ", authoritiesList=" + authoritiesList + "]";
+	}
+
+	public Set<Event> getEvents() {
+		return events;
+	}
+
+	public void setEvents(Set<Event> events) {
+		this.events = events;
 	}
 	
 }

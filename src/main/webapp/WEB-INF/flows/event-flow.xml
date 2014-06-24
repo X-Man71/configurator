@@ -124,7 +124,7 @@
 		<secured attributes="ROLE_CUSTOMER" />
 
 		<on-entry>
-			<evaluate expression="eventService.save(event)"></evaluate>
+			<evaluate expression="eventService.save(event,currentUser.name)"></evaluate>
 		</on-entry>
 
 		<transition on="back" to="summary" />

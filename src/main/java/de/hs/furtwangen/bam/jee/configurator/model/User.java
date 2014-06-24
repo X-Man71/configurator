@@ -1,6 +1,8 @@
 package de.hs.furtwangen.bam.jee.configurator.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -14,7 +16,9 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity(name = "users")
-public class User extends BaseEntity {
+public class User extends BaseEntity implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 
 	@Column(name = "firstname")
 	private String firstName;
@@ -54,7 +58,7 @@ public class User extends BaseEntity {
 	private List<Authority> authoritiesList = new ArrayList<Authority>();
 	
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
-    private Set<Event> events;
+    private Set<Event> events = new HashSet<Event>();
 
 	public String getFirstName() {
 		return firstName;
@@ -172,6 +176,10 @@ public class User extends BaseEntity {
 
 	public void setEvents(Set<Event> events) {
 		this.events = events;
+	}
+	
+	public void add(Event event){
+		events.add(event);
 	}
 	
 }

@@ -36,22 +36,21 @@
 
 <body tiles:fragment="content">
 
-	<h3>&Uuml;bersicht der Veranstaltungen:</h3>
+	<h3>&Uuml;bersicht der Veranstaltungen</h3>
 
 	<br />
-	<br />
 
-	<table>
+	<table class="table table-striped">
 		<tr>
 			<th>NAME</th>
 			<th>DATE</th>
 			<th>LOCATION</th>
 			<th>CATERING</th>
 			<th>AUDIO</th>
-			<th>LIGHT</th>
+			<th>BELEUCHTUNG</th>
 			<th>RIGGING</th>
-			<th>SECURITY</th>
-			<th>SPECIALTY</th>
+			<th>SICHERHEIT</th>
+			<th>BESONDERES</th>
 			<th>KUNDE</th>
 			
 		</tr>
@@ -65,7 +64,7 @@
 			<td th:text="${event.rigging.name}">Rigging</td>
 			<td th:text="${event.security.name}">Security</td>
 			<td th:text="${event.specialty.subject}">Specialty</td>
-			<td th:text="${event.user.lastName}">Customer</td>
+			<td th:text="${event.user.username}">Customer</td>
 		</tr>
 	</table>
 

@@ -21,6 +21,11 @@ public class EventService {
 	private SpringDataUserRepository springDataUserRepository;
 	
 	@Transactional
+	public int getNumberOfEventsForUser() {
+		return 0;
+	}
+	
+	@Transactional
 	public void save(Event event, String username) {
 		System.out.println("Event: "+event.getDate()+ " Audio "+event.getAudio().getName());
 		

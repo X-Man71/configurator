@@ -1,7 +1,5 @@
 package de.hs.furtwangen.bam.jee.configurator.service;
 
-import org.springframework.transaction.annotation.Transactional;
-
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 

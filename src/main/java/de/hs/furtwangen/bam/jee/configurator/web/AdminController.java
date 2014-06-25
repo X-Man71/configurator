@@ -10,7 +10,6 @@ import de.hs.furtwangen.bam.jee.configurator.model.Event;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.IAdminService;
 import de.hs.furtwangen.bam.jee.configurator.service.IEventService;
-import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 /**
  * This Controller is responsible for providing all pages which are used by admin.
  * 

@@ -45,10 +45,27 @@
 		<tr>
 			<th>NAME</th>
 			<th>DATE</th>
+			<th>LOCATION</th>
+			<th>CATERING</th>
+			<th>AUDIO</th>
+			<th>LIGHT</th>
+			<th>RIGGING</th>
+			<th>SECURITY</th>
+			<th>SPECIALTY</th>
+			<th>KUNDE</th>
+			
 		</tr>
 		<tr th:each="event  : ${events}">
 			<td th:text="${event.name}">Name</td>
 			<td th:text="${event.date}">Date</td>
+			<td th:text="${event.location.name}">Location</td>
+			<td th:text="${event.catering.eatingType}">Catering</td>
+			<td th:text="${event.audio.name}">Audio</td>
+			<td th:text="${event.light.name}">Light</td>
+			<td th:text="${event.rigging.name}">Rigging</td>
+			<td th:text="${event.security.name}">Security</td>
+			<td th:text="${event.specialty.subject}">Specialty</td>
+			<td th:text="${event.user.lastName}">Customer</td>
 		</tr>
 	</table>
 

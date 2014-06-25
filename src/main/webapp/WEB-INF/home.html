@@ -42,10 +42,12 @@
 
 	<p>
 	<span sec:authorize="!isAuthenticated()">
-		<a href="/login">Login</a> |
+		<a href="/login">Login</a> | 
 	</span>
+	<span sec:authorize="!hasRole('ROLE_ADMIN')">
 	<a href="/flows">Veranstaltung konfigurieren</a>
-	<span sec:authorize="hasRole('ROLE_ADMIN')"> |
+	</span>
+	<span sec:authorize="hasRole('ROLE_ADMIN')">
 	<a href="/admin/orders">Auftr&auml;ge</a> |
 	<a href="/admin/customers">Kunden&uuml;bersicht</a>
 	</span>

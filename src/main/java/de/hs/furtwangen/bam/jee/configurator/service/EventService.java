@@ -21,9 +21,14 @@ public class EventService {
 	private SpringDataUserRepository springDataUserRepository;
 	
 	@Transactional
-	public int getNumberOfEventsForUser() {
+	public int getNumberOfEventsByUser() {
 		return 0;
 	}
+	
+//	@Transactional
+//	public List<Event> findEventsByUser(String username) {
+//		return springDataEventRepository.findEventsByUser(username);
+//	}
 	
 	@Transactional
 	public void save(Event event, String username) {

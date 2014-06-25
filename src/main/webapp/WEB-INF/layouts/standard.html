@@ -69,7 +69,7 @@ body {
 
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
-							<li><a href="/flows">Veranstaltung konfigurieren</a></li>
+							<li><a href="/flows" sec:authorize="!hasRole('ROLE_ADMIN')">Veranstaltung konfigurieren</a></li>
 							<li sec:authorize="hasRole('ROLE_ADMIN')"><a
 								href="/admin/orders">Auftr&auml;ge</a></li>
 							<li sec:authorize="hasRole('ROLE_ADMIN')"><a

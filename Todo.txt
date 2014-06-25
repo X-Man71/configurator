@@ -3,6 +3,7 @@
 - column name spezifikationen in entities entfernen und initDB.sql anpassen (OR)
 - admin: übersicht über kunden und aufträge (OR) + anzahl der events bei kundenübersicht
 - customer: übersicht über seine events (CH)
+- error page
 
 Probleme:
 - admin kann noch keinen eventflow durchlaufen + abschließen

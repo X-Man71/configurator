@@ -12,7 +12,7 @@ import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataEventReposi
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
 
 @Service
-public class EventService {
+public class EventService implements IEventService {
 
 	@Autowired
 	private SpringDataEventRepository springDataEventRepository;
@@ -20,16 +20,13 @@ public class EventService {
 	@Autowired
 	private SpringDataUserRepository springDataUserRepository;
 	
+	@Override
 	@Transactional
 	public int getNumberOfEventsByUser() {
 		return 0;
 	}
 	
-//	@Transactional
-//	public List<Event> findEventsByUser(String username) {
-//		return springDataEventRepository.findEventsByUser(username);
-//	}
-	
+	@Override
 	@Transactional
 	public void save(Event event, String username) {
 		System.out.println("Event: "+event.getDate()+ " Audio "+event.getAudio().getName());
@@ -43,11 +40,13 @@ public class EventService {
 		springDataEventRepository.save(event);
 	}
 	
+	@Override
 	@Transactional
 	public void find(String name) {
 		springDataEventRepository.findByName(name);
 	}
 
+	@Override
 	@Transactional
 	public List<Event> findAll() {
 		return springDataEventRepository.findAll();

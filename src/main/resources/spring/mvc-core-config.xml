@@ -26,21 +26,24 @@
 	<mvc:resources mapping="/webjars/**"
 		location="classpath:/META-INF/resources/webjars/" />
 
-	<!-- <bean
+	<bean
 		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
 
 		<property name="defaultErrorView" value="exception" />
 
 		<property name="warnLogCategory" value="warn" />
-		
+
 		<property name="excludedExceptions">
 			<list>
-				<value>org.springframework.security.access.AccessDeniedException</value>
-				<value>org.springframework.webflow.execution.FlowExecutionException</value>
+				<value>org.springframework.webflow.execution.FlowExecutionException
+				</value>
+				<value>org.springframework.security.access.AccessDeniedException
+				</value>
+
 			</list>
 		</property>
 
-	</bean> -->
+	</bean>
 
 
 </beans>

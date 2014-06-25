@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.service.AuthorityService;
-import de.hs.furtwangen.bam.jee.configurator.service.UserService;
+import de.hs.furtwangen.bam.jee.configurator.service.IAuthorityService;
+import de.hs.furtwangen.bam.jee.configurator.service.IUserService;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
 /**
@@ -27,10 +27,10 @@ import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	private static final String USER_SAVED_MESSAGE = "Benutzer angelegt";
 

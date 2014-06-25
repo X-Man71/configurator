@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Event;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.service.EventService;
+import de.hs.furtwangen.bam.jee.configurator.service.IAdminService;
+import de.hs.furtwangen.bam.jee.configurator.service.IEventService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 /**
  * This Controller is responsible for providing all pages which are used by admin.
@@ -19,10 +20,10 @@ import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 public class AdminController {
 
 	@Autowired
-	private EventService eventService;
+	private IEventService eventService;
 
 	@Autowired
-	private UserService userService;
+	private IAdminService adminService;
 
 	/**
 	 * Adds all {@link User} to the {@link Model}  for the View
@@ -32,7 +33,7 @@ public class AdminController {
 	 */
 	@RequestMapping(value = "/admin/customers", method = RequestMethod.GET)
 	public String adminCustomers(Model model) {
-		model.addAttribute("users", userService.findAll());
+		model.addAttribute("users", adminService.findAll());
 
 		System.out.println("events size: " + eventService.findAll().size());
 

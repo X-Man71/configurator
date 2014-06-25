@@ -20,7 +20,7 @@ import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
 @Service
 @Transactional(readOnly = true)
-public class UserService {
+public class UserService implements IUserService {
 	@Autowired
 	private SpringDataUserRepository springDataUserRepository;
 
@@ -29,11 +29,7 @@ public class UserService {
 
 	private static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
 
-	@Transactional
-	public List<User> findAll() {
-		return springDataUserRepository.findAll();
-	}
-	
+	@Override
 	@Transactional
 	public void saveCustomer(User user) {
 		Authority authority = springDataAuthorityRepository
@@ -46,16 +42,21 @@ public class UserService {
 
 	}
 
+	@Override
 	@Transactional
 	public void deleteUser(User user) {
 		springDataUserRepository.delete(user);
 	}
 
+	
+	@Override
 	@Transactional
 	public void updateUser(User user) {
 		springDataUserRepository.save(user);
 	}
 
+
+	@Override
 	@Transactional
 	public void updatePassword(Password password) {
 		Authentication auth = SecurityContextHolder.getContext()
@@ -66,6 +67,8 @@ public class UserService {
 		springDataUserRepository.save(user);
 	}
 
+
+	@Override
 	@Transactional
 	public String oldPasswordByUserName() {
 		Authentication auth = SecurityContextHolder.getContext()

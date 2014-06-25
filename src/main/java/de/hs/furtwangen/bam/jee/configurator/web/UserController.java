@@ -17,6 +17,12 @@ import de.hs.furtwangen.bam.jee.configurator.service.AuthorityService;
 import de.hs.furtwangen.bam.jee.configurator.service.UserService;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
+/**
+ * This Controller is responsible for providing all pages which are used by
+ * customer and admin.
+ * 
+ * @author christianhenle
+ */
 @Controller
 public class UserController {
 
@@ -41,11 +47,9 @@ public class UserController {
 			Model model, BindingResult result) {
 		System.out.println(user.toString());
 
-		
-
 		userService.saveCustomer(user);
 		model.addAttribute("message", USER_SAVED_MESSAGE);
-		
+
 		return "register";
 	}
 
@@ -82,7 +86,5 @@ public class UserController {
 		return new BCryptPasswordEncoder().matches(password.getPassword1(),
 				userService.oldPasswordByUserName());
 	}
-	
-
 
 }

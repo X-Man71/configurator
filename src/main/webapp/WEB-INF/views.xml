@@ -19,5 +19,10 @@
 		<put-attribute name="body" value="/register.html :: content"
 			type="thymeleaf" />
 	</definition>
+	
+	<definition name="exception" extends="standardLayout">
+		<put-attribute name="body" value="/exception.html :: content"
+			type="thymeleaf" />
+	</definition>
 
 </tiles-definitions>

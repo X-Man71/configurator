@@ -5,8 +5,8 @@
 	
 <tiles-definitions>
 
-	<definition name="/admin/orders" extends="standardLayout">
-		<put-attribute name="body" value="/admin/orders.html :: content" type="thymeleaf"/>
+	<definition name="/admin/events" extends="standardLayout">
+		<put-attribute name="body" value="/admin/events.html :: content" type="thymeleaf"/>
 	</definition>
 	
 	

@@ -5,6 +5,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+/**
+ * This Controller is responsible for providing all pages which are used by customer.
+ * 
+ * @author christianhenle
+ */
 @Controller
 public class CustomerController {
 	

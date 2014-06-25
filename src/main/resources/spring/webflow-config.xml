@@ -36,9 +36,6 @@
 	<!-- Bootstraps JSR-303 validation and exposes it through Spring's Validator interface -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 	
-	
-	
 
-	
 
 </beans>

@@ -41,8 +41,16 @@
 	<br />
 	<br />
 
-
-	</p>
+	<table>
+		<tr>
+			<th>NAME</th>
+			<th>DATE</th>
+		</tr>
+		<tr th:each="event  : ${events}">
+			<td th:text="${event.name}">Name</td>
+			<td th:text="${event.date}">Date</td>
+		</tr>
+	</table>
 
 </body>
 </html>

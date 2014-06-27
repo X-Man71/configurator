@@ -46,6 +46,10 @@ public class CustomerController {
 		
 		System.out.println(loanRequest.toString());
 		
+		String ssn = userService.getUserCurrentUser().getSsn();
+		
+		loanRequest.setSsn(ssn);
+		
 		new RequestService().sendRequest(loanRequest);
 		return "redirect:/customer/loan";
 	}

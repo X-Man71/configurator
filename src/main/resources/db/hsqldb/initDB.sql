@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS users (
      username 		VARCHAR(10) NOT NULL,  
      password 		VARCHAR(60) NOT NULL,
      email 			VARCHAR(60) NOT NULL,
+     ssn 			VARCHAR(60) NOT NULL,
 	 consumerRate INTEGER,
 	 consumerRateValideUntil DATE
 );  

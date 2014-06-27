@@ -7,7 +7,8 @@ CREATE TABLE IF NOT EXISTS users (
      email 			VARCHAR(60) NOT NULL,
 	 consumerRateNumber INTEGER(4),
 	 consumerRateLetter VARCHAR(5), 
-	 consumerRateValideUntil DATE
+	 consumerRateValideUntil DATE,
+	 ssn 			VARCHAR(60) NOT NULL
 ) engine=InnoDB; 
 
 CREATE TABLE IF NOT EXISTS user_authority (

@@ -40,8 +40,6 @@ public class Loan {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	
-
 	public String getRequestId() {
 		return requestId;
 	}

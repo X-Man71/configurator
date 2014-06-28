@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Christian Henle" />
+
+<title>Business Integration - Portal</title>
+
+<style type="text/css">
+body {
+padding-top: 70px;
+padding-bottom: 30px;
+}
+.theme-dropdown .dropdown-menu {
+position: static;
+display: block;
+margin-bottom: 20px;
+}
+.theme-showcase > p > .btn {
+margin: 5px 0;
+} 
+</style>
+<link href="/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+</link>
+
+
+</head>
+<body>
+<div th:include="layout :: navbar"></div>
+	<div class="container">
+		<table class="table table-bordered">
+			<thead>
+				<tr>
+					<th>RequestId</th>
+					<th>Leih-Betrag</th>
+					<th>Laufzeit</th>
+					<th>Zinssatz</th>
+					<th>K. Bew</th>
+					<th>erstellt</th>
+					<th>löschen</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="bank : ${banks}">
+					<td th:text="${bank.bankName}">...</td>
+					<td th:text="${bank.minTerm}">...</td>
+					<td th:text="${bank.maxTerm}">...</td>
+					<td th:text="${bank.minAmount}">...</td>
+					<td th:text="${bank.maxAmount}">...</td>
+					<td th:text="${bank.minConsumerRate}">...</td>
+					<td th:text="${bank.maxConsumerRate}">...</td>
+					<td th:text="${bank.bankType}">...</td>
+					<td th:text="${bank.jmsChannel}">...</td>
+					<td><form action="/admin/delete/bank" method="POST">
+							<input id="id" name="id" type="hidden"
+								th:value="${bank.id}" /> <input type="submit"
+								value="Entfernen" />
+						</form></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="/resources/js/bootstrap.min.js" th:href="@{/resources/js/bootstrap.min.js}"></script>
+
+</body>
+</html>

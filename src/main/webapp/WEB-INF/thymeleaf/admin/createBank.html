@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="description" content="" />
+<meta name="author" content="Christian Henle" />
+
+<title>Business Integration - Portal</title>
+<script type="text/javascript" src="/resources/js/bootstrap.min.js"
+	th:src="@{/resources/js/bootstrap.min.js}"></script>
+<script type="text/javascript" src="/resources/js/bootstrap.js"
+	th:src="@{/resources/js/bootstrap.js}"></script>
+<style type="text/css">
+body {
+padding-top: 70px;
+padding-bottom: 30px;
+}
+.theme-dropdown .dropdown-menu {
+position: static;
+display: block;
+margin-bottom: 20px;
+}
+.theme-showcase > p > .btn {
+margin: 5px 0;
+} 
+</style>
+<link href="/resources/css/bootstrap.min.css"
+	rel="stylesheet">
+</link>
+<link href="/resources/css/bootstrap-theme.css.map"
+	rel="stylesheet">
+</link>
+
+</head>
+<body>
+<body>
+
+	<div th:include="layout :: navbar"></div>
+
+
+	<div class="container">
+		<h2 class="form-register-heading">Bitte geben Sie hier Ihre Daten
+			ein.</h2>
+		<form action="/admin/createBank" method="post"
+			class="form-signin" role="form" th:object="${bank}">
+
+	<label for="Bank Name">Bank Name</label> 
+	<input type="text" th:field="*{bankName}" class="form-control" placeholder="Bank Name"/>
+		
+	<label for="Min Term">Min Term</label> 
+	<input type="text" th:field="*{minTerm}" class="form-control" placeholder="Min Term"/>
+	
+	<label for="Max Term">Max Term</label> 
+	<input type="text" th:field="*{maxTerm}" class="form-control" placeholder="Max Term"/>
+			
+	<label for="Min Amount">Min Amount</label> 
+	<input type="text" th:field="*{minAmount}" class="form-control" placeholder="Min Term"/>
+	
+	<label for="Max Amount">Max Amount</label> 
+	<input type="text" th:field="*{maxAmount}" class="form-control" placeholder="Max Term"/>
+		
+	<label for="Min ConsumerRate">Min ConsumerRate</label> 
+	<input type="text" th:field="*{minConsumerRate}" class="form-control" placeholder="Min ConsumerRate"/>
+		
+	<label for="Max ConsumerRate">Max ConsumerRate</label> 
+	<input type="text" th:field="*{maxConsumerRate}" class="form-control" placeholder="Max ConsumerRate"/>
+	
+	<label for="Bank Type">Bank Type</label> 
+	<input type="text" th:field="*{bankType}" class="form-control" placeholder="Bank Type"/>
+					
+
+	<label for="JMS Channel">JMS Channel</label> 
+	<input type="text" th:field="*{jmsChannel}" class="form-control" placeholder="JMS Channel"/>
+							
+					
+
+			<button class="btn btn-lg btn-primary btn-block" type="submit">Bank anlegen</button>
+		</form>
+	</div>
+
+</body>
+</body>
+</html>

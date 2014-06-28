@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org">
+	xmlns:th="http://www.thymeleaf.org"
+		xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">>
 
 <body>
 
@@ -21,10 +21,10 @@
 					<ul class="nav navbar-nav">
 
 						<li class="active"><a href="/customer">Startseite</a></li>
-						<li sec:authorize="hasRole('ROLE_CUSTOMER)"><a href="/customer/request">Neue Anfrage</a></li>
-						<li sec:authorize="hasRole('ROLE_CUSTOMER')"><a href="/customer/loan">Kreditanfragen</a></li>
-						<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/createBank">Neue Bank</a></li>
-						<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/banks">Banken</a></li>
+						<li><a href="/customer/request">Neue Anfrage</a></li>
+						<li><a href="/customer/loan">Kreditanfragen</a></li>
+						<li><a href="/admin/createBank">Neue Bank</a></li>
+						<li><a href="/admin/banks">Banken</a></li>
 					</ul>
 					<ul class="nav navbar-nav navbar-right">
 						<li class="dropdown"><a href="#" class="dropdown-toggle"

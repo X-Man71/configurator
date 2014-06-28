@@ -47,7 +47,7 @@ public class CustomerController {
 		System.out.println(loanRequest.toString());
 		
 		String ssn = userService.getUserCurrentUser().getSsn();
-		
+		loanRequest.setUserId(userService.getUserIdOfCurrentUser());
 		loanRequest.setSsn(ssn);
 		
 		new RequestService().sendRequest(loanRequest);

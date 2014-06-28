@@ -31,11 +31,7 @@ body {
 		<form action="/customer/request" method="post"
 			class="form-signin" role="form" th:object="${loanRequest}">
 
-			<label for="RequestId">RequestId</label> <input type="text"
-				th:field="*{requestId}" class="form-control" placeholder="RequestId"
-				readonly="readonly" /> <label for="UserId">UserId</label> <input
-				type="text" th:field="*{userId}" class="form-control"
-				placeholder="UserId" readonly="readonly" /> <label
+			 <label
 				for="Kreditbetrag">Kreditbetrag</label> <input type="text"
 				th:field="*{amount}" class="form-control" size="45"
 				placeholder="Kreditbetrag" /> <label for="Laufzeit">Laufzeit</label>

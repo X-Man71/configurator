@@ -1,6 +1,6 @@
 INSERT INTO users VALUES (1,'Christian','Henle','christian','$2a$10$WA/gJRl61iVg6MbXSmvRNO3CqQm0gjSd5kllBhfca/2TaeUh4XiAy','christian@test.de',0,'x','2014-05-01','testA');
 INSERT INTO users VALUES (2,'Oliver','Roevekamp','oliver','$2a$10$8bokICydBJXRRvKLBJbNFe85t3gMyKkcwHs1Jy79NNTmbFXgN3CMW','asdf@asdf.de',0,'x','2014-05-01','testA');
-INSERT INTO users VALUES (3,'admin','admin','admin','$2a$10$WA/gJRl61iVg6MbXSmvRNO3CqQm0gjSd5kllBhfca/2TaeUh4XiAy','christian@test.de',0,'x','2014-05-01','testA');
+INSERT INTO users VALUES (3,'admin','admin','admin','$2a$10$7NuXzJp3F.gYrdNcync0mOZomPHT8b3RpQQMSifHq8Kwu98.ab8fa','admin@test.de',0,'x','2014-05-01','testA');
 
 INSERT INTO authority VALUES (1,'ROLE_CUSTOMER');
 INSERT INTO authority VALUES (2,'ROLE_ADMIN');

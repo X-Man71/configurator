@@ -19,8 +19,7 @@
 			<h4 th:text="${event.name}">Example Event</h4>
 			<span>am </span> <span th:text="${event.date}">Beispieldatum</span>
 
-			<h4>Bitten geben Sie uns Informationen zur Verk&ouml;stigung, an dem die
-				Veranstaltung stattfinden soll:</h4>
+			<h4>Bitten geben Sie uns Informationen zum Catering:</h4>
 
 			<br />
 
@@ -34,20 +33,16 @@
 				</span>
 			</div>
 			</p>
-
-
 			<p>
 				Welche Art von Verk&ouml;stigung w&uuml;nschen Sie: <input
 					type="text" class="form-control" placeholder="Bsp. Buffet"
 					th:field="*{eatingType}" />
 			</p>
-
 			<p>
 				Nennen Sie uns die Anzahl an Personen die etwas essen m&ouml;chten:
 				<input type="text" class="form-control" placeholder="Bsp. 200"
 					th:field="*{eatingPeople}" />
-			</p>
-
+			</p><br />
 			<p>
 			<div class="input-group">
 				<span class="input-group-addon"> <input type="radio"
@@ -58,12 +53,11 @@
 				</span>
 			</div>
 			</p>
-
 			<p>
 				Nennen Sie uns die Anzahl an Personen die etwas trinken
 				m&ouml;chten: <input type="text" class="form-control"
 					placeholder="Bsp. 200" th:field="*{drinkingPeople}" />
-			</p>
+			</p><br />
 
 			<button class="btn btn-primary pull-right" type="submit" id="proceed"
 				name="_eventId_proceed">Weiter</button>
@@ -71,9 +65,6 @@
 				name="_eventId_back">Zur&uuml;ck</button>
 
 		</div>
-		<div class="col-lg-6">Zusammenfassung:</div>
-
-
 	</form>
 
 

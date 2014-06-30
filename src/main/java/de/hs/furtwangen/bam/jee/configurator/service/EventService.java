@@ -29,7 +29,7 @@ public class EventService implements IEventService {
 	@Override
 	@Transactional
 	public void save(Event event, String username) {
-		System.out.println("Event: "+event.getDate()+ " Audio "+event.getAudio().getName());
+		System.out.println("Event: "+event.getDate()+ " Audio "+event.getAudio().getAudioType());
 		
 		System.out.println("username "+username);
 		

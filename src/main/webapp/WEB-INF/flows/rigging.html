@@ -22,11 +22,27 @@
 
 			<br />
 
+			<div class="input-group">
+				<span class="input-group-addon"> 
+					<input type="radio" id="rigging" th:field="*{riggingNeeded}" value="true" /> 
+					<label	for="rigging">Rigging</label> 
+					<input type="radio"	id="kein rigging" th:field="*{riggingNeeded}" value="false" /> 
+					<label for="kein rigging">keine Rigging</label>
+				</span>
+			</div>
 			<p>
-				Name eines bevorzugten Aufhaengungsdienstes: <input type="text"
-					class="form-control" placeholder="Bsp. Sample Rigging Service"
-					th:field="*{name}" />
-			</p>
+	          <div>
+	            <label for="type">Auswahl der Befestigungsm&ouml;glichkeiten</label>
+	            <select th:field="*{riggingType}" class="form-control">
+	              <option th:each="type : *{riggingTypeSelection}" th:value="${type}" th:text="${type}" >Wireframe</option>
+	            </select>
+	          </div>
+	      </p>
+	          <p>
+				B&uuml;hnengr&ouml;sse: (BxHxL in Meter) <input type="text" class="form-control"
+					placeholder="Bsp. 6x4x4" th:field="*{stageSize}" />
+				</p><br />
+	        
 
 			<button class="btn btn-primary pull-right" type="submit" id="proceed"
 				name="_eventId_proceed">Weiter</button>

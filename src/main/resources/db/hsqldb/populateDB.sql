@@ -11,10 +11,10 @@ INSERT INTO user_authority VALUES (4,3);
 
 INSERT INTO location VALUES(1, 'sample location', 'sample street', 'sample town', 'sample type');
 INSERT INTO catering VALUES(1, 1, 'sample eating type', 12, 1, 12);
-INSERT INTO audio VALUES(1, 'sample audio');
-INSERT INTO light VALUES(1, 'sample light', 12);
-INSERT INTO rigging VALUES(1, 'sample rigging');
-INSERT INTO security VALUES(1, 'sample security', 12);
+INSERT INTO audio VALUES(1, 1, 'sample audio', 12, 12);
+INSERT INTO light VALUES(1, 1, 'sample lighting', 12, 12);
+INSERT INTO rigging VALUES(1, 1, 'sample riggingtype', 'sample stageSize');
+INSERT INTO security VALUES(1, 1, 12);
 INSERT INTO specialty VALUES(1, 'sample subject', 'sample comment');
 
 INSERT INTO event VALUES (1, 'sample event', '9999-12-31 23:59:59', 1, 1, 1, 1, 1, 1, 1, 2);

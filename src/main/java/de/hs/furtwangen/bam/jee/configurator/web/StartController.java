@@ -13,10 +13,4 @@ public class StartController {
 		return "home";
 	}
 
-	/*@RequestMapping
-	public String noPageAvailable() {
-		return "home";
-
-	}*/
-
 }

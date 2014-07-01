@@ -3,10 +3,11 @@ package de.hs.furtwangen.bam.jee.configurator.service;
 import java.util.List;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Event;
+import de.hs.furtwangen.bam.jee.configurator.model.User;
 
 public interface IEventService {
 
-	public abstract int getNumberOfEventsByUser();
+	public abstract List<Event> findEventsByUser();
 
 	public abstract void save(Event event, String username);
 

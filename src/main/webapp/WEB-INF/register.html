@@ -2,30 +2,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:tiles="http://www.thymeleaf.org"
-	xmlns:sec="http://www.thymeleaf.org" lang="en">
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="description" content="" />
-<meta name="author" content="Simplicity Itself" />
+<head th:replace="layouts/standard :: headTag">
 
-<title>Configurator Registration</title>
-
-<link href="/resources/css/bootstrap.min.css" rel="stylesheet"
-	media="all" th:href="@{/resources/css/bootstrap.min.css}">
-</link>
-
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"
-	th:src="@{https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js}"></script>
-
-<script type="text/javascript" src="/resources/js/bootstrap.min.js"
-	th:src="@{/resources/js/bootstrap.min.js}"></script>
-<script type="text/javascript" src="/resources/js/bootstrap.js"
-	th:src="@{/resources/js/bootstrap.js}"></script>
 </head>
 
-<body tiles:fragment="content">
+<body>
+
+   <div th:replace="layouts/standard :: navbar" th:remove="tag">
+   </div>
 	<div class="container">
 		<h2 class="form-register-heading">Bitte geben Sie hier Ihre Daten ein.</h2>
 		<form action="/user/new" method="post" class="form-signin" role="form" th:object="${user}">

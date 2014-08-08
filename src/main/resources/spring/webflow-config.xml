@@ -10,23 +10,36 @@
 
    	<!-- Executes flows: the entry point into the Spring Web Flow system -->
 	<webflow:flow-executor id="flowExecutor">
-		<webflow:flow-execution-listeners>
-			<webflow:listener ref="securityFlowExecutionListener" />
-		</webflow:flow-execution-listeners>
 	</webflow:flow-executor>
 	 
 	<!-- The registry of executable flow definitions -->
-	<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" base-path="/WEB-INF">
+	<webflow:flow-registry id="flowRegistry" flow-builder-services="flowBuilderServices" 
+	base-path="/WEB-INF">
 		<webflow:flow-location-pattern value="/flows/*-flow.xml" />
 	</webflow:flow-registry>
 
 	<!-- Plugs in a custom creator for Web Flow views -->
 	<webflow:flow-builder-services id="flowBuilderServices" view-factory-creator="mvcViewFactoryCreator" 
 		development="true" />
+		
+		
+		
+		
+		<!--  <bean  id="thymeleafViewResolver" class="org.thymeleaf.spring4.view.AjaxThymeleafViewResolver">
+		<property name="viewClass"
+			value="org.thymeleaf.spring4.view.FlowAjaxThymeleafView" />			
+		<property name="templateEngine" ref="templateEngine" />
+	</bean>-->
+	
+	<bean id="thymeleafViewResolver" class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
+  <property name="templateEngine" ref="templateEngine" />
+  <property name="order" value="1" />
+  <property name="viewNames" value="*.html,*.xhtml" />
+</bean>
 
 	<!-- Configures Web Flow to use Tiles to create views for rendering; Tiles allows for applying consistent layouts to your views -->
 	<bean id="mvcViewFactoryCreator" class="org.springframework.webflow.mvc.builder.MvcViewFactoryCreator"> 
-		<property name="viewResolvers" ref="tilesViewResolver"/>
+		<property name="viewResolvers" ref="thymeleafViewResolver"/>
 		<property name="useSpringBeanBinding" value="true" />
 	</bean>
 	
@@ -36,7 +49,15 @@
 	<!-- Bootstraps JSR-303 validation and exposes it through Spring's Validator interface -->
 	<bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean"/>
 	
-	
+	<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerMapping">
+			<property name="order" value="-1" />
+			<property name="flowRegistry" ref="flowRegistry" />
+		</bean>
+
+		<!-- Dispatches requests mapped to flows to FlowHandler implementations -->
+		<bean class="org.springframework.webflow.mvc.servlet.FlowHandlerAdapter">
+			<property name="flowExecutor" ref="flowExecutor" />
+		</bean>
 	
 
 	

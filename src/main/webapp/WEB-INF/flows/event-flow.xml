@@ -14,7 +14,7 @@
 	<!-- ID Bezeichnet den Zustand innerhalb des Flows -->
 	<!-- View Attribut definiert die View die dem Benutzer angezeigt werden 
 		soll. Bsp intro liefert dem Benutzer intro.html zurück -->
-	<view-state id="eventName" view="eventName" model="event">
+	<view-state id="eventName" view="/flows/eventName" model="event">
 		<transition on="proceed" to="location">
 		</transition>
 	</view-state>

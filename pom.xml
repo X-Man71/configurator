@@ -69,11 +69,10 @@
 
 
 		<!-- Web dependencies -->
-		<webjars-bootstrap.version>2.3.0</webjars-bootstrap.version>
-		<webjars-jquery-ui.version>1.9.2</webjars-jquery-ui.version>
-		<webjars-jquery.version>1.9.0</webjars-jquery.version>
-		<dandelion.datatables.version>0.8.7</dandelion.datatables.version>
-
+		<webjars-bootstrap.version>3.2.0</webjars-bootstrap.version>
+		<webjars-jquery.version>1.11.1</webjars-jquery.version>
+		
+		
 		<mysql.version>5.1.22</mysql.version>
 
 	</properties>
@@ -109,11 +108,6 @@
 			<version>2.1.2.RELEASE</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-tiles2-spring4</artifactId>
-			<version>2.1.1.RELEASE</version>
-		</dependency>
 
 
 		<dependency>
@@ -355,11 +349,6 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
 			<version>${webjars-bootstrap.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
-			<artifactId>jquery-ui</artifactId>
-			<version>${webjars-jquery-ui.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>

@@ -13,18 +13,24 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.service.AuthorityService;
-import de.hs.furtwangen.bam.jee.configurator.service.UserService;
+import de.hs.furtwangen.bam.jee.configurator.service.IAuthorityService;
+import de.hs.furtwangen.bam.jee.configurator.service.IUserService;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
+/**
+ * This Controller is responsible for providing all pages which are used by
+ * customer and admin.
+ * 
+ * @author christianhenle
+ */
 @Controller
 public class UserController {
 
 	@Autowired
-	private UserService userService;
+	private IUserService userService;
 
 	@Autowired
-	private AuthorityService authorityService;
+	private IAuthorityService authorityService;
 
 	private static final String USER_SAVED_MESSAGE = "Benutzer angelegt";
 
@@ -41,11 +47,9 @@ public class UserController {
 			Model model, BindingResult result) {
 		System.out.println(user.toString());
 
-		
-
 		userService.saveCustomer(user);
 		model.addAttribute("message", USER_SAVED_MESSAGE);
-		
+
 		return "register";
 	}
 
@@ -82,7 +86,5 @@ public class UserController {
 		return new BCryptPasswordEncoder().matches(password.getPassword1(),
 				userService.oldPasswordByUserName());
 	}
-	
-
 
 }

@@ -28,9 +28,9 @@ CREATE TABLE IF NOT EXISTS authority (
 );
 
 
-DROP TABLE events IF EXISTS;
-DROP TABLE audios IF EXISTS;
-DROP TABLE caterings IF EXISTS;
+DROP TABLE event IF EXISTS;
+DROP TABLE audio IF EXISTS;
+DROP TABLE catering IF EXISTS;
 
 CREATE TABLE IF NOT EXISTS event (
   id         			INTEGER IDENTITY PRIMARY KEY,
@@ -47,8 +47,11 @@ CREATE TABLE IF NOT EXISTS event (
 );
 
 CREATE TABLE IF NOT EXISTS audio (
-	id				INTEGER IDENTITY PRIMARY KEY,
-	name				VARCHAR (100) NOT NULL
+	id					INTEGER IDENTITY PRIMARY KEY,
+	audioNeeded			TINYINT,
+	audioType			VARCHAR(100),
+	roomSize			INTEGER NOT NULL,
+	numberGuests		INTEGER NOT NULL	
 );
 
 CREATE TABLE IF NOT EXISTS catering (
@@ -62,8 +65,10 @@ CREATE TABLE IF NOT EXISTS catering (
 
 CREATE TABLE IF NOT EXISTS light (
 	lightId				INTEGER IDENTITY PRIMARY KEY,
-	name 				VARCHAR(100),
-	numberOfLights		INTEGER NOT NULL
+	lightsNeeded 		TINYINT,
+	lightType			VARCHAR(100),
+	stageSize			INTEGER NOT NULL,
+	roomSize			INTEGER NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS location (
@@ -76,12 +81,15 @@ CREATE TABLE IF NOT EXISTS location (
 
 CREATE TABLE IF NOT EXISTS rigging (
 	riggingId			INTEGER IDENTITY PRIMARY KEY,
-	name 				VARCHAR(100)
+	riggingNeeded		TINYINT,
+	riggingType			VARCHAR(100),
+	stageSize			VARCHAR(100)
+	
 );
 
 CREATE TABLE IF NOT EXISTS security (
 	securityId			INTEGER IDENTITY PRIMARY KEY,
-	name 				VARCHAR(100),
+	securityNeeded 		TINYINT,
 	numberOfProtectees 	INTEGER
 );
 

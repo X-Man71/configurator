@@ -4,27 +4,36 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-@Controller
-public class SecurityController 
-{	
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
-	public String getProductsAndOrderType(Model model) {
 
-		
+/**
+ * This Controller is responsible for mapping login Pages
+ * 
+ * @author christianhenle
+ */
+@Controller
+public class SecurityController {
+	/**
+	 * Mappes login Page
+	 * 
+	 * @param model
+	 * @return html page login
+	 */
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login(Model model) {
 		return "login";
 	}
-	
-	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index(Model model) {
 
-		
-		return "index";
+	/**
+	 * Mappes the same Page as Login Method. In addition this Method add
+	 * {@link Model} which shows the User that the username and password were
+	 * incorrect.
+	 * 
+	 * @param model
+	 * @return html page login
+	 */
+	@RequestMapping("/login-error")
+	public String loginerror(Model model) {
+		model.addAttribute("loginError", true);
+		return "login";
 	}
-	
-	// Login form with error
-    @RequestMapping("/login-error")
-    public String loginError(Model model) {
-    	   model.addAttribute("loginError", true);
-    	return "login";
-    }
 }

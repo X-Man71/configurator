@@ -5,10 +5,8 @@
 	
 <tiles-definitions>
 
-	<definition name="/customer/checkout" extends="standardLayout">
-		<put-attribute name="body" value="/customer/checkout.html :: content" type="thymeleaf"/>
+	<definition name="/customer/events" extends="standardLayout">
+		<put-attribute name="body" value="/customer/events.html :: content" type="thymeleaf"/>
 	</definition>
-	
-
 
 </tiles-definitions>

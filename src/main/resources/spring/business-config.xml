@@ -16,9 +16,6 @@
 
 	<import resource="mvc-core-config.xml" />
 	
-	<import resource="webflow-config.xml" /> 
-
-
 	<context:component-scan base-package="de.hs.furtwangen.bam.jee.configurator.service" />
 
 	<jpa:repositories base-package="de.hs.furtwangen.bam.jee.configurator.springdatajpa" />

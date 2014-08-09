@@ -129,7 +129,6 @@
 			<evaluate expression="eventService.save(event,currentUser.name)"></evaluate>
 		</on-entry>
 
-		
 	</view-state>
 	
 	<view-state id="registerflow" view="registerflow" model="flowScope.user">

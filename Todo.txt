@@ -1,5 +1,0 @@
-- bessere designs, insbesondere des flows (JB)
-- entities kreativer gestalten (viele haben nur einen namen) -> dabei aber auch bitte column names spezifizieren! (JB), evtl mit hilfe von mir (oli)
-- column name spezifikationen in entities entfernen und initDB.sql anpassen (OR)
-- admin: übersicht über kunden und aufträge (OR)
-- customer: übersicht über seine events (CH)

@@ -18,73 +18,79 @@ import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataAuthorityRe
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 
-
 @Service
 @Transactional(readOnly = true)
-public class UserService 
-{
+public class UserService implements IUserService {
 	@Autowired
 	private SpringDataUserRepository springDataUserRepository;
-	
+
 	@Autowired
 	private SpringDataAuthorityRepository springDataAuthorityRepository;
-	
+
 	private static final String ROLE_CUSTOMER = "ROLE_CUSTOMER";
-	
+
+	@Override
 	@Transactional
-	public void saveCustomer(User user)
-	{
-		Authority authority = springDataAuthorityRepository.findAuthorityByName(ROLE_CUSTOMER);
+	public void saveCustomer(User user) {
+		Authority authority = springDataAuthorityRepository
+				.findAuthorityByName(ROLE_CUSTOMER);
 		user.add(authority);
-		
-		loginUserAfterRegister(user,authority);
+
+		loginUserAfterRegister(user, authority);
 		user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
 		springDataUserRepository.save(user);
-		
+
 	}
-	
+
+	@Override
 	@Transactional
-	public void deleteUser(User user)
-	{
+	public void deleteUser(User user) {
 		springDataUserRepository.delete(user);
 	}
+
 	
+	@Override
 	@Transactional
-	public void updateUser(User user)
-	{
+	public void updateUser(User user) {
 		springDataUserRepository.save(user);
 	}
-	
+
+
+	@Override
 	@Transactional
-	public void updatePassword(Password password)
-	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String name = auth.getName();
-	    User user = springDataUserRepository.findByUsername(name);
-	    user.setPassword(hashPassword(password.getNewPassword()));
+	public void updatePassword(Password password) {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String name = auth.getName();
+		User user = springDataUserRepository.findByUsername(name);
+		user.setPassword(hashPassword(password.getNewPassword()));
 		springDataUserRepository.save(user);
 	}
-	
+
+
+	@Override
 	@Transactional
-	public String oldPasswordByUserName()
-	{
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-	    String username = auth.getName();
+	public String oldPasswordByUserName() {
+		Authentication auth = SecurityContextHolder.getContext()
+				.getAuthentication();
+		String username = auth.getName();
 		return springDataUserRepository.findByUsername(username).getPassword();
 	}
-	
-	private String hashPassword(String rawPassword){
+
+	private String hashPassword(String rawPassword) {
 		PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		return passwordEncoder.encode(rawPassword);
 	}
-	
-	private void loginUserAfterRegister(User user, Authority authority){
+
+	private void loginUserAfterRegister(User user, Authority authority) {
 		List<String> roles = new ArrayList<String>();
 		roles.add(authority.getName());
 
 		SecurityContextHolder.getContext().setAuthentication(
 				new UsernamePasswordAuthenticationToken(user.getUsername(),
-						user.getPassword(), CustomUserDetailService.getGrantedAuthorities(roles)));
+						user.getPassword(), CustomUserDetailService
+								.getGrantedAuthorities(roles)));
 
 	}
+	
 }

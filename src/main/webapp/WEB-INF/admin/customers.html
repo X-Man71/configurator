@@ -36,17 +36,38 @@
 <body tiles:fragment="content">
 
 	<h3>
-	&Uuml;bersicht angemeldeter Kunden:
+	&Uuml;bersicht angemeldeter Kunden
 	</h3>
 	
 	<br />
-	<br />
 
-	<p>
-
-		
-
-	</p>
+	<table class="table table-striped">
+		<tr>
+			<th>NACHNAME</th>
+			<th>VORNAME</th>
+			<th>BENUTZERNAME</th>
+			<th>E-MAIL</th>
+			<th>UNTERNEHMEN</th>
+			<th>GESCHLECHT</th>
+			<th>ADRESSE</th>
+			<th>STRA&szlig;E</th>
+			<th>PLZ</th>
+			<th>TELEFON</th>
+			
+		</tr>
+		<tr th:each="user  : ${users}">
+			<td th:text="${user.lastName}">Nachname</td>
+			<td th:text="${user.firstName}">Vorname</td>
+			<td th:text="${user.username}">Benutzername</td>
+			<td th:text="${user.email}">E-Mail</td>
+			<td th:text="${user.corporation}">Unternehmen</td>
+			<td th:text="${user.gender}">Geschlecht</td>
+			<td th:text="${user.residence}">Adresse</td>
+			<td th:text="${user.street}">Stra&szlig;e</td>
+			<td th:text="${user.zipCode}">PLZ</td>
+			<td th:text="${user.phone}">Telefon</td>
+		</tr>
+	</table>
 
 </body>
 </html>

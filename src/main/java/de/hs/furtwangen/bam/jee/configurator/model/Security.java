@@ -2,6 +2,7 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 
 import java.io.Serializable;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -32,12 +33,13 @@ public class Security implements Serializable {
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
     private Event event;
-    
-	@Column(name = "name" )
-	private String name;
+	
+	@Column(name = "securityNeeded")
+	@Basic(optional = false)
+	private boolean securityNeeded;
 	
 	@Column(name = "numberOfProtectees" )
-    private int numberOfProtectees;
+    private Integer numberOfProtectees;
 
     public void setEvent(Event event) {
         this.event = event;
@@ -47,20 +49,20 @@ public class Security implements Serializable {
         return this.event;
     }
 
-	public int getNumberOfProtectees() {
+	public Integer getNumberOfProtectees() {
 		return numberOfProtectees;
 	}
 
-	public void setNumberOfProtectees(int numberOfProtectees) {
+	public void setNumberOfProtectees(Integer numberOfProtectees) {
 		this.numberOfProtectees = numberOfProtectees;
 	}
 
-	public String getName() {
-		return name;
+	public boolean isSecurityNeeded() {
+		return securityNeeded;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setSecurityNeeded(boolean securityNeeded) {
+		this.securityNeeded = securityNeeded;
 	}
 
 }

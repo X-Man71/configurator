@@ -119,7 +119,6 @@ public class Event implements Serializable {
 	}
 
 	public void setAudio(Audio audio) {
-		System.out.println("Audio "+audio.getName());
 		audio.setEvent(this);
 		this.audio = audio;
 	}
@@ -129,7 +128,6 @@ public class Event implements Serializable {
 	}
 
 	public void setLight(Light light) {
-		System.out.println("Lights "+light.getName());
 		this.light = light;
 	}
 
@@ -138,7 +136,7 @@ public class Event implements Serializable {
 	}
 
 	public void setRigging(Rigging rigging) {
-		System.out.println("Rigging "+rigging.getName());
+		System.out.println("Rigging "+rigging.getRiggingType());
 		this.rigging = rigging;
 	}
 
@@ -147,7 +145,6 @@ public class Event implements Serializable {
 	}
 
 	public void setSecurity(Security security) {
-		System.out.println("Security "+security.getName());
 		this.security = security;
 	}
 

@@ -17,42 +17,47 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Spring -->
-		<spring-framework.version>4.0.2.RELEASE</spring-framework.version>
-		<spring-data-jpa.version>1.5.1.RELEASE</spring-data-jpa.version>
-		<springsecurity.version>3.2.2.RELEASE</springsecurity.version>
+		<spring-framework.version>4.1.0.RC1</spring-framework.version>
+		<spring-data-jpa.version>1.7.0.M1</spring-data-jpa.version>
+		<springsecurity.version>3.2.4.RELEASE</springsecurity.version>
+		<spring.webflow>2.4.0.RELEASE</spring.webflow>
+
+		<!-- AOP -->
+		<aspectj.version>1.8.1</aspectj.version>
 
 		<!-- Thymeleaf -->
-		<thymeleaf.version>2.1.2.RELEASE</thymeleaf.version>
-		<thymeleafspringsecurity3.version>2.1.0.RELEASE</thymeleafspringsecurity3.version>
+		<thymeleaf.version>2.1.3.RELEASE</thymeleaf.version>
+		<thymeleaf-extras-springsecurity3>2.1.1.RELEASE</thymeleaf-extras-springsecurity3>
 
 		<!-- Java EE / Java SE dependencies -->
 		<jsp.version>2.2</jsp.version>
 		<jstl.version>1.2</jstl.version>
-		<servlet.version>2.5</servlet.version>
+
+		<javax.servlet-api>3.0.1</javax.servlet-api>
 		<javax-el.version>2.2</javax-el.version>
 		<jaxb-api.version>2.2.7</jaxb-api.version>
 		<jaxb-impl.version>2.2.7-b53</jaxb-impl.version>
 
 		<!-- Hibernate / JPA -->
-		<hibernate.version>4.1.9.Final</hibernate.version>
+		<hibernate.version>4.3.5.Final</hibernate.version>
+		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
 		<hibernate-jpa.version>1.0.1.Final</hibernate-jpa.version>
 
 		<!-- Bean validation -->
-		<validation.version>1.0.0.GA</validation.version>
-		<hibernate-validator.version>4.3.0.Final</hibernate-validator.version>
+		<validation.version>1.1.0.Final</validation.version>
+
 
 		<!-- Database access -->
 		<commons-dbcp.version>1.4</commons-dbcp.version>
 		<ehcache.version>2.6.5</ehcache.version>
 		<hsqldb.version>2.2.9</hsqldb.version>
 
-		<!-- AOP -->
-		<aspectj.version>1.7.2</aspectj.version>
+
 
 		<!-- Logging -->
-		<logback.version>1.0.9</logback.version>
+		<logback.version>1.1.2</logback.version>
 		<log4j.version>1.2.17</log4j.version>
-		<slf4j.version>1.7.2</slf4j.version>
+		<slf4j.version>1.7.7</slf4j.version>
 
 		<!-- RSS -->
 		<rome.version>1.0</rome.version>
@@ -69,66 +74,17 @@
 
 
 		<!-- Web dependencies -->
-		<webjars-bootstrap.version>3.2.0</webjars-bootstrap.version>
+		<webjars-bootstrap.version>3.2.0</webjars-bootstrap.version>	
 		<webjars-jquery.version>1.11.1</webjars-jquery.version>
-		
-		
+		<dandelion.datatables.version>0.8.7</dandelion.datatables.version>
+
 		<mysql.version>5.1.22</mysql.version>
 
 	</properties>
 
 	<dependencies>
-		<dependency>
-			<groupId>org.jadira.usertype</groupId>
-			<artifactId>usertype.core</artifactId>
-			<version>${jadira-usertype-core.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.validation</groupId>
-			<artifactId>validation-api</artifactId>
-			<version>${validation.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>javax.xml.bind</groupId>
-			<artifactId>jaxb-api</artifactId>
-			<version>${jaxb-api.version}</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>com.sun.xml.bind</groupId>
-			<artifactId>jaxb-impl</artifactId>
-			<version>${jaxb-impl.version}</version>
-			<scope>provided</scope>
-		</dependency>
-
-		<!-- THYMELEAF -->
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf</artifactId>
-			<version>2.1.2.RELEASE</version>
-		</dependency>
-
-
-
-		<dependency>
-			<groupId>org.thymeleaf</groupId>
-			<artifactId>thymeleaf-spring4</artifactId>
-			<version>2.1.2.RELEASE</version>
-		</dependency>
-
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
-			<version>2.1.1.RELEASE</version>
-		</dependency>
 
 		<!-- SPRING, SPRING, SPRINGITY SPRING -->
-		<dependency>
-			<groupId>org.springframework.data</groupId>
-			<artifactId>spring-data-jpa</artifactId>
-			<version>${spring-data-jpa.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-core</artifactId>
@@ -203,25 +159,67 @@
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-web</artifactId>
-			<version>3.2.3.RELEASE</version>
+			<version>${springsecurity.version}</version>
 		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
-			<version>3.2.3.RELEASE</version>
+			<version>${springsecurity.version}</version>
 		</dependency>
+
+		<!-- AspectJ -->
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjrt</artifactId>
+			<version>${aspectj.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.aspectj</groupId>
+			<artifactId>aspectjweaver</artifactId>
+			<version>${aspectj.version}</version>
+			<scope>runtime</scope>
+		</dependency>
+
+		<!-- Spring Webflow -->
+		<dependency>
+			<groupId>org.springframework.webflow</groupId>
+			<artifactId>spring-webflow</artifactId>
+			<version>${spring.webflow}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>javax.validation</groupId>
+			<artifactId>validation-api</artifactId>
+			<version>${validation.version}</version>
+		</dependency>
+
+
+		<!-- THYMELEAF -->
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf</artifactId>
+			<version>${thymeleaf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf</groupId>
+			<artifactId>thymeleaf-spring4</artifactId>
+			<version>${thymeleaf.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
+			<version>${thymeleaf-extras-springsecurity3}</version>
+		</dependency>
+
 
 		<!-- Servlet -->
 		<dependency>
 			<groupId>javax.servlet</groupId>
-			<artifactId>servlet-api</artifactId>
-			<version>2.5</version>
-			<scope>provided</scope>
-		</dependency>
-		<dependency>
-			<groupId>javax.servlet.jsp</groupId>
-			<artifactId>jsp-api</artifactId>
-			<version>2.1</version>
+			<artifactId>javax.servlet-api</artifactId>
+			<version>${javax.servlet-api}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
@@ -270,22 +268,6 @@
 			<version>${logback.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		<!-- used for Atom -->
-		<dependency>
-			<groupId>rome</groupId>
-			<artifactId>rome</artifactId>
-			<version>${rome.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time</artifactId>
-			<version>${jodatime.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>joda-time</groupId>
-			<artifactId>joda-time-hibernate</artifactId>
-			<version>${jodatime-hibernate.version}</version>
-		</dependency>
 
 		<dependency>
 			<groupId>org.hsqldb</groupId>
@@ -293,13 +275,19 @@
 			<version>${hsqldb.version}</version>
 			<scope>runtime</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.29</version>
 		</dependency>
 
+		<!-- Spring Data JPA -->
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-jpa</artifactId>
+			<version>${spring-data-jpa.version}</version>
+		</dependency>
 
 		<!-- HIBERNATE -->
 		<dependency>
@@ -383,37 +371,12 @@
 		</dependency>
 
 		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjrt</artifactId>
-			<version>${aspectj.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.aspectj</groupId>
-			<artifactId>aspectjweaver</artifactId>
-			<version>${aspectj.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-
-		<dependency>
 			<groupId>org.apache.tomcat</groupId>
 			<artifactId>tomcat-servlet-api</artifactId>
 			<version>7.0.30</version>
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- Spring Webflow EL -->
-		<dependency>
-			<groupId>ognl</groupId>
-			<artifactId>ognl</artifactId>
-			<version>2.7.3</version>
-		</dependency>
-
-		<!-- Spring Webflow -->
-		<dependency>
-			<groupId>org.springframework.webflow</groupId>
-			<artifactId>spring-webflow</artifactId>
-			<version>2.3.3.RELEASE</version>
-		</dependency>
 
 	</dependencies>
 
@@ -425,7 +388,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.0</version>
+				<version>3.1</version>
 				<configuration>
 					<compilerArguments>
 						<Xlint />
@@ -514,6 +477,14 @@
 					<path>/</path>
 				</configuration>
 			</plugin>
+
+			<plugin>
+				<groupId>org.eclipse.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>9.2.2.v20140723</version>
+			</plugin>
+
+
 		</plugins>
 		<pluginManagement>
 			<plugins>
@@ -592,5 +563,14 @@
 
 	</profiles>
 
-
+	<repositories>
+		<repository>
+			<id>spring-milestones</id>
+			<name>Spring Milestones</name>
+			<url>http://repo.spring.io/milestone</url>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+		</repository>
+	</repositories>
 </project>

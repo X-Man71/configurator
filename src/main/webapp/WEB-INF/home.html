@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org"
-	xmlns:tiles="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 
 <head th:replace="layouts/standard :: headTag">
@@ -20,11 +19,13 @@
 
 	<p>
 	<span sec:authorize="!isAuthenticated()">
-		<a href="/login">Login</a> |
+		<a href="/login">Login</a> | 
 	</span>
+	<span sec:authorize="!hasRole('ROLE_ADMIN')">
 	<a href="/flows">Veranstaltung konfigurieren</a>
-	<span sec:authorize="hasRole('ROLE_ADMIN')"> |
-	<a href="/admin/orders">Auftr&auml;ge</a> |
+	</span>
+	<span sec:authorize="hasRole('ROLE_ADMIN')">
+	<a href="/admin/events">Auftr&auml;ge</a> |
 	<a href="/admin/customers">Kunden&uuml;bersicht</a>
 	</span>
 	<span sec:authorize="isAuthenticated()"> |

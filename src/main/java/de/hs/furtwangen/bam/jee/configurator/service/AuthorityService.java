@@ -7,11 +7,12 @@ import de.hs.furtwangen.bam.jee.configurator.model.Authority;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataAuthorityRepository;
 
 @Service
-public class AuthorityService {
+public class AuthorityService implements IAuthorityService {
 	
 	@Autowired
 	private SpringDataAuthorityRepository springDataAuthorityRepository;
 	
+	@Override
 	public Authority findAuthority(String name)
 	{
 		return springDataAuthorityRepository.findAuthorityByName(name);

@@ -35,25 +35,33 @@ public class Catering implements Serializable {
 	private String eatingType;
 	
 	@Column(name = "eatingPeople")
-	private int eatingPeople;
+	private Integer eatingPeople;
 	
 	@Column(name = "drinking")
 	@Basic(optional = false)
 	private boolean drinking;
 	
 	@Column(name = "drinkingPeople")
-	private int drinkingPeople;
+	private Integer drinkingPeople;
 	
 	@OneToOne(fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn
     private Event event;
-	
-    public boolean isEating() {
-		return eating;
+
+	public Integer getEatingPeople() {
+		return eatingPeople;
 	}
 
-	public void setEating(boolean eating) {
-		this.eating = eating;
+	public void setEatingPeople(Integer eatingPeople) {
+		this.eatingPeople = eatingPeople;
+	}
+
+	public Integer getDrinkingPeople() {
+		return drinkingPeople;
+	}
+
+	public void setDrinkingPeople(Integer drinkingPeople) {
+		this.drinkingPeople = drinkingPeople;
 	}
 
 	public String getEatingType() {
@@ -64,28 +72,12 @@ public class Catering implements Serializable {
 		this.eatingType = eatingType;
 	}
 
-	public int getEatingPeople() {
-		return eatingPeople;
-	}
-
-	public void setEatingPeople(int eatingPeople) {
-		this.eatingPeople = eatingPeople;
-	}
-
 	public boolean isDrinking() {
 		return drinking;
 	}
 
 	public void setDrinking(boolean drinking) {
 		this.drinking = drinking;
-	}
-
-	public int getDrinkingPeople() {
-		return drinkingPeople;
-	}
-
-	public void setDrinkingPeople(int drinkingPeople) {
-		this.drinkingPeople = drinkingPeople;
 	}
 
 	public void setEvent(Event event) {
@@ -95,5 +87,13 @@ public class Catering implements Serializable {
     public Event getEvent() {
         return this.event;
     }
+
+	public boolean isEating() {
+		return eating;
+	}
+
+	public void setEating(boolean eating) {
+		this.eating = eating;
+	}
 
 }

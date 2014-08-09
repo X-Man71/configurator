@@ -19,15 +19,14 @@
 	<context:component-scan base-package="de.hs.furtwangen.bam.jee.configurator.service" />
 
 	<jpa:repositories base-package="de.hs.furtwangen.bam.jee.configurator.springdatajpa" />
-
 	
-	<context:property-placeholder location="classpath:spring/data-access.properties" />
+	<context:property-placeholder location="classpath:spring/config.properties" />
 
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven />
 
 
-	<beans profile="spring-data-jpa">
+	<beans>
 		<!-- JPA EntityManagerFactory -->
 		<bean id="entityManagerFactory"
 			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
@@ -52,18 +51,6 @@
 			to JTA) -->
 		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"
 			p:entityManagerFactory-ref="entityManagerFactory" />
-
-
-		<!-- Post-processor to perform exception translation on @Repository classes 
-			(from native exceptions such as JPA PersistenceExceptions to Spring's DataAccessException 
-			hierarchy). -->
-		<bean
-			class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
-
-		<!-- Maps request paths to flows in the flowRegistry; e.g. a path of /hotels/booking 
-			looks for a flow with id "hotels/booking". -->
-		
-
 	</beans>
 
 </beans>

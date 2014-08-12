@@ -3,7 +3,16 @@
 	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 
-<head th:replace="layouts/standard :: headTag">
+<head th:include="layouts/standard :: headTag">
+
+
+<style type="text/css">
+body 
+{
+	min-height: 2000px;
+	padding-top: 70px;
+} 
+</style>
 
 </head>
 
@@ -11,31 +20,8 @@
 
    <div th:replace="layouts/standard :: navbar" th:remove="tag">
    </div>
-	<h3>
-	Sie haben folgende M&ouml;glichkeiten:
-	</h3>
-	<br />
-	<br />
-
-	<p>
-	<span sec:authorize="!isAuthenticated()">
-		<a href="/login">Login</a> | 
-	</span>
-	<span sec:authorize="!hasRole('ROLE_ADMIN')">
-	<a href="/flows">Veranstaltung konfigurieren</a>
-	</span>
-	<span sec:authorize="hasRole('ROLE_ADMIN')">
-	<a href="/admin/events">Auftr&auml;ge</a> |
-	<a href="/admin/customers">Kunden&uuml;bersicht</a>
-	</span>
-	<span sec:authorize="isAuthenticated()"> |
-		<a th:href="@{/admin/j_spring_security_logout}">Logout</a>
-	</span>
-	</p>
 	
 	
 	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
-
-
 </body>
 </html>

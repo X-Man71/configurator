@@ -4,31 +4,66 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 
 
-<head th:replace="layouts/standard :: headTag">
+<head th:include="layouts/standard :: headTag">
+</head>
+<head>
+<style type="text/css">
+body {
+padding-top: 40px;
+padding-bottom: 40px;
+background-color: #fff;
+}
+.form-signin {
+max-width: 330px;
+padding: 15px;
+margin: 0 auto;
+}
+.form-signin .form-signin-heading,
+.form-signin .checkbox {
+margin-bottom: 10px;
+}
+.form-signin .checkbox {
+font-weight: normal;
+}
+.form-signin .form-control {
+position: relative;
+height: auto;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+padding: 10px;
+font-size: 16px;
+}
+.form-signin .form-control:focus {
+z-index: 2;
+}
+.form-signin input[type="text"] {
+margin-bottom: -1px;
+border-bottom-right-radius: 0;
+border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+margin-bottom: 10px;
+border-top-left-radius: 0;
+border-top-right-radius: 0;
+} 
+</style>
 
 </head>
 
 <body>
 
 	<div class="container">
-		<!--  <form th:action="@{/admin}" method="get">-->
-		<form th:action="@{/admin/j_spring_security_check}" method="post"
-			class="form-signin" role="form">
+		<form th:action="@{/j_spring_security_check}" method="post" class="form-signin" role="form">
 			<h2 class="form-signin-heading">Bitte Anmelden</h2>
-
-			<input type="text" id="j_username" name="j_username"
-				class="form-control" autofocus="" required=""
-				placeholder="Benutzername" /> 
-			<input type="password"
-				id="j_password" name="j_password" class="form-control"
-				required="" placeholder="Passwort" />
-
-			<!--  <input type="submit" value="Log in" class="btn btn-lg btn-primary btn-block"/>-->
+			
+			<input class="form-control" type="text" autofocus="" required="" id="j_username" name="j_username" placeholder="Benutzername" /> 
+			<input class="form-control" type="password" autofocus="" required="" id="j_password" name="j_password" placeholder="Passwort" /> 	
+			
 			<button class="btn btn-lg btn-primary btn-block" type="submit">Anmelden</button>
 				
-				<div class="alert alert-danger" th:if="${loginError}">Zugangsdaten nicht korrekt</div>
-			<a href="/user/new"><h5 class="form-register-link">Neuen Account anlegen</h5></a>	
 		</form>	
+		<div class="alert alert-danger" th:if="${loginError}">Zugangsdaten nicht korrekt</div>
 	</div>
 </body>
 </html>

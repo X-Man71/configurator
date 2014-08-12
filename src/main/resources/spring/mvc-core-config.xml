@@ -70,4 +70,6 @@
 			</map>
 		</property>
 	</bean>
+		
+	    <mvc:view-controller path="/login" view-name="login" />
 </beans>

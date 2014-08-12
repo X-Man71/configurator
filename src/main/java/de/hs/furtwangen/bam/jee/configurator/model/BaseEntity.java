@@ -15,10 +15,15 @@
  */
 package de.hs.furtwangen.bam.jee.configurator.model;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
+
+import org.hibernate.annotations.Type;
+import org.joda.time.LocalDateTime;
+import org.springframework.data.annotation.Version;
 
 /**
  * Simple JavaBean domain object with an id property. Used as a base class for objects needing this property.
@@ -32,6 +37,11 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     protected Integer id;
+    
+    @Version
+    @Column(name = "version")
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
+    public LocalDateTime version;
 
     public void setId(Integer id) {
         this.id = id;
@@ -41,7 +51,15 @@ public class BaseEntity {
         return id;
     }
 
-    public boolean isNew() {
+	public LocalDateTime getVersion() {
+		return version;
+	}
+
+	public void setVersion(LocalDateTime version) {
+		this.version = version;
+	}
+
+	public boolean isNew() {
         return (this.id == null);
     }
 

@@ -30,10 +30,6 @@ public class CustomUserDetailService implements UserDetailsService {
 		
 		de.hs.furtwangen.bam.jee.configurator.model.User user = springDataUserRepository.findByUsername(username);
 		
-		if(user==null)
-		{
-			new UsernameNotFoundException("Username or Password not correct");
-		}		
 		boolean enabled = true;
 		boolean accountNonExpired = true;
 		boolean credentialsNonExpired = true;

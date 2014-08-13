@@ -35,14 +35,14 @@
 				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
 					p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
 			</property>
-			<!-- Activate this for auto creation of Tables 
-			<property name="jpaProperties">
+			
+			<!-- <property name="jpaProperties">
 				<props>
 
-					<prop key="hibernate.hbm2ddl.auto">create-drop</prop>
+					<prop key="hibernate.hbm2ddl.auto">create</prop>
 				</props>
-			</property>
-			 -->
+			</property> -->
+	
 			<property name="persistenceUnitName" value="EventConfigurator" />
 			<property name="packagesToScan" value="de.hs.furtwangen.bam.jee.configurator" />
 		</bean>

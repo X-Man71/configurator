@@ -1,11 +1,31 @@
-INSERT INTO users VALUES (
+INSERT INTO USERS VALUES (
 	1,
 	'2014-08-11 23:59:59',
-	'Christian',
-	'Henle',
-	'chris',
+	TRUE,
 	'$2a$10$WVPq/GcSLNcKECb.wIfGeuFD0etGZpkgh6cgxdzmdzlBGdgp7Jzh2',
-	1);
-INSERT INTO authority VALUES (1,'ROLE_ADMIN');
-INSERT INTO user_authority VALUES (1,1);
+	'chris'
+	);
+
+	
+INSERT INTO USER_ROLES VALUES (
+	1,
+	1
+);
+
+INSERT INTO ROLES VALUES (
+	1,
+	'2014-08-11 23:59:59',
+	'MANAGER'
+);
+
+INSERT INTO ROLE_PERMISSIONS VALUES (
+	1,
+	1
+);
+
+INSERT INTO PERMISSIONS VALUES (
+	1,
+	'2014-08-11 23:59:59',
+	'DISABLE'
+);
 

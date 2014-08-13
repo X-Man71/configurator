@@ -6,12 +6,17 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.FilterChainProxy;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -21,6 +26,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
+
+import de.hs.furtwangen.bam.jee.configurator.model.Permission;
+import de.hs.furtwangen.bam.jee.configurator.model.Role;
+import de.hs.furtwangen.bam.jee.configurator.model.User;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -32,17 +42,57 @@ public class SpringSecurityIntegrationstest {
 
 	@Autowired
 	private FilterChainProxy filterChainProxy;
+	
+	@Autowired
+	private SpringDataUserRepository springDataUserRepository;
 
 	private MockMvc mockMvc;
+	
+	private String testUser = "testUser";
+	
+	private String testPassword = "testPassword";
+	
+	private User user;
+	
 
 	@Before
 	public void setUp() throws Exception {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-				.addFilter(filterChainProxy, "/*").build();
+				.addFilter(filterChainProxy, "/*").build();	
+		
+		Permission permission = new Permission();
+		permission.setPermissionname("DEFAULT"); 
+		permission.setVersion(new LocalDateTime());		
+		
+		Set<Permission> setPermission = new HashSet<Permission>();
+		setPermission.add(permission);
+		
+		Role role = new Role();
+		role.setRolename("MANAGER");
+		role.setVersion(new LocalDateTime());	
+		
+		Set<Role> setRole = new HashSet<Role>();
+		setRole.add(role);
+		
+		user = new User();
+		user.setEnabled(true);
+		user.setUsername(testUser);
+		user.setPassword(new BCryptPasswordEncoder().encode(testPassword));
+		user.setVersion(new LocalDateTime());		
+		
+		Set<User> setUser = new HashSet<User>();	
+		setUser.add(user);
+		
+		permission.setPermRoles(setRole);
+		
+		user.setRole(role);
+		
+		springDataUserRepository.save(user);
 	}
 
 	@After
 	public void tearDown() throws Exception {
+		springDataUserRepository.delete(user);
 	}
 
 	@Test
@@ -66,8 +116,8 @@ public class SpringSecurityIntegrationstest {
 		this.mockMvc
 				.perform(
 						post("/j_spring_security_check").param("j_username",
-								"chris").param("j_password", "chris"))
-				.andExpect(authenticated().withUsername("chris"))
+								testUser).param("j_password", testPassword))
+				.andExpect(authenticated().withUsername(testUser))
 				.andDo(MockMvcResultHandlers.print());
 	}
 
@@ -76,11 +126,11 @@ public class SpringSecurityIntegrationstest {
 		this.mockMvc
 				.perform(
 						post("/j_spring_security_check").param("j_username",
-								"chris").param("j_password", "wrongPassword"))
+								testUser).param("j_password", "testPas"))
 				.andExpect(unauthenticated())
 				.andExpect(redirectedUrl("/login-error"))
 				.andDo(MockMvcResultHandlers.print());
 
 	}
-
+	
 }

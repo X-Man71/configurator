@@ -2,11 +2,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>de.hs.furtwangen.jee</groupId>
-	<artifactId>configurator</artifactId>
-	<version>20131104</version>
+	<groupId>christian.henle</groupId>
+	<artifactId>order</artifactId>
+	<version>SNAPSHOT-0.0.1</version>
 
-	<name>configurator</name>
+	<name>order</name>
 	<packaging>war</packaging>
 
 	<properties>
@@ -294,6 +294,12 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 			<version>5.1.29</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.181</version>
 		</dependency>
 
 		<!-- Spring Data JPA -->

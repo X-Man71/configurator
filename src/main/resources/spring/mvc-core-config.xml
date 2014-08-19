@@ -45,9 +45,6 @@
 		<property name="contentNegotiationManager" ref="cnManager" />
 		<property name="viewResolvers">
 			<list>
-				<bean class="org.springframework.web.servlet.view.BeanNameViewResolver">
-					<property name="order" value="1" />
-				</bean>
 				<bean class="org.thymeleaf.spring4.view.ThymeleafViewResolver">
 					<property name="templateEngine" ref="templateEngine" />
 					<property name="order" value="2" />
@@ -70,6 +67,7 @@
 			</map>
 		</property>
 	</bean>
-		
-	    <mvc:view-controller path="/login" view-name="login" />
+	
+	 <mvc:view-controller path="/login" view-name="login" />
+	
 </beans>

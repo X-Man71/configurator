@@ -1,12 +1,16 @@
-package configurator;
+package de.hs.furtwangen.bam.jee.configurator.web.security;
 
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.authenticated;
 import static org.springframework.security.test.web.servlet.response.SecurityMockMvcResultMatchers.unauthenticated;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import org.joda.time.LocalDateTime;
@@ -42,51 +46,52 @@ public class SpringSecurityIntegrationstest {
 
 	@Autowired
 	private FilterChainProxy filterChainProxy;
-	
+
 	@Autowired
 	private SpringDataUserRepository springDataUserRepository;
 
 	private MockMvc mockMvc;
-	
+
 	private String testUser = "testUser";
-	
+
 	private String testPassword = "testPassword";
-	
+
 	private User user;
-	
 
 	@Before
 	public void setUp() throws Exception {
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac)
-				.addFilter(filterChainProxy, "/*").build();	
-		
+				.addFilter(filterChainProxy, "/*").build();
+
 		Permission permission = new Permission();
-		permission.setPermissionname("DEFAULT"); 
-		permission.setVersion(new LocalDateTime());		
-		
+		permission.setPermissionname("DEFAULT");
+		permission.setVersion(new LocalDateTime());
+
 		Set<Permission> setPermission = new HashSet<Permission>();
 		setPermission.add(permission);
-		
+
 		Role role = new Role();
 		role.setRolename("MANAGER");
-		role.setVersion(new LocalDateTime());	
-		
+		role.setVersion(new LocalDateTime());
+
 		Set<Role> setRole = new HashSet<Role>();
 		setRole.add(role);
-		
+
 		user = new User();
 		user.setEnabled(true);
 		user.setUsername(testUser);
 		user.setPassword(new BCryptPasswordEncoder().encode(testPassword));
-		user.setVersion(new LocalDateTime());		
-		
-		Set<User> setUser = new HashSet<User>();	
+		user.setVersion(new LocalDateTime());
+
+		Set<User> setUser = new HashSet<User>();
 		setUser.add(user);
-		
+
 		permission.setPermRoles(setRole);
-		
-		user.setRole(role);
-		
+
+		List<Role> roleList = new ArrayList<Role>();
+		roleList.add(role);
+		user.setRolesUser(roleList);
+
 		springDataUserRepository.save(user);
 	}
 
@@ -122,7 +127,7 @@ public class SpringSecurityIntegrationstest {
 	}
 
 	@Test
-	public void authenticationFailed() throws Exception {
+	public void authenticationFailedWrongPassword() throws Exception {
 		this.mockMvc
 				.perform(
 						post("/j_spring_security_check").param("j_username",
@@ -132,5 +137,44 @@ public class SpringSecurityIntegrationstest {
 				.andDo(MockMvcResultHandlers.print());
 
 	}
-	
+
+	@Test
+	public void authenticationFailedNoPassword() throws Exception {
+		this.mockMvc
+				.perform(
+						post("/j_spring_security_check").param("j_username",
+								testUser).param("j_password", ""))
+				.andExpect(unauthenticated())
+				.andExpect(redirectedUrl("/login-error"))
+				.andDo(MockMvcResultHandlers.print());
+	}
+
+	@Test
+	public void authenticationWrongUsernameNoPassword() throws Exception {
+		this.mockMvc
+				.perform(
+						post("/j_spring_security_check").param("j_username",
+								"testUse").param("j_password", ""))
+				.andExpect(unauthenticated())
+				.andExpect(redirectedUrl("/login-error"))
+				.andDo(MockMvcResultHandlers.print());
+	}
+
+	@Test
+	public void authenticationWrongUsernameWrongPassword() throws Exception {
+		this.mockMvc
+				.perform(
+						post("/j_spring_security_check").param("j_username",
+								"testUse").param("j_password", "testPasswor"))
+				.andExpect(unauthenticated())  
+				.andExpect(redirectedUrl("/login-error"))
+				.andDo(MockMvcResultHandlers.print());
+	}
+
+	@Test
+	public void authenticationFailedMessage() throws Exception {
+		this.mockMvc.perform(get("/login-error"))
+				.andExpect(model().attribute("loginError", true))
+				.andDo(MockMvcResultHandlers.print());
+	}
 }

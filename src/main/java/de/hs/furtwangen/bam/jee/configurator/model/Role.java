@@ -26,14 +26,14 @@ public class Role extends BaseEntity implements GrantedAuthority {
 	    @Column(name = "rolename", length = 50)
 	    private String rolename;
 	    
-	    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})  
+	    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})  
 	    @JoinTable(name = "user_roles",   
 	        joinColumns        = {@JoinColumn(name = "role_id", referencedColumnName = "id")},  
 	        inverseJoinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")}  
 	    )  
 	    private Set<User> userRoles;
 	    
-	    @OneToMany(fetch = FetchType.EAGER,cascade = {CascadeType.ALL})
+	    @OneToMany(fetch = FetchType.LAZY,cascade = {CascadeType.ALL})
 	    @JoinTable(name = "role_permissions",
 	        joinColumns        = { @JoinColumn(name = "role_id",       referencedColumnName = "id") },
 	        inverseJoinColumns = { @JoinColumn(name = "permission_id", referencedColumnName = "id") }

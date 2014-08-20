@@ -16,7 +16,7 @@
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black" />
 
-<title>Configurator Login</title>
+
 <script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"
 	th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
 
@@ -34,8 +34,8 @@
 	});
 </script>
 
-<link href="webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"
-	th:href="@{webjars/bootstrap/3.2.0/css/bootstrap.min.css}">
+<link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"
+	th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}">
 </link>
 
 </head>
@@ -51,28 +51,29 @@
 						</button>
 						<a class="navbar-brand" href="/">Order</a>
 					</div>
-
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
-							<li>
-								<a href="/flows" sec:authorize="!hasRole('ROLE_ADMIN')">Veranstaltung konfigurieren</a></li>
-							<li sec:authorize="hasRole('ROLE_ADMIN')">
-								<a href="/admin/events">Auftr&auml;ge</a></li>
-							<li sec:authorize="hasRole('ROLE_ADMIN')">
-								<a href="/admin/customers">Kunden&uuml;bersicht</a></li>
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Benutzer veralten<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+										<li><a th:href="@{/userManagement/add}">Benutzer anlegen</a></li>
+										<li><a th:href="@{/attitude}">Benutzer &auml;ndern</a></li>
+										<li><a th:href="@{/attitude}">Benutzer l&ouml;schen</a></li>
+										<li><a th:href="@{/attitude}">Benutzer deaktivieren</a></li>
+									</ul>								
+							</li>
+							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/events">Auftr&auml;ge</a></li>
+							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/customers">Kunden&uuml;bersicht</a></li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
 							<li class="dropdown">
-								<a href="#" class="dropdown-toggle"	data-toggle="dropdown"> 
-								<span sec:authentication="name"></span>
-										<span class="caret"></span>
-								</a>
+								<a href="#" class="dropdown-toggle"	data-toggle="dropdown"><span class="glyphicon glyphicon-user"></span><span> </span><span sec:authentication="name"></span></a>
 									<ul class="dropdown-menu" role="menu">
 										<li><a th:href="@{/attitude}">Einstellungen</a></li>
 									</ul>
 							</li>
 							<li>
-								<a th:href="@{/j_spring_security_logout}">Abmelden</a>
+								<a th:href="@{/j_spring_security_logout}"><span class="glyphicon glyphicon-off"></span> Abmelden</a>
 							</li>
 						</ul>						
 					</div>
@@ -87,8 +88,8 @@
 	</div>
 
 	<div th:fragment="js-lib">
-	<script src="webjars/bootstrap/3.2.0/js/bootstrap.min.js"
-		th:href="@{webjars/bootstrap/3.2.0/js/bootstrap.min.js}"></script>
+	<script src="/webjars/bootstrap/3.2.0/js/bootstrap.min.js"
+		th:src="@{/webjars/bootstrap/3.2.0/js/bootstrap.min.js}"></script>
 		</div>
 </body>
 </html>

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class SecurityController {
-	
+
 	/**
 	 * Mappes the same Page as Login Method. In addition this Method add
 	 * {@link Model} which shows the User that the username and password were
@@ -19,7 +19,8 @@ public class SecurityController {
 	 * 
 	 * @param model
 	 * @return html page login
-	 */
+	 * 
+	 */	
 	@RequestMapping("/login-error")
 	public String loginerror(Model model) {
 		model.addAttribute("loginError", true);

@@ -3,6 +3,7 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,7 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -40,10 +41,15 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 	@Column(name = "enabled")
 	private boolean enabled;
 
-	@OneToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-	@JoinTable(name = "user_roles", joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id") }, inverseJoinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-	private Role role;
-
+	@OneToMany(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
+	@JoinTable(name = "user_roles",
+		joinColumns 		= { @JoinColumn(name = "user_id", referencedColumnName = "id") },
+		inverseJoinColumns 	= { @JoinColumn(name = "role_id", referencedColumnName = "id") })
+	private List<Role> rolesUser;
+	
+	@Transient
+	private RoleAll[] roleAll = RoleAll.ALL;
+	
 	public String getUsername() {
 		return username;
 	}
@@ -68,19 +74,31 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 		this.enabled = enabled;
 	}
 
-	public Role getRole() {
-		return role;
+	public List<Role> getRolesUser() {
+		return rolesUser;
 	}
 
-	public void setRole(Role role) {
-		this.role = role;
+	public void setRolesUser(List<Role> rolesUser) {
+		this.rolesUser = rolesUser;
+	}
+	
+	
+
+	public RoleAll[] getRoleAll() {
+		return roleAll;
 	}
 
+	public void setRoleAll(RoleAll[] roleAll) {
+		this.roleAll = roleAll;
+	}
 
 	@Transient
 	public Set<Permission> getPermissions() {
-		Set<Permission> perms = new HashSet<Permission>();
-		perms.addAll(role.getPermissions());
+		Set<Permission> perms = new HashSet<Permission>();		
+		for(Role role : rolesUser)
+		{
+			perms.addAll(role.getPermissions());
+		}		
 		return perms;
 	}
 
@@ -88,7 +106,7 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 	@Transient
 	public Collection<GrantedAuthority> getAuthorities() {
 		Set<GrantedAuthority> authorities = new HashSet<GrantedAuthority>();
-		authorities.add(getRole());
+		authorities.addAll(getRolesUser());
 		authorities.addAll(getPermissions());
 		return authorities;
 	}

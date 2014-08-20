@@ -47,9 +47,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 		inverseJoinColumns 	= { @JoinColumn(name = "role_id", referencedColumnName = "id") })
 	private List<Role> rolesUser;
 	
-	@Transient
-	private RoleAll[] roleAll = RoleAll.ALL;
-	
 	public String getUsername() {
 		return username;
 	}
@@ -80,16 +77,6 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 
 	public void setRolesUser(List<Role> rolesUser) {
 		this.rolesUser = rolesUser;
-	}
-	
-	
-
-	public RoleAll[] getRoleAll() {
-		return roleAll;
-	}
-
-	public void setRoleAll(RoleAll[] roleAll) {
-		this.roleAll = roleAll;
 	}
 
 	@Transient

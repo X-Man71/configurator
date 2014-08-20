@@ -36,18 +36,18 @@ public class BaseEntity {
 	
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected Integer id;
+    protected Long id;
     
     @Version
     @Column(name = "version")
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
     public LocalDateTime version;
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 

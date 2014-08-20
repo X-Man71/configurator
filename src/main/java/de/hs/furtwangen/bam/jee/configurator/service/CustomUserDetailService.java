@@ -8,14 +8,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Permission;
-import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 
 @Service
 @Transactional(readOnly = true)
 public class CustomUserDetailService implements UserDetailsService {
 	
 	@Autowired
-	private SpringDataUserRepository springDataUserRepository;
+	private UserRepository springDataUserRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)

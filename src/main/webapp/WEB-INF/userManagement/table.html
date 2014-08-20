@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<head th:include="layouts/standard :: headTag">
+
+</head>
+
+<head>
+<title>Benutzer Verwaltung</title>
+<style type="text/css">
+body {
+	min-height: 2000px;
+	padding-top: 70px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+
+	<div class="container">
+		<div class="page-header">
+			<h1>Benutzer anzeigen</h1>		
+		</div>	
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th th:text="#{label.username}"></th>				
+				<th th:text="#{label.enabled}"></th>
+			</tr>
+		</thead>		
+		<tbody>
+			 <tr th:each="user : ${users}">
+			 	<td th:text="${user.id}"></td>
+				<td th:text="${user.username}"></td>
+				<td th:text="#{${'label.enabled.' + user.enabled}}"></td>
+				<td th:if="${edit}"><a th:href="@{${'/userManagement/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{button.user.edit}">Button Text</a></td>
+				<td th:if="${delete}"></td>
+				<td th:if="${enabled}"></td>
+			</tr>
+		</tbody>
+
+		
+
+	</table>
+		
+		
+		
+	</div>
+
+
+	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

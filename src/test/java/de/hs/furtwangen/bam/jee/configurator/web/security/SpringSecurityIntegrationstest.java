@@ -34,7 +34,7 @@ import org.springframework.web.context.WebApplicationContext;
 import de.hs.furtwangen.bam.jee.configurator.model.Permission;
 import de.hs.furtwangen.bam.jee.configurator.model.Role;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
@@ -48,7 +48,7 @@ public class SpringSecurityIntegrationstest {
 	private FilterChainProxy filterChainProxy;
 
 	@Autowired
-	private SpringDataUserRepository springDataUserRepository;
+	private UserRepository springDataUserRepository;
 
 	private MockMvc mockMvc;
 

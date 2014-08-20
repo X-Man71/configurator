@@ -12,52 +12,28 @@ import org.springframework.transaction.annotation.Transactional;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Role;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataRoleRepository;
-import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.RoleRepository;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEvent;
 
 @Service
 public class UserManagementService {
 		
 	@Autowired
-	private SpringDataRoleRepository springDataRoleRepository;
-	
+	private RoleRepository roleRepository;
+		
 	@Autowired
-	private SpringDataUserRepository springDataUserRepository;
+	private UserRepository springDataUserRepository;	
 	
 	@Transactional(readOnly=true)
-	public Iterable<Role> findAll(){
-		return springDataRoleRepository.findAll();
+	public Iterable<Role> findAllRole(){
+		return roleRepository.findAll();
 	}
 	
 	@Transactional
 	public void saveUser(UserEvent userEvent){
 		
-		List<Role> roleListSelectedByUser = new ArrayList<Role>();
-		
-		for(Long checkedRoles : userEvent.getRolesChecked())
-		{
-		System.out.println("checkedRoles "+checkedRoles);
-		}
-		
-		for(Role role : userEvent.getAllRoles()){
-			System.out.println("role "+role.getId());
-		}
-		
-		/*for(Integer checkedRoles : userEvent.getRolesChecked())
-		{
-			for(Role role : userEvent.getAllRoles()){
-				if(role.getId() == checkedRoles){
-					roleListSelectedByUser.add(role);
-				}
-			}
-		}*/
-		
-		/*for(Role r : roleListSelectedByUser){
-			System.out.println("roleListSelectedByUser "+r.getRolename());
-		}*/
-		
-		
+		List<Role> roleListSelectedByUser = new ArrayList<Role>();		
 		
 		User user = new User();
 		user.setEnabled(true);
@@ -68,13 +44,58 @@ public class UserManagementService {
 		setUser.add(user);
 		
 		List<Role> roleList = new ArrayList<Role>();
-		for(Role ro : springDataRoleRepository.findAll(userEvent.getRolesChecked())){
+		for(Role ro : roleRepository.findAll(userEvent.getRolesChecked())){
 			roleList.add(ro);
 		}
 				
 		user.setRolesUser(roleListSelectedByUser);
 		
 		springDataUserRepository.save(user);
+	}
+	
+	@Transactional(readOnly=true)
+	public Iterable<User> findAllUser(){
+		return springDataUserRepository.findAll();		
+	}
+	
+	public UserEvent getNewUserWithAllRoles() {
+		UserEvent user = new UserEvent();
+		List<Role> allRoleList = new ArrayList<Role>();
+		for (Role role : findAllRole()) {
+			allRoleList.add(role);
+		}
+		user.setAllRoles(allRoleList);
+
+		List<Long> noRolesChecked = new ArrayList<Long>();
+		user.setRolesChecked(noRolesChecked);
+		return user;
+	}
+	
+	public UserEvent findUserbyId(Long userId)
+	{
+		User user = springDataUserRepository.findOne(userId);
+		
+		UserEvent userEvent = new UserEvent();		
+				
+		userEvent.setUsername(user.getUsername());
+		
+		
+		List<Role> allRoleList = new ArrayList<Role>();
+		for (Role role : findAllRole()) {
+			allRoleList.add(role);
+		}
+		userEvent.setAllRoles(allRoleList);
+
+		List<Long> rolesChecked = new ArrayList<Long>();
+		for(Role r : roleRepository.findAllRoleForUser(user.getId()))
+		{
+			System.out.println("findByUserId(userId) " +r.getRolename());
+			rolesChecked.add(r.getId());
+		}
+		userEvent.setRolesChecked(rolesChecked);
+		
+		
+		return userEvent;
 	}
 
 }

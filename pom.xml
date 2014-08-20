@@ -22,6 +22,9 @@
 		<springsecurity.version>4.0.0.M2</springsecurity.version>
 		<spring.webflow>2.4.0.RELEASE</spring.webflow>
 
+		<!-- Query DSL -->
+		<querydsl.version>3.4.2</querydsl.version>
+
 		<!-- AOP -->
 		<aspectj.version>1.8.1</aspectj.version>
 
@@ -236,7 +239,7 @@
 			<version>${javax.servlet-api}</version>
 			<scope>provided</scope>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>jstl</artifactId>
@@ -309,6 +312,26 @@
 			<artifactId>spring-data-jpa</artifactId>
 			<version>${spring-data-jpa.version}</version>
 		</dependency>
+
+		<!-- Query DSL -->
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-core</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.mysema.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+			<version>${querydsl.version}</version>
+		</dependency>
+
 
 		<!-- HIBERNATE -->
 		<dependency>
@@ -516,6 +539,25 @@
 				<groupId>org.eclipse.jetty</groupId>
 				<artifactId>jetty-maven-plugin</artifactId>
 				<version>9.2.2.v20140723</version>
+			</plugin>
+			
+			<!-- Query DSL Plugin -->
+
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processor>com.mysema.query.apt.jpa.JPAAnnotationProcessor</processor>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 

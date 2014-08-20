@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -34,26 +35,16 @@ public class UserManagementController {
 	@Autowired
 	private UserManagementService userManagementService;
 
-	private UserEvent getNewUserWithAllRoles() {
-		UserEvent user = new UserEvent();
-		List<Role> allRoleList = new ArrayList<Role>();
-		for (Role role : userManagementService.findAll()) {
-			allRoleList.add(role);
-		}
-		user.setAllRoles(allRoleList);
 
-		List<Long> noRolesChecked = new ArrayList<Long>();
-		user.setRolesChecked(noRolesChecked);
-		return user;
-	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUserForm(Model model) {
 
-		model.addAttribute("newUserWithRolles", getNewUserWithAllRoles());
+		model.addAttribute("user", userManagementService.getNewUserWithAllRoles());
 		model.addAttribute("action", "add");
+		model.addAttribute("pageHeader", "Benutzer anlegen");
 
-		return "/userManagement/add";
+		return "/userManagement/form";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -61,32 +52,41 @@ public class UserManagementController {
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
 
-		/*
-		 * for(Integer role : user.getRolesChecked()) {
-		 * System.out.println("Role "+role); }
-		 */
-
 		List<Role> allRoleList = new ArrayList<Role>();
 
-		for (Role role : userManagementService.findAll()) {
+		for (Role role : userManagementService.findAllRole()) {
 			allRoleList.add(role);
 		}
 		user.setAllRoles(allRoleList);
 
 		userManagementService.saveUser(user);
 
-		model.addAttribute("newUserWithRolles", getNewUserWithAllRoles());
-		return "/userManagement/add";
+		
+		//Succesfully saved
+		model.addAttribute("newUserWithRolles", userManagementService.getNewUserWithAllRoles());
+		return "/userManagement/form";
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.GET)
-	public String updateUserForm() {
-		return "";
+	@RequestMapping(value = "/table", method = RequestMethod.GET)
+	public String showUser(Model model) {		
+		model.addAttribute("users", userManagementService.findAllUser());	
+		return "/userManagement/table";
 	}
 
-	@RequestMapping(value = "/edit", method = RequestMethod.POST)
-	public String updateUserSave() {
-		return "";
+	@RequestMapping(value = "/table/edit", method = RequestMethod.GET)
+	public String editUserTable(Model model) {
+		model.addAttribute("users", userManagementService.findAllUser());
+		model.addAttribute("edit", true);
+	
+		return "/userManagement/table";
+	}
+	
+	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
+	public String editUser(@PathVariable Long userId, Model model) {
+		model.addAttribute("user", userManagementService.findUserbyId(userId));
+		model.addAttribute("pageHeader", "Benutzer ändern");
+		
+		return "/userManagement/form";
 	}
 
 }

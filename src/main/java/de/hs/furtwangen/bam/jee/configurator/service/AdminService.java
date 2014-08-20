@@ -7,13 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.hs.furtwangen.bam.jee.configurator.model.User;
-import de.hs.furtwangen.bam.jee.configurator.springdatajpa.SpringDataUserRepository;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 
 @Service
 public class AdminService implements IAdminService {
 	
 	@Autowired
-	private SpringDataUserRepository springDataUserRepository;
+	private UserRepository springDataUserRepository;
 
 	@Override
 	@Transactional

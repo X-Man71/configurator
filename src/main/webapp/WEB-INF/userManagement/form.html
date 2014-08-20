@@ -25,10 +25,10 @@ body {
 
 	<div class="container">
 		<div class="page-header">
-			<h1>Benutzer anlegen</h1>		
+			<h1 th:text="${pageHeader}">Benutzer anlegen</h1>		
 		</div>	
 	
-		<form role="form" action="add" th:action="@{${action}}" th:object="${newUserWithRolles}" method="post">
+		<form role="form" action="add" th:action="@{${action}}" th:object="${user}" method="post">
 			<h4>Benutzerdaten eingeben</h4>
   			<div class="form-group">
     			<label th:text="#{label.username}" th:for="${username}">Email address</label>
@@ -40,7 +40,7 @@ body {
   			</div>
   			<h4>Rolle ausw&auml;hlen</h4>
   			<div class="checkbox">
-  				<div th:each="role : ${newUserWithRolles.allRoles}">    		
+  				<div th:each="role : ${user.allRoles}">    		
       				<label> 
       					<input type="checkbox" th:field="*{rolesChecked}" th:value="${role.id}" th:text="#{${'role.' + role.rolename}}" />  		
       				</label> 		      			

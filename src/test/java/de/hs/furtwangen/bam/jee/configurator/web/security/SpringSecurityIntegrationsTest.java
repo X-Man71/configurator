@@ -39,7 +39,7 @@ import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration("classpath:/spring/business-config.xml")
-public class SpringSecurityIntegrationstest {
+public class SpringSecurityIntegrationsTest {
 
 	@Autowired
 	private WebApplicationContext wac;

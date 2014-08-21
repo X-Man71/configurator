@@ -6,9 +6,6 @@ import org.junit.Test;
 
 public class UserManagementControllerTest {
 
-	@Test
-	public void test() {
-		fail("Not yet implemented");
-	}
+	
 
 }

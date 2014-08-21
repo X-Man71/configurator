@@ -462,7 +462,7 @@
 				<version>2.13</version>
 				<configuration>
 					<includes>
-						<include>**/*Tests.java</include>
+						<include>**/*Test.java</include>
 					</includes>
 				</configuration>
 			</plugin>
@@ -471,7 +471,7 @@
 				<artifactId>maven-war-plugin</artifactId>
 				<version>2.3</version>
 				<configuration>
-					<warName>configurator</warName>
+					<warName>ordery</warName>
 				</configuration>
 			</plugin>
 			<plugin>

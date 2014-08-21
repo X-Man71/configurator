@@ -1,5 +1,9 @@
 package de.hs.furtwangen.bam.jee.configurator.service;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -8,6 +12,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Permission;
+import de.hs.furtwangen.bam.jee.configurator.model.Role;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.PermissionRepository;
+import de.hs.furtwangen.bam.jee.configurator.springdatajpa.RoleRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 
 @Service
@@ -15,22 +22,32 @@ import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
 public class CustomUserDetailService implements UserDetailsService {
 	
 	@Autowired
-	private UserRepository springDataUserRepository;
+	private UserRepository userRepository;
+	
+	@Autowired
+	private RoleRepository roleRepository;
+	
+	@Autowired
+	private PermissionRepository permissionRepository;
 
 	@Override
 	public UserDetails loadUserByUsername(String username)
 			throws UsernameNotFoundException {
 		
-		de.hs.furtwangen.bam.jee.configurator.model.User user = springDataUserRepository.findByUsername(username);
+		de.hs.furtwangen.bam.jee.configurator.model.User user = userRepository.findByUsername(username);
 		
-		for(Permission permission :user.getPermissions())
+		List<Role> listRole = roleRepository.findAllRoleForUser(user.getId());
+		
+		for(Role role : listRole)
 		{
-			System.out.println("permission "+permission.getPermissionname());
-		}
-				
+			Set<Permission> setPermission = new HashSet<>();
+			for(Permission permission : permissionRepository.findAllPermissionForRole(role.getId()))
+			{
+				setPermission.add(permission);
+			}
+			role.setPermissions(setPermission);
+		}		
+		user.setRolesUser(listRole);				
 		return user;
 	}
-	
-	}
-
-
+}

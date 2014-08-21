@@ -35,14 +35,12 @@ public class UserManagementController {
 	@Autowired
 	private UserManagementService userManagementService;
 
-
-
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUserForm(Model model) {
-
-		model.addAttribute("user", userManagementService.getNewUserWithAllRoles());
-		model.addAttribute("action", "add");
 		model.addAttribute("pageHeader", "Benutzer anlegen");
+		model.addAttribute("user",
+				userManagementService.getNewUserWithAllRoles());
+		model.addAttribute("action", "add");
 
 		return "/userManagement/form";
 	}
@@ -51,6 +49,7 @@ public class UserManagementController {
 	public String addUserFormSave(@Valid @ModelAttribute UserEvent user,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
+		model.addAttribute("pageHeader", "Benutzer anlegen");
 
 		List<Role> allRoleList = new ArrayList<Role>();
 
@@ -61,15 +60,15 @@ public class UserManagementController {
 
 		userManagementService.saveUser(user);
 
-		
-		//Succesfully saved
-		model.addAttribute("newUserWithRolles", userManagementService.getNewUserWithAllRoles());
+		// Succesfully saved
+		model.addAttribute("newUserWithRolles",
+				userManagementService.getNewUserWithAllRoles());
 		return "/userManagement/form";
 	}
 
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
-	public String showUser(Model model) {		
-		model.addAttribute("users", userManagementService.findAllUser());	
+	public String showUser(Model model) {
+		model.addAttribute("users", userManagementService.findAllUser());
 		return "/userManagement/table";
 	}
 
@@ -77,15 +76,15 @@ public class UserManagementController {
 	public String editUserTable(Model model) {
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("edit", true);
-	
+
 		return "/userManagement/table";
 	}
-	
+
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
 	public String editUser(@PathVariable Long userId, Model model) {
 		model.addAttribute("user", userManagementService.findUserbyId(userId));
 		model.addAttribute("pageHeader", "Benutzer ändern");
-		
+
 		return "/userManagement/form";
 	}
 

@@ -76,5 +76,6 @@
 	</bean>
 	
 	 <mvc:view-controller path="/login" view-name="login" />
+	 <mvc:view-controller path="/" view-name="home" />
 	
 </beans>

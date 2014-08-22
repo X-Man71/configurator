@@ -24,8 +24,7 @@
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/login-error" access="permitAll" />
 		<intercept-url pattern="/webjars/**" access="permitAll" />
-		<intercept-url pattern="/**" access="isAuthenticated()" />
-		
+		<intercept-url pattern="/**" access="isAuthenticated()" />	
 	</http>
 
 </beans:beans>

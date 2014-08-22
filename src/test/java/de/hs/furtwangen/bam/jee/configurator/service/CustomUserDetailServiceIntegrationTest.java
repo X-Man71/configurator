@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -95,6 +96,12 @@ public class CustomUserDetailServiceIntegrationTest {
 		for(GrantedAuthority grantedAuthority :user.getAuthorities()){
 			assertEquals("Rolle must be "+testRole,testRole, grantedAuthority.getAuthority());
 		}
+	}
+	
+	@Test(expected=UsernameNotFoundException.class)
+	public void loadUserByUsernameNotExists()
+	{
+		customUserDetailService.loadUserByUsername("testsafdsf");	
 	}
 }
 

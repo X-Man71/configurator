@@ -2,6 +2,9 @@ package de.hs.furtwangen.bam.jee.configurator.web.domain;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotEmpty;
 
 public class Password {
 	/*
@@ -13,10 +16,12 @@ public class Password {
 	 * 20 ) # End of group
 	 */
 	@NotNull
+	@NotEmpty(message = "Darf nicht leer sein")
+	@Size(min = 6,max = 20, message = "Password muss zwischen 6 und 20 Zeichen lang sein")
 	private String password1;
 	@NotNull
 	private String password2;
-	@Pattern(regexp = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%]).{6,20}", message = "Ihr Password ist unsicher")
+	
 	private String newPassword;
 
 	public String getPassword1() {

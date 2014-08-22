@@ -10,6 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateUserException;
 import de.hs.furtwangen.bam.jee.configurator.model.Role;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.RoleRepository;
@@ -23,22 +24,26 @@ public class UserManagementService {
 	private RoleRepository roleRepository;
 		
 	@Autowired
-	private UserRepository springDataUserRepository;	
+	private UserRepository userRepository;	
 	
 	@Transactional(readOnly=true)
-	public Iterable<Role> findAllRole(){
-		return roleRepository.findAll();
+	public List<Role> findAllRole(){		
+		List<Role> allRoleList = new ArrayList<Role>();
+		for (Role role : roleRepository.findAll()) {
+			allRoleList.add(role);
+		}		
+		return allRoleList;
 	}
 	
 	@Transactional
-	public void saveUser(UserEvent userEvent){
+	public void saveUser(UserEvent userEvent) throws DuplicateUserException {
 		
 		List<Role> roleListSelectedByUser = new ArrayList<Role>();		
 		
 		User user = new User();
 		user.setEnabled(true);
 		user.setUsername(userEvent.getUsername());
-		user.setPassword(new BCryptPasswordEncoder().encode(userEvent.getPassword()));
+		user.setPassword(new BCryptPasswordEncoder().encode(userEvent.getPassword1()));
 		
 		Set<User> setUser = new HashSet<User>();
 		setUser.add(user);
@@ -49,13 +54,20 @@ public class UserManagementService {
 		}
 				
 		user.setRolesUser(roleListSelectedByUser);
+				
+		System.out.println("User "+userRepository.findByUsername(user.getUsername()));
+		if(null != userRepository.findByUsername(user.getUsername()))
+		{
+			throw new DuplicateUserException();
+		}
 		
-		springDataUserRepository.save(user);
+		userRepository.save(user);
+		
 	}
 	
 	@Transactional(readOnly=true)
 	public Iterable<User> findAllUser(){
-		return springDataUserRepository.findAll();		
+		return userRepository.findAll();		
 	}
 	
 	public UserEvent getNewUserWithAllRoles() {
@@ -73,7 +85,7 @@ public class UserManagementService {
 	
 	public UserEvent findUserbyId(Long userId)
 	{
-		User user = springDataUserRepository.findOne(userId);
+		User user = userRepository.findOne(userId);
 		
 		UserEvent userEvent = new UserEvent();		
 				

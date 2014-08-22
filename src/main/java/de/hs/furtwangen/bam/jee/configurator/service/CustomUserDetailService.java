@@ -36,6 +36,11 @@ public class CustomUserDetailService implements UserDetailsService {
 		
 		de.hs.furtwangen.bam.jee.configurator.model.User user = userRepository.findByUsername(username);
 		
+		if(user == null)
+		{
+			throw new UsernameNotFoundException(username);
+		}
+		
 		List<Role> listRole = roleRepository.findAllRoleForUser(user.getId());
 		
 		for(Role role : listRole)

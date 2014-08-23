@@ -14,7 +14,7 @@
 
 	<mvc:annotation-driven />
 
-	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/favicon.ico" location="/resources/favicon.ico" />
 
 	<!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies 
 		(Bootstrap, jQuery...) -->
@@ -67,15 +67,15 @@
 			</map>
 		</property>
 	</bean>
-	
+
 	<bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<property name="basename">
 			<value>messages/messages</value>
 		</property>
 	</bean>
-	
-	 <mvc:view-controller path="/login" view-name="login" />
-	 <mvc:view-controller path="/" view-name="home" />
-	
+
+	<mvc:view-controller path="/login" view-name="login" />
+	<mvc:view-controller path="/" view-name="home" />
+
 </beans>

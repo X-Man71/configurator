@@ -534,6 +534,9 @@
 					<server>tomcat-development-server</server>
 					<port>8080</port>
 					<path>/</path>
+					 <!-- see possible values http://tomcat.apache.org/tomcat-7.0-doc/config/http.html protocol -->
+					  <protocol>org.apache.coyote.http11.Http11NioProtocol</protocol>
+					
 				</configuration>
 			</plugin>
 

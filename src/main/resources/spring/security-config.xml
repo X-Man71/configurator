@@ -13,7 +13,7 @@
 		<authentication-provider user-service-ref="customUserDetailService">
 			<password-encoder ref="bcryptEncoder" />
 		</authentication-provider>
-	</authentication-manager>	
+	</authentication-manager>
 
 	<global-method-security pre-post-annotations="enabled" />
 
@@ -24,7 +24,9 @@
 		<intercept-url pattern="/login" access="permitAll" />
 		<intercept-url pattern="/login-error" access="permitAll" />
 		<intercept-url pattern="/webjars/**" access="permitAll" />
-		<intercept-url pattern="/**" access="isAuthenticated()" />	
+		<intercept-url pattern="/resources/**" access="permitAll" />
+		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<intercept-url pattern="/favicon.ico" access="permitAll" />
 	</http>
 
 </beans:beans>

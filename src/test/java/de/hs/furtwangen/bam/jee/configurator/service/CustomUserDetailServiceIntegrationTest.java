@@ -51,14 +51,14 @@ public class CustomUserDetailServiceIntegrationTest {
 		
 		Permission permission = new Permission();
 		permission.setPermissionname("DEFAULT");
-		permission.setVersion(new LocalDateTime());
+
 
 		Set<Permission> setPermission = new HashSet<Permission>();
 		setPermission.add(permission);
 
 		Role role = new Role();
 		role.setRolename(testRole);
-		role.setVersion(new LocalDateTime());
+
 
 		Set<Role> setRole = new HashSet<Role>();
 		setRole.add(role);
@@ -67,7 +67,7 @@ public class CustomUserDetailServiceIntegrationTest {
 		user.setEnabled(true);
 		user.setUsername(testUser);
 		user.setPassword(new BCryptPasswordEncoder().encode(testPassword));
-		user.setVersion(new LocalDateTime());
+	
 
 		Set<User> setUser = new HashSet<User>();
 		setUser.add(user);

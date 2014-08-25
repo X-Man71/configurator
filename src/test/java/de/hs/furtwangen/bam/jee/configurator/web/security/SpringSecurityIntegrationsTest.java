@@ -13,7 +13,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.joda.time.LocalDateTime;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -65,14 +64,14 @@ public class SpringSecurityIntegrationsTest {
 
 		Permission permission = new Permission();
 		permission.setPermissionname("DEFAULT");
-		permission.setVersion(new LocalDateTime());
+
 
 		Set<Permission> setPermission = new HashSet<Permission>();
 		setPermission.add(permission);
 
 		Role role = new Role();
 		role.setRolename("MANAGER");
-		role.setVersion(new LocalDateTime());
+
 
 		Set<Role> setRole = new HashSet<Role>();
 		setRole.add(role);
@@ -81,7 +80,7 @@ public class SpringSecurityIntegrationsTest {
 		user.setEnabled(true);
 		user.setUsername(testUser);
 		user.setPassword(new BCryptPasswordEncoder().encode(testPassword));
-		user.setVersion(new LocalDateTime());
+
 
 		Set<User> setUser = new HashSet<User>();
 		setUser.add(user);
@@ -177,4 +176,6 @@ public class SpringSecurityIntegrationsTest {
 				.andExpect(model().attribute("loginError", true))
 				.andDo(MockMvcResultHandlers.print());
 	}
+	
+	//TODO User disabled
 }

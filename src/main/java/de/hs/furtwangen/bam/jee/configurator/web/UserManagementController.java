@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateUserException;
+import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.UserManagementService;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEvent;
 
@@ -92,11 +93,16 @@ public class UserManagementController {
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
 	public String tableUser(Model model) {
 		model.addAttribute("users", userManagementService.findAllUser());
+		for(User user : userManagementService.findAllUser())
+		{
+		System.out.println("User: "+user.getUsername()+" "+user.getEnabled()+" "+user.getVersion() );
+		}
 		return "/userManagement/table";
 	}
 
 	@RequestMapping(value = "/table/edit", method = RequestMethod.GET)
 	public String editUserTable(Model model) {
+		//TODO
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("edit", true);
 
@@ -105,10 +111,42 @@ public class UserManagementController {
 
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
 	public String editUserPage(@PathVariable Long userId, Model model) {
-		model.addAttribute("user", userManagementService.findUserbyId(userId));
-		model.addAttribute("pageHeader", "Benutzer ändern");
+		//TODO
+	
+
+		return "/userManagement/form";
+	}
+	
+	@RequestMapping(value = "/table/delete", method = RequestMethod.GET)
+	public String deleteUserTable(Model model) {
+		//TODO
+	
+
+		return "/userManagement/table";
+	}
+	
+	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
+	public String deleteUserPage(@PathVariable Long userId, Model model) {
+		//TODO
+
+		return "/userManagement/form";
+	}
+	
+	@RequestMapping(value = "/table/enable", method = RequestMethod.GET)
+	public String enableUserTable(Model model) {
+		//TODO
+	
+
+		return "/userManagement/table";
+	}
+	
+	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.GET)
+	public String enableUserPage(@PathVariable Long userId, Model model) {
+		//TODO
+	
 
 		return "/userManagement/form";
 	}
 
+	
 }

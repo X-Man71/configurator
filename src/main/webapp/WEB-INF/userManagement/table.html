@@ -32,18 +32,18 @@ body {
 		<thead>
 			<tr>
 				<th>#</th>
-				<th th:text="#{label.username}"></th>				
-				<th th:text="#{label.enabled}"></th>
+				<th th:text="#{userManagement.page.table.username}"></th>				
+				<th th:text="#{userManagement.page.table.status}"></th>
+				<th></th>
 			</tr>
 		</thead>		
 		<tbody>
 			 <tr th:each="user : ${users}">
 			 	<td th:text="${user.id}"></td>
 				<td th:text="${user.username}"></td>
-				<td th:text="#{${'label.enabled.' + user.enabled}}"></td>
-				<td th:if="${edit}"><a th:href="@{${'/userManagement/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{button.user.edit}">Button Text</a></td>
-				<td th:if="${delete}"></td>
-				<td th:if="${enabled}"></td>
+				<td th:text="#{${'userManagement.page.table.enabled.' + user.enabled}}"></td>
+				<td th:if="${edit}"><a th:href="@{${'/userManagement/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{userManagement.page.table.button.edit}">Button Text</a></td>
+				<td th:if="${enable}"><a th:href="@{${'/userManagement/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{userManagement.page.table.button.enable}">Button Text</a></td>
 			</tr>
 		</tbody>
 

@@ -15,14 +15,11 @@
  */
 package de.hs.furtwangen.bam.jee.configurator.model;
 
-import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
-import org.hibernate.annotations.Type;
-import org.joda.time.LocalDateTime;
 import org.springframework.data.annotation.Version;
 
 /**
@@ -39,9 +36,7 @@ public class BaseEntity {
     protected Long id;
     
     @Version
-    @Column(name = "version")
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentLocalDateTime")
-    public LocalDateTime version;
+    public Long version;
 
     public void setId(Long id) {
         this.id = id;
@@ -51,11 +46,11 @@ public class BaseEntity {
         return id;
     }
 
-	public LocalDateTime getVersion() {
+	public Long getVersion() {
 		return version;
 	}
 
-	public void setVersion(LocalDateTime version) {
+	public void setVersion(Long version) {
 		this.version = version;
 	}
 

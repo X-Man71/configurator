@@ -45,6 +45,7 @@
 		<hibernate.version>4.3.5.Final</hibernate.version>
 		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
 		<hibernate-jpa.version>1.0.1.Final</hibernate-jpa.version>
+		<hibernate-jpa-version>1.0.0.Final</hibernate-jpa-version>
 
 		<!-- Bean validation -->
 		<validation.version>1.1.0.Final</validation.version>
@@ -354,8 +355,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
-			<artifactId>hibernate-jpa-2.0-api</artifactId>
-			<version>${hibernate-jpa.version}</version>
+			<artifactId>hibernate-jpa-2.1-api</artifactId>
+			<version>${hibernate-jpa-version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
@@ -402,6 +403,14 @@
 			<version>${junit.version}</version>
 			<scope>test</scope>
 		</dependency>
+
+		<dependency>
+			<groupId>javax.el</groupId>
+			<artifactId>javax.el-api</artifactId>
+			<version>3.0.0</version>
+			<scope>test</scope>
+		</dependency>
+
 		<!-- used by Spring MVC Test framework -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
@@ -534,9 +543,10 @@
 					<server>tomcat-development-server</server>
 					<port>8080</port>
 					<path>/</path>
-					 <!-- see possible values http://tomcat.apache.org/tomcat-7.0-doc/config/http.html protocol -->
-					  <protocol>org.apache.coyote.http11.Http11NioProtocol</protocol>
-					
+					<!-- see possible values http://tomcat.apache.org/tomcat-7.0-doc/config/http.html 
+						protocol -->
+					<protocol>org.apache.coyote.http11.Http11NioProtocol</protocol>
+
 				</configuration>
 			</plugin>
 

@@ -17,7 +17,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateUserException;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.UserManagementService;
-import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEvent;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventAdd;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventEdit;
 
 /**
  * 
@@ -29,10 +30,11 @@ import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEvent;
  */
 
 @Controller
-@RequestMapping(value = "/userManagement")
+@RequestMapping(value = "/management/user")
 public class UserManagementController {
-	
-	private static final Logger logger = LoggerFactory.getLogger(UserManagementController.class);
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(UserManagementController.class);
 
 	@Autowired
 	private UserManagementService userManagementService;
@@ -40,113 +42,138 @@ public class UserManagementController {
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public String addUserPage(Model model) {
 		logger.info("addUserPage");
-		model.addAttribute("pageHeader", "userManagement.form.add.pageHeader");
+		model.addAttribute("pageHeader", "management.user.form.add.pageHeader");
+		model.addAttribute("passwordField", true);
 		model.addAttribute("user",
 				userManagementService.getNewUserWithAllRoles());
 		model.addAttribute("action", "add");
 
-		return "/userManagement/form";
+		return "/management/user/form";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addUser(@Valid @ModelAttribute("user") UserEvent user,
+	public String addUser(@Valid @ModelAttribute("user") UserEventAdd user,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
 		logger.info("addUser");
-		model.addAttribute("pageHeader", "userManagement.form.add.pageHeader");
-		
+		model.addAttribute("pageHeader", "management.user.form.add.pageHeader");
+		model.addAttribute("passwordField", true);
+
 		user.setAllRoles(userManagementService.findAllRole());
 		model.addAttribute("user", user);
-		
-		if(!user.passwordEquals()){
-			model.addAttribute("passwordError", "userManagement.form.add.error.pasword.equals");
-			//Alle Rollen für Form setzen
-			return "/userManagement/form";
+
+		if (!user.passwordEquals()) {
+			model.addAttribute("passwordError",
+					"management.user.form.add.error.pasword.equals");
+			// Alle Rollen für Form setzen
+			return "/management/user/form";
 		}
-		 if (bindingResult.hasErrors()) {
-			//Problem with username Variable ex: to Long				
-			//Problem with password Variable ex: to Long, to Short, not Equals			 
-			return "/userManagement/form";
-		 }	
-		 
-		//No Role Selected
-		if(null == user.getRolesChecked())
-		{
-			model.addAttribute("roleError", "userManagement.form.add.error.role.notSelected");
-			return "/userManagement/form";
+		if (bindingResult.hasErrors()) {
+			// Problem with username Variable ex: to Long
+			// Problem with password Variable ex: to Long, to Short, not Equals
+			return "/management/user/form";
 		}
-		
-		//Username not unique	
+
+		// No Role Selected
+		if (null == user.getRolesChecked()) {
+			model.addAttribute("roleError",
+					"management.user.form.add.error.role.notSelected");
+			return "/management/user/form";
+		}
+
+		// Username not unique
 		try {
 			userManagementService.saveUser(user);
 		} catch (DuplicateUserException e) {
-			model.addAttribute("usernameError", "userManagement.form.add.error.username.unique");
-			return "/userManagement/form";
-		}		
+			model.addAttribute("usernameError",
+					"management.user.form.add.error.username.unique");
+			return "/management/user/form";
+		}
 
 		// Succesfully saved
 		model.addAttribute("user",
 				userManagementService.getNewUserWithAllRoles());
-		return "/userManagement/form";
+		return "/management/user/form";
 	}
 
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
 	public String tableUser(Model model) {
 		model.addAttribute("users", userManagementService.findAllUser());
-		for(User user : userManagementService.findAllUser())
-		{
-		System.out.println("User: "+user.getUsername()+" "+user.getEnabled()+" "+user.getVersion() );
+		for (User user : userManagementService.findAllUser()) {
+			System.out.println("User: " + user.getUsername() + " "
+					+ user.getEnabled() + " " + user.getVersion());
 		}
-		return "/userManagement/table";
+		return "/management/user/table";
 	}
 
 	@RequestMapping(value = "/table/edit", method = RequestMethod.GET)
 	public String editUserTable(Model model) {
-		//TODO
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("edit", true);
 
-		return "/userManagement/table";
+		return "/management/user/table";
 	}
 
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
 	public String editUserPage(@PathVariable Long userId, Model model) {
-		//TODO
-	
+		model.addAttribute("pageHeader", "management.user.edit.pageHeader");
+		model.addAttribute("user", userManagementService.findUserbyId(userId));
+		model.addAttribute("passwordField", false);
 
-		return "/userManagement/form";
+		return "/management/user/form";
 	}
-	
-	@RequestMapping(value = "/table/delete", method = RequestMethod.GET)
-	public String deleteUserTable(Model model) {
-		//TODO
-	
 
-		return "/userManagement/table";
-	}
-	
-	@RequestMapping(value = "/delete/{userId}", method = RequestMethod.GET)
-	public String deleteUserPage(@PathVariable Long userId, Model model) {
-		//TODO
+	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.POST)
+	public String editUser(@PathVariable Long userId,
+			@Valid @ModelAttribute("user") UserEventEdit user,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) {
 
-		return "/userManagement/form";
+		model.addAttribute("pageHeader", "management.user.edit.pageHeader");
+		model.addAttribute("passwordField", false);
+
+		user.setAllRoles(userManagementService.findAllRole());
+		model.addAttribute("user", user);
+
+		if (bindingResult.hasErrors()) {
+			// Problem with username Variable ex: to Long
+			// Problem with password Variable ex: to Long, to Short, not Equals
+			return "/management/user/form";
+		}
+
+		// No Role Selected
+		if (null == user.getRolesChecked()) {
+			model.addAttribute("roleError",
+					"management.user.edit.error.role.notSelected");
+			return "/management/user/form";
+		}
+
+		try {
+			userManagementService.updateUser(userId, user);
+			// Username not unique
+		} catch (DuplicateUserException e) {
+			model.addAttribute("usernameError",
+					"management.user.edit.error.username.unique");
+			return "/management/user/form";
+		}
+
+		return "/management/user/form";
 	}
-	
+
+
 	@RequestMapping(value = "/table/enable", method = RequestMethod.GET)
 	public String enableUserTable(Model model) {
-		//TODO
-	
+		// TODO
+		model.addAttribute("enable", true);
 
-		return "/userManagement/table";
+		return "/management/user/table";
 	}
-	
-	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.GET)
+
+	@RequestMapping(value = "/table/enable", method = RequestMethod.POST)
 	public String enableUserPage(@PathVariable Long userId, Model model) {
-		//TODO
-	
+		// TODO
 
-		return "/userManagement/form";
+		return "/management/user/form";
 	}
 
-	
 }

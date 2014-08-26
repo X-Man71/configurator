@@ -14,4 +14,7 @@ public interface UserRepository extends CrudRepository<User, Long>, PagingAndSor
 	
 	public List<User> findAll();
 	
+	public User findByIdNotAndUsername(Long id, String username);
+	
+	
 }

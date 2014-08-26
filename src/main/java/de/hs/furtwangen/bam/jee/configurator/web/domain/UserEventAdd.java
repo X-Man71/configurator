@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 import de.hs.furtwangen.bam.jee.configurator.model.Role;
 
-public class UserEvent {
+public class UserEventAdd {
 	
 	@NotNull(message = "{error.userevent.username.notNull}")
 	@NotEmpty(message = "{error.userevent.username.notEmpty}")

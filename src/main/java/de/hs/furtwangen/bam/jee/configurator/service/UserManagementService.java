@@ -15,9 +15,11 @@ import de.hs.furtwangen.bam.jee.configurator.model.Role;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.RoleRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
-import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEvent;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventAdd;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventEdit;
 
 @Service
+@Transactional
 public class UserManagementService {
 		
 	@Autowired
@@ -36,10 +38,8 @@ public class UserManagementService {
 	}
 	
 	@Transactional
-	public void saveUser(UserEvent userEvent) throws DuplicateUserException {
-		
-		List<Role> roleListSelectedByUser = new ArrayList<Role>();		
-		
+	public void saveUser(UserEventAdd userEvent) throws DuplicateUserException {
+				
 		User user = new User();
 		user.setEnabled(true);
 		user.setUsername(userEvent.getUsername());
@@ -53,9 +53,8 @@ public class UserManagementService {
 			roleList.add(ro);
 		}
 				
-		user.setRolesUser(roleListSelectedByUser);
+		user.setRolesUser(roleList);
 				
-		System.out.println("User "+userRepository.findByUsername(user.getUsername()));
 		if(null != userRepository.findByUsername(user.getUsername()))
 		{
 			throw new DuplicateUserException();
@@ -67,33 +66,35 @@ public class UserManagementService {
 	
 	@Transactional(readOnly=true)
 	public Iterable<User> findAllUser(){
-		return userRepository.findAll();		
+		return userRepository.findAll();	
 	}
 	
-	public UserEvent getNewUserWithAllRoles() {
-		UserEvent user = new UserEvent();
+	@Transactional
+	public UserEventAdd getNewUserWithAllRoles() {
+		UserEventAdd user = new UserEventAdd();
 		List<Role> allRoleList = new ArrayList<Role>();
-		for (Role role : findAllRole()) {
+		for (Role role : roleRepository.findAll()) {
 			allRoleList.add(role);
 		}
 		user.setAllRoles(allRoleList);
 
-		List<Long> noRolesChecked = new ArrayList<Long>();
+		List<Long> noRolesChecked = new ArrayList<Long>();		
 		user.setRolesChecked(noRolesChecked);
 		return user;
 	}
 	
-	public UserEvent findUserbyId(Long userId)
+	@Transactional
+	public UserEventEdit findUserbyId(Long userId)
 	{
 		User user = userRepository.findOne(userId);
 		
-		UserEvent userEvent = new UserEvent();		
+		UserEventEdit userEvent = new UserEventEdit();		
 				
 		userEvent.setUsername(user.getUsername());
 		
 		
 		List<Role> allRoleList = new ArrayList<Role>();
-		for (Role role : findAllRole()) {
+		for (Role role : roleRepository.findAll()) {
 			allRoleList.add(role);
 		}
 		userEvent.setAllRoles(allRoleList);
@@ -101,13 +102,32 @@ public class UserManagementService {
 		List<Long> rolesChecked = new ArrayList<Long>();
 		for(Role r : roleRepository.findAllRoleForUser(user.getId()))
 		{
-			System.out.println("findByUserId(userId) " +r.getRolename());
 			rolesChecked.add(r.getId());
 		}
 		userEvent.setRolesChecked(rolesChecked);
 		
 		
 		return userEvent;
+	}
+	
+	@Transactional
+	public void updateUser(Long userId, UserEventEdit userEvent) throws DuplicateUserException {
+		
+		if(null != userRepository.findByIdNotAndUsername(userId, userEvent.getUsername()))
+		{
+			throw new DuplicateUserException();
+		}		
+		
+		User user = userRepository.findOne(userId);
+		user.setUsername(userEvent.getUsername());
+		
+		List<Role> roleList = new ArrayList<Role>();
+		for(Role ro : roleRepository.findAll(userEvent.getRolesChecked())){
+			roleList.add(ro);
+		}				
+		user.setRolesUser(roleList);		
+		
+		userRepository.save(user);
 	}
 
 }

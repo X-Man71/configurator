@@ -34,17 +34,17 @@ body {
 
 	<div class="container">
 		<div class="page-header">
-			<h1>Benutzerstatus &auml;ndern</h1>
+			<h1 th:text="#{management.user.enable.pageHeader}">Benutzerstatus &auml;ndern</h1>
 		</div>
 
-		<form role="form" action="/management/user/enable/" th:object="${user}" method="post">
+		<form role="form" action="add" th:action="@{${action}}" th:object="${user}" method="post">
 
 					
 			<div class="form-group">
-				<label class="control-label" th:for="*{enabled}" >Benutzerstatus ändern</label>	
+				<label class="control-label" th:for="*{enabled}" th:text="${user.username}"></label>	
 				<select class="form-control" th:id="*{enabled}" th:field="*{enabled}">
 					<option th:each="type : ${enabledOptions}" th:value="${type}"
-							th:text="${type}">Dropdown</option>
+							th:text="#{${'management.user.enable.do.'+type}}">Dropdown</option>
 				</select>
 			</div>
 			

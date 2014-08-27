@@ -27,13 +27,15 @@ body {
 		<div class="page-header">
 			<h1>Benutzer anzeigen</h1>		
 		</div>	
+		
+		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
 	
 	<table class="table">
 		<thead>
 			<tr>
 				<th>#</th>
-				<th th:text="#{management.user.page.table.username}"></th>				
-				<th th:text="#{management.user.page.table.status}"></th>
+				<th th:text="#{management.user.table.username}"></th>				
+				<th th:text="#{management.user.table.status}"></th>
 				<th></th>
 			</tr>
 		</thead>		
@@ -41,22 +43,20 @@ body {
 			 <tr th:each="user : ${users}">
 			 	<td th:text="${user.id}"></td>
 				<td th:text="${user.username}"></td>
-				<td th:text="#{${'management.user.page.table.enabled.' + user.enabled}}"></td>
+				<td th:text="#{${'management.user.table.enabled.' + user.enabled}}"></td>
 				<td th:if="${edit}">
-					<a th:href="@{${'/management/user/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.page.table.button.edit}">Button Text</a>
+					<a th:href="@{${'/management/user/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.edit}">Button Text</a>
 				</td>
 				<td th:if="${enable}">
-					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.page.table.enabled.change}">Button Text</a>		
+					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.enabled.change}">Button Text</a>		
+				</td>
+				<td th:if="${password}">
+					<a th:href="@{${'/management/user/password/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.password.change}">Button Text</a>		
 				</td>
 			</tr>
 		</tbody>
-	</table>
-		
-		
-		
+	</table>		
 	</div>
-
-
 	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
 </body>
 </html>

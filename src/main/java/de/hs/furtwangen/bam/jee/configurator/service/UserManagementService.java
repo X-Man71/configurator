@@ -130,5 +130,24 @@ public class UserManagementService {
 		
 		userRepository.save(user);
 	}
+	
+	@Transactional
+	public void updateUserStatus(Long userId,UserEventEdit userEventEdit)
+	{
+		User user = userRepository.findOne(userId);
+		
+		user.setEnabled(userEventEdit.isEnabled());
+		
+		userRepository.save(user);
+	}
+	
+	@Transactional
+	public void updateUserPassword(Long userId,String password)
+	{
+		User user = userRepository.findOne(userId);
+		user.setPassword(new BCryptPasswordEncoder().encode(password));
+		
+		userRepository.save(user);
+	}
 
 }

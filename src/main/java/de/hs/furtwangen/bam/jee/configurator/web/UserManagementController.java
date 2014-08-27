@@ -15,8 +15,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateUserException;
-import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.service.UserManagementService;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventAdd;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventEdit;
 
@@ -98,11 +98,9 @@ public class UserManagementController {
 
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
 	public String tableUser(Model model) {
+
 		model.addAttribute("users", userManagementService.findAllUser());
-		for (User user : userManagementService.findAllUser()) {
-			System.out.println("User: " + user.getUsername() + " "
-					+ user.getEnabled() + " " + user.getVersion());
-		}
+
 		return "/management/user/table";
 	}
 
@@ -119,6 +117,7 @@ public class UserManagementController {
 		model.addAttribute("pageHeader", "management.user.edit.pageHeader");
 		model.addAttribute("user", userManagementService.findUserbyId(userId));
 		model.addAttribute("passwordField", false);
+		model.addAttribute("action", "/management/user/edit/" + userId);
 
 		return "/management/user/form";
 	}
@@ -131,6 +130,7 @@ public class UserManagementController {
 
 		model.addAttribute("pageHeader", "management.user.edit.pageHeader");
 		model.addAttribute("passwordField", false);
+		model.addAttribute("action", "/management/user/edit/" + userId);
 
 		user.setAllRoles(userManagementService.findAllRole());
 		model.addAttribute("user", user);
@@ -162,7 +162,6 @@ public class UserManagementController {
 
 	@RequestMapping(value = "/table/enable", method = RequestMethod.GET)
 	public String enableUserTable(Model model) {
-		// TODO
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
 
@@ -171,30 +170,79 @@ public class UserManagementController {
 
 	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.GET)
 	public String enableUserPage(@PathVariable Long userId, Model model) {
-		
+
 		model.addAttribute("user", userManagementService.findUserbyId(userId));
+		model.addAttribute("action", "/management/user/enable/" + userId);
 		boolean[] array = new boolean[2];
 		array[0] = true;
 		array[1] = false;
 		model.addAttribute("enabledOptions", array);
-					
+
 		return "/management/user/enable";
 	}
 
-	@RequestMapping(value = "/enable/", method = RequestMethod.POST)
-	public String enableUser(@Valid @ModelAttribute("user") UserEventEdit user,
+	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.POST)
+	public String enableUser(@PathVariable Long userId,
+			@Valid @ModelAttribute("user") UserEventEdit user,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) 
-	{
-		// TODO
+			Model model) {
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
+
+		userManagementService.updateUserStatus(userId, user);
 		
-		System.out.println("User from Post "+user.getUsername()+ " "+user.isEnabled());
-		
-		
+		redirectAttributes.addFlashAttribute("changeSuccessful", "management.user.enable.changeSuccessful");
+
+		return "redirect:/management/user/table/enable";
+	}
+
+	@RequestMapping(value = "/table/password", method = RequestMethod.GET)
+	public String changePasswordUserTable(Model model) {
+		model.addAttribute("users", userManagementService.findAllUser());
+		model.addAttribute("password", true);
 
 		return "/management/user/table";
+	}
+
+	@RequestMapping(value = "/password/{userId}", method = RequestMethod.GET)
+	public String changePassowrdUserPage(@PathVariable Long userId, Model model) {
+
+		model.addAttribute("pageHeader", "management.user.password.pageHeader");
+		model.addAttribute("password", new Password());
+		model.addAttribute("action", "/management/user/password/" + userId);
+
+		return "/management/user/password";
+	}
+
+	@RequestMapping(value = "/password/{userId}", method = RequestMethod.POST)
+	public String changePassowrdUser(@PathVariable Long userId,
+			@Valid @ModelAttribute("password") Password password,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) {
+		
+		model.addAttribute("pageHeader", "management.user.password.pageHeader");
+		model.addAttribute("action", "/management/user/password/" + userId);
+
+		System.out.println(userId+" "+password.getPassword1()+" "+password.getPassword2());
+		
+
+		if (bindingResult.hasErrors()) {
+			// Problem with username Variable ex: to Long
+			// Problem with password Variable ex: to Long, to Short, not Equals
+			return "/management/user/password";
+		}
+		
+		if (!password.passwordEquals()) {
+			model.addAttribute("passwordError",
+					"management.user.form.add.error.pasword.equals");
+			return "/management/user/password";
+		}
+		
+		userManagementService.updateUserPassword(userId, password.getPassword1());
+
+		redirectAttributes.addFlashAttribute("changeSuccessful", "management.user.password.changeSuccessful");
+
+		return "redirect:/management/user/table/password";
 	}
 
 }

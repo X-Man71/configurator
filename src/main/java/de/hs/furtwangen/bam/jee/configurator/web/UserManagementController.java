@@ -160,20 +160,41 @@ public class UserManagementController {
 		return "/management/user/form";
 	}
 
-
 	@RequestMapping(value = "/table/enable", method = RequestMethod.GET)
 	public String enableUserTable(Model model) {
 		// TODO
+		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
 
 		return "/management/user/table";
 	}
 
-	@RequestMapping(value = "/table/enable", method = RequestMethod.POST)
+	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.GET)
 	public String enableUserPage(@PathVariable Long userId, Model model) {
-		// TODO
+		
+		model.addAttribute("user", userManagementService.findUserbyId(userId));
+		boolean[] array = new boolean[2];
+		array[0] = true;
+		array[1] = false;
+		model.addAttribute("enabledOptions", array);
+					
+		return "/management/user/enable";
+	}
 
-		return "/management/user/form";
+	@RequestMapping(value = "/enable/", method = RequestMethod.POST)
+	public String enableUser(@Valid @ModelAttribute("user") UserEventEdit user,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) 
+	{
+		// TODO
+		model.addAttribute("users", userManagementService.findAllUser());
+		model.addAttribute("enable", true);
+		
+		System.out.println("User from Post "+user.getUsername()+ " "+user.isEnabled());
+		
+		
+
+		return "/management/user/table";
 	}
 
 }

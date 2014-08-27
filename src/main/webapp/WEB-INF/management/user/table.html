@@ -42,13 +42,11 @@ body {
 			 	<td th:text="${user.id}"></td>
 				<td th:text="${user.username}"></td>
 				<td th:text="#{${'management.user.page.table.enabled.' + user.enabled}}"></td>
-				<td th:if="${edit}"><a th:href="@{${'/management/user/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.page.table.button.edit}">Button Text</a></td>
+				<td th:if="${edit}">
+					<a th:href="@{${'/management/user/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.page.table.button.edit}">Button Text</a>
+				</td>
 				<td th:if="${enable}">
-					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.page.table.button.enable}">Button Text</a>
-					<form role="form" action="add" th:action="@{${'/management/user/enable/' + user.id}}" th:object="${user}" method="post">
-						<button type="submit" class="btn btn-default" th:text="${user.enabled}">Senden</button>
-					</form>
-					
+					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.page.table.enabled.change}">Button Text</a>		
 				</td>
 			</tr>
 		</tbody>

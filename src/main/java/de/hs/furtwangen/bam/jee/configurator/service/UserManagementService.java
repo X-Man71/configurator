@@ -91,6 +91,7 @@ public class UserManagementService {
 		UserEventEdit userEvent = new UserEventEdit();		
 				
 		userEvent.setUsername(user.getUsername());
+		userEvent.setEnabled(user.getEnabled());
 		
 		
 		List<Role> allRoleList = new ArrayList<Role>();

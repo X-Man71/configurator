@@ -11,6 +11,8 @@ import de.hs.furtwangen.bam.jee.configurator.model.Role;
 
 public class UserEventEdit {
 	
+	public Long version;
+	
 	@NotNull(message = "{error.userevent.username.notNull}")
 	@NotEmpty(message = "{error.userevent.username.notEmpty}")
 	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
@@ -22,6 +24,15 @@ public class UserEventEdit {
 	
 	private boolean enabled;
 	
+	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public String getUsername() {
 		return username;
 	}

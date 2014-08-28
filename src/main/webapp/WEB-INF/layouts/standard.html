@@ -59,11 +59,11 @@
 							<li class="dropdown">
 							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Benutzer veralten<span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
-										<li><a th:href="@{/management/user/table}">Benutzer anzeigen</a></li>
-										<li><a th:href="@{/management/user/add}">Benutzer anlegen</a></li>
-										<li><a th:href="@{/management/user/table/edit}">Benutzer &auml;ndern</a></li>
-										<li><a th:href="@{/management/user/table/enable}">Benutzer deaktivieren</a></li>
-										<li><a th:href="@{/management/user/table/password}">Password &auml;ndern
+										<li><a th:href="@{/management/user/table}" th:text="#{management.user.table.pageHeader}">Benutzer anzeigen</a></li>
+										<li><a th:href="@{/management/user/add}" th:text="#{management.user.form.add.pageHeader}">Benutzer anlegen</a></li>
+										<li><a th:href="@{/management/user/table/edit}" th:text="#{management.user.edit.pageHeader}">Benutzer bearbeiten</a></li>
+										<li><a th:href="@{/management/user/table/enable}" th:text="#{management.user.enable.pageHeader}">Benutzer deaktivieren</a></li>
+										<li><a th:href="@{/management/user/table/password}" th:text="#{management.user.password.pageHeader}">Password &auml;ndern
 										</a></li>
 									</ul>								
 							</li>

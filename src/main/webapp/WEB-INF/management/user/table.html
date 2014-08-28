@@ -25,7 +25,7 @@ body {
 
 	<div class="container">
 		<div class="page-header">
-			<h1>Benutzer anzeigen</h1>		
+			<h1 th:text="#{${pageHeader}}">Benutzer anzeigen</h1>		
 		</div>	
 		
 		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
@@ -48,10 +48,10 @@ body {
 					<a th:href="@{${'/management/user/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.edit}">Button Text</a>
 				</td>
 				<td th:if="${enable}">
-					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.enabled.change}">Button Text</a>		
+					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.enable}">Button Text</a>		
 				</td>
 				<td th:if="${password}">
-					<a th:href="@{${'/management/user/password/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.password.change}">Button Text</a>		
+					<a th:href="@{${'/management/user/password/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.password}">Button Text</a>		
 				</td>
 			</tr>
 		</tbody>

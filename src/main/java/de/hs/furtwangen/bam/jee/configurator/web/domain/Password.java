@@ -7,6 +7,8 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class Password {
 	
+	public Long version;
+	
 	@NotNull(message = "{error.userevent.password.notNull}")
 	@NotEmpty(message = "{error.userevent.password.notEmpty}")
 	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
@@ -16,6 +18,16 @@ public class Password {
 	@NotEmpty(message = "{error.userevent.password.notEmpty}")
 	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
 	private String password2;
+	
+	
+
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
 
 	public String getPassword1() {
 		return password1;

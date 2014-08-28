@@ -11,25 +11,27 @@ import de.hs.furtwangen.bam.jee.configurator.model.Role;
 
 public class UserEventAdd {
 	
+	public Long version;
+	
 	@NotNull(message = "{error.userevent.username.notNull}")
 	@NotEmpty(message = "{error.userevent.username.notEmpty}")
 	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
 	private String username;
 	
-	@NotNull(message = "{error.userevent.password.notNull}")
-	@NotEmpty(message = "{error.userevent.password.notEmpty}")
-	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
-	private String password1;
-	
-	@NotNull(message = "{error.userevent.password.notNull}")
-	@NotEmpty(message = "{error.userevent.password.notEmpty}")
-	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
-	private String password2;
+	private Password password = new Password();
 		
 	private List<Long> rolesChecked;
 	
 	private List<Role> allRoles;
 	
+	public Long getVersion() {
+		return version;
+	}
+
+	public void setVersion(Long version) {
+		this.version = version;
+	}
+
 	public String getUsername() {
 		return username;
 	}
@@ -38,20 +40,12 @@ public class UserEventAdd {
 		this.username = username;
 	}
 
-	public String getPassword1() {
-		return password1;
+	public Password getPassword() {
+		return password;
 	}
 
-	public void setPassword1(String password1) {
-		this.password1 = password1;
-	}
-
-	public String getPassword2() {
-		return password2;
-	}
-
-	public void setPassword2(String password2) {
-		this.password2 = password2;
+	public void setPassword(Password password) {
+		this.password = password;
 	}
 
 	public List<Role> getAllRoles() {
@@ -68,15 +62,5 @@ public class UserEventAdd {
 
 	public void setRolesChecked(List<Long> rolesChecked) {
 		this.rolesChecked = rolesChecked;
-	}
-	
-	public boolean passwordEquals(){
-		if(null == password1){
-			return false;
-		}
-		if(null == password2){
-			return false;
-		}
-		return password1.equals(password2);
 	}
 }

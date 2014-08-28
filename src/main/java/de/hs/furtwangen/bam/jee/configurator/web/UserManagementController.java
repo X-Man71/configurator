@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.ObjectOptimisticLockingFailureException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -62,7 +63,7 @@ public class UserManagementController {
 		user.setAllRoles(userManagementService.findAllRole());
 		model.addAttribute("user", user);
 
-		if (!user.passwordEquals()) {
+		if (!user.getPassword().passwordEquals()) {
 			model.addAttribute("passwordError",
 					"management.user.form.add.error.pasword.equals");
 			// Alle Rollen für Form setzen
@@ -83,7 +84,7 @@ public class UserManagementController {
 
 		// Username not unique
 		try {
-			userManagementService.saveUser(user);
+			userManagementService.addUser(user);
 		} catch (DuplicateUserException e) {
 			model.addAttribute("usernameError",
 					"management.user.form.add.error.username.unique");
@@ -93,12 +94,14 @@ public class UserManagementController {
 		// Succesfully saved
 		model.addAttribute("user",
 				userManagementService.getNewUserWithAllRoles());
+		model.addAttribute("changeSuccessful",
+				"management.user.form.add.changeSuccessful");
 		return "/management/user/form";
 	}
 
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
 	public String tableUser(Model model) {
-
+		model.addAttribute("pageHeader", "management.user.table.pageHeader");
 		model.addAttribute("users", userManagementService.findAllUser());
 
 		return "/management/user/table";
@@ -106,6 +109,7 @@ public class UserManagementController {
 
 	@RequestMapping(value = "/table/edit", method = RequestMethod.GET)
 	public String editUserTable(Model model) {
+		model.addAttribute("pageHeader", "management.user.edit.pageHeader");
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("edit", true);
 
@@ -150,11 +154,19 @@ public class UserManagementController {
 
 		try {
 			userManagementService.updateUser(userId, user);
+			redirectAttributes.addFlashAttribute("changeSuccessful",
+					"management.user.edit.changeSuccessful");
+
+			return "redirect:/management/user/table/edit";
 			// Username not unique
 		} catch (DuplicateUserException e) {
 			model.addAttribute("usernameError",
 					"management.user.edit.error.username.unique");
+
 			return "/management/user/form";
+		} catch (ObjectOptimisticLockingFailureException ol) {
+			model.addAttribute("formError",
+					"management.user.edit.error.optimisticLocking");
 		}
 
 		return "/management/user/form";
@@ -162,6 +174,8 @@ public class UserManagementController {
 
 	@RequestMapping(value = "/table/enable", method = RequestMethod.GET)
 	public String enableUserTable(Model model) {
+		model.addAttribute("pageHeader",
+				"management.user.table.enable.pageHeader");
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
 
@@ -186,18 +200,34 @@ public class UserManagementController {
 			@Valid @ModelAttribute("user") UserEventEdit user,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
+
+		try {
+			userManagementService.updateUserStatus(userId, user);
+
+		} catch (ObjectOptimisticLockingFailureException ol) {
+			boolean[] array = new boolean[2];
+			array[0] = true;
+			array[1] = false;
+			model.addAttribute("enabledOptions", array);
+			model.addAttribute("action", "/management/user/enable/" + userId);
+			model.addAttribute("formError",
+					"management.user.enable.optimisticLocking");
+			model.addAttribute("user",
+					userManagementService.findUserbyId(userId));
+			return "/management/user/enable";
+		}
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
 
-		userManagementService.updateUserStatus(userId, user);
-		
-		redirectAttributes.addFlashAttribute("changeSuccessful", "management.user.enable.changeSuccessful");
+		redirectAttributes.addFlashAttribute("changeSuccessful",
+				"management.user.enable.changeSuccessful");
 
 		return "redirect:/management/user/table/enable";
 	}
 
 	@RequestMapping(value = "/table/password", method = RequestMethod.GET)
 	public String changePasswordUserTable(Model model) {
+		model.addAttribute("pageHeader", "management.user.password.pageHeader");
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("password", true);
 
@@ -207,40 +237,47 @@ public class UserManagementController {
 	@RequestMapping(value = "/password/{userId}", method = RequestMethod.GET)
 	public String changePassowrdUserPage(@PathVariable Long userId, Model model) {
 
+		Password password = new Password();
+		password.setVersion(userManagementService.findUserbyId(userId)
+				.getVersion());
+
 		model.addAttribute("pageHeader", "management.user.password.pageHeader");
-		model.addAttribute("password", new Password());
+		model.addAttribute("password", password);
 		model.addAttribute("action", "/management/user/password/" + userId);
 
 		return "/management/user/password";
 	}
 
 	@RequestMapping(value = "/password/{userId}", method = RequestMethod.POST)
-	public String changePassowrdUser(@PathVariable Long userId,
+	public String changePasswordUser(@PathVariable Long userId,
 			@Valid @ModelAttribute("password") Password password,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-		
+
 		model.addAttribute("pageHeader", "management.user.password.pageHeader");
 		model.addAttribute("action", "/management/user/password/" + userId);
-
-		System.out.println(userId+" "+password.getPassword1()+" "+password.getPassword2());
-		
 
 		if (bindingResult.hasErrors()) {
 			// Problem with username Variable ex: to Long
 			// Problem with password Variable ex: to Long, to Short, not Equals
 			return "/management/user/password";
 		}
-		
+
 		if (!password.passwordEquals()) {
 			model.addAttribute("passwordError",
 					"management.user.form.add.error.pasword.equals");
 			return "/management/user/password";
 		}
-		
-		userManagementService.updateUserPassword(userId, password.getPassword1());
+		try {
+			userManagementService.updateUserPassword(userId, password);
+		} catch (ObjectOptimisticLockingFailureException ol) {
+			model.addAttribute("formError",
+					"management.user.password.optimisticLocking");
+			return "/management/user/password";
+		}
 
-		redirectAttributes.addFlashAttribute("changeSuccessful", "management.user.password.changeSuccessful");
+		redirectAttributes.addFlashAttribute("changeSuccessful",
+				"management.user.password.changeSuccessful");
 
 		return "redirect:/management/user/table/password";
 	}

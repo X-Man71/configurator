@@ -67,6 +67,14 @@
 										</a></li>
 									</ul>								
 							</li>
+							<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Produkte veralten<span class="caret"></span></a>
+								<ul class="dropdown-menu" role="menu">
+										<li><a th:href="@{/management/product/table}" th:text="#{management.product.table.pageHeader}">Benutzer anzeigen</a></li>
+										<li><a th:href="@{/management/product/add}" th:text="#{management.product.form.add.pageHeader}">Benutzer anlegen</a></li>
+								</ul>								
+							</li>
+							
 							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/events">Auftr&auml;ge</a></li>
 							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/customers">Kunden&uuml;bersicht</a></li>
 						</ul>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<head th:include="layouts/standard :: headTag">
+
+</head>
+
+<head>
+<title>Produkt anlegen</title>
+<style type="text/css">
+body {
+	min-height: 2000px;
+	padding-top: 70px;
+}
+.text-danger {
+	color: #D9534F;
+}
+
+.alert-danger {
+	color: #D9534F;
+}
+
+.alert {
+
+	margin-top: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+
+	<div class="container">
+		<div class="page-header">
+			<h1 th:text="#{${pageHeader}}">Product anlege</h1>		
+		</div>	
+	
+		<form role="form" action="add" th:action="@{${action}}" th:object="${product}" method="post">
+		
+			<input th:field="*{version}" type="hidden"></input>
+				
+  			<div class="form-group">
+    			<label class="control-label" th:text="#{management.product.form.add.productname}" th:for="${productname}">Produktname</label>
+    			<input type="text" th:field="*{productname}" class="form-control" th:placeholder="#{management.product.form.add.productname}"></input>
+    			<div class="alert alert-danger" th:if="${productnameError}" th:text="#{${productnameError}}">Username Error</div>
+    			<div class="alert alert-danger" th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}">type error</div> 
+  			</div>
+  			
+  			<div class="form-group">
+    			<label class="control-label" th:text="#{management.product.form.add.size}" th:for="${size}">Größe</label>
+    			<input type="text" th:field="*{size}" class="form-control" th:placeholder="#{management.product.form.add.size}"></input>
+    			<div class="alert alert-danger" th:if="${sizeError}" th:text="#{${sizeError}}">Username Error</div>
+  			</div>
+			<div class="form-group">
+    			<label th:text="#{management.product.form.add.price}" for="${price}">Preis</label>
+    			<input type="number" th:field="*{price}" class="form-control" th:placeholder="#{management.product.form.add.price}"></input>
+    			<div class="alert alert-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}">type error</div> 
+  			</div>
+  			<div class="form-group">
+				<label class="control-label" th:for="*{available}" th:text="#{management.product.form.add.available}"></label>	
+				<select class="form-control" th:id="*{available}" th:field="*{available}">
+					<option th:each="avai : ${availableOptions}" th:value="${avai}"
+							th:text="#{${'management.product.form.add.available.'+avai}}">Dropdown</option>
+				</select>
+			</div>
+			
+			<div class="form-group">
+				<label class="control-label" th:for="*{productType.productTypeName}" th:text="#{management.product.form.add.producttype}"></label>	
+				<select class="form-control"  th:field="*{productType.productTypeName}">
+					<option th:each="productTypeOpt : ${productTypeOptions}" th:value="${productTypeOpt.productTypeName}"
+							th:text="${productTypeOpt.productTypeName}">Dropdown</option>
+				</select>
+			</div>
+  			
+  			 			
+
+  			<button type="submit" class="btn btn-default">Senden</button>
+  		</form>	
+		<div class="alert alert-danger" th:if="${formError}" th:text="#{${formError}}">Username Error</div>   
+		<div class="alert alert-success" th:if="${formSuccessful}" th:text="#{${formSuccessful}}">Passwörter müssen übereinstimmen</div>
+	</div>
+	
+<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

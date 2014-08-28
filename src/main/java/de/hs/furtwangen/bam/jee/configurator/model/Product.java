@@ -24,8 +24,15 @@ public class Product extends BaseEntity implements Serializable {
 	@NotNull(message = "{error.product.productname.null}")
 	@NotEmpty(message = "{error.product.productname.empty}")
 	@Size(max = 50, message = "{error.product.productname.max}")
-	@Column(name = "productName", length = 50)
-	private String productName;
+	@Column(name = "productname", length = 50)
+	private String productname;
+	
+	/**
+	 * productname and size should be together unique
+	 * size can be small, medium or 0.5l, 0.33l
+	 */
+	@Column(name = "size", length = 50)
+	private String size;
 	
 	@NotNull(message = "{error.product.productname.null}")
 	@NotEmpty(message = "{error.product.productname.empty}")
@@ -33,6 +40,8 @@ public class Product extends BaseEntity implements Serializable {
 	@Column(name = "price")
 	private BigDecimal price;
 	
+	@Column(name = "available", length = 50)
+	private boolean available;	
 	
 	/**
 	 * Types are Eating and Drinking
@@ -40,16 +49,23 @@ public class Product extends BaseEntity implements Serializable {
 	 */
 	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="producttype_id")
-	private ProductType productType;
-	
-	private boolean available;
+	private ProductType productType;	
 
-	public String getProductName() {
-		return productName;
+
+	public String getProductname() {
+		return productname;
 	}
 
-	public void setProductName(String productName) {
-		this.productName = productName;
+	public void setProductname(String productname) {
+		this.productname = productname;
+	}
+	
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
 	}
 
 	public BigDecimal getPrice() {

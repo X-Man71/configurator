@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<head th:include="layouts/standard :: headTag">
+
+</head>
+
+<head>
+<title>Produkt Verwaltung</title>
+<style type="text/css">
+body {
+	min-height: 2000px;
+	padding-top: 70px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+
+	<div class="container">
+		<div class="page-header">
+			<h1 th:text="#{${pageHeader}}">Benutzer anzeigen</h1>		
+		</div>	
+		
+		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>#</th>
+				<th th:text="#{management.product.table.productname}"></th>				
+				<th th:text="#{management.product.table.size}"></th>
+				<th th:text="#{management.product.table.price}"></th>
+				<th th:text="#{management.product.table.available}"></th>	
+				<th th:text="#{management.product.table.producttype}"></th>
+					
+				<th></th>
+			</tr>
+		</thead>		
+		<tbody>
+			 <tr th:each="product : ${products}">
+			 	<td th:text="${product.id}"></td>
+				<td th:text="${product.productname}"></td>
+				<td th:text="${product.size}"></td>
+				<td th:text="${product.price}"></td>
+				<td th:text="#{${'management.product.table.available.' + product.available}}"></td>
+				<td th:text="${product.productType.productTypeName}"></td>
+				
+				
+				
+				<td th:if="${edit}">
+					<a th:href="@{${'/management/user/edit/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.edit}">Button Text</a>
+				</td>
+				<td th:if="${enable}">
+					<a th:href="@{${'/management/user/enable/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.enable}">Button Text</a>		
+				</td>
+				<td th:if="${password}">
+					<a th:href="@{${'/management/user/password/' + user.id}}" class="btn btn-default" role="button" th:text="#{management.user.table.button.password}">Button Text</a>		
+				</td>
+			</tr>
+		</tbody>
+	</table>		
+	</div>
+	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

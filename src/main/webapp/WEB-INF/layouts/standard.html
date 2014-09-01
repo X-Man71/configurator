@@ -56,27 +56,33 @@
 					</div>
 					<div class="collapse navbar-collapse">
 						<ul class="nav navbar-nav">
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Benutzer veralten<span class="caret"></span></a>
+							<li class="dropdown" sec:authorize="hasRole('Manager')">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Benutzer verwalten<span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
 										<li><a th:href="@{/management/user/table}" th:text="#{management.user.table.pageHeader}">Benutzer anzeigen</a></li>
 										<li><a th:href="@{/management/user/add}" th:text="#{management.user.form.add.pageHeader}">Benutzer anlegen</a></li>
 										<li><a th:href="@{/management/user/table/edit}" th:text="#{management.user.edit.pageHeader}">Benutzer bearbeiten</a></li>
 										<li><a th:href="@{/management/user/table/enable}" th:text="#{management.user.enable.pageHeader}">Benutzer deaktivieren</a></li>
-										<li><a th:href="@{/management/user/table/password}" th:text="#{management.user.password.pageHeader}">Password &auml;ndern
+										<li><a th:href="@{/management/user/table/password}" th:text="#{management.user.password.pageHeader}">Benutzer Passwort &auml;ndern
 										</a></li>
 									</ul>								
 							</li>
-							<li class="dropdown">
-							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Produkte veralten<span class="caret"></span></a>
+							<li class="dropdown" sec:authorize="hasRole('Manager')">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown">Produkte verwalten<span class="caret"></span></a>
 								<ul class="dropdown-menu" role="menu">
-										<li><a th:href="@{/management/product/table}" th:text="#{management.product.table.pageHeader}">Benutzer anzeigen</a></li>
-										<li><a th:href="@{/management/product/add}" th:text="#{management.product.form.add.pageHeader}">Benutzer anlegen</a></li>
+										<li><a th:href="@{/management/product/table}" th:text="#{management.product.table.pageHeader}">Produkt anzeigen</a></li>
+										<li><a th:href="@{/management/product/add}" th:text="#{management.product.form.add.pageHeader}">Produkt anlegen</a></li>
 								</ul>								
 							</li>
-							
-							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/events">Auftr&auml;ge</a></li>
-							<li sec:authorize="hasRole('ROLE_ADMIN')"><a href="/admin/customers">Kunden&uuml;bersicht</a></li>
+							<li>
+								<a th:href="@{/serve}">Bestellung erfassen</a>
+							</li>
+							<li>
+								<a th:href="@{/serve}">Kassieren</a>
+							</li>
+							<li>
+								<a th:href="@{/serve}">Bestellung erfassen direkt kassieren</a>
+							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">
 							<li class="dropdown">

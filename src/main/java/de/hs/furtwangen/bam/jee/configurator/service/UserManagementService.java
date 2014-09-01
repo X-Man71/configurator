@@ -10,7 +10,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateUserException;
+import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateException;
 import de.hs.furtwangen.bam.jee.configurator.model.Role;
 import de.hs.furtwangen.bam.jee.configurator.model.User;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.RoleRepository;
@@ -44,7 +44,7 @@ public class UserManagementService {
 	}
 
 	@Transactional
-	public void addUser(UserEventAdd userEvent) throws DuplicateUserException {
+	public void addUser(UserEventAdd userEvent) throws DuplicateException {
 		User user = new User();
 		user.setEnabled(true);
 		user.setUsername(userEvent.getUsername());
@@ -63,7 +63,7 @@ public class UserManagementService {
 		user.setRolesUser(roleList);
 
 		if (null != userRepository.findByUsername(user.getUsername())) {
-			throw new DuplicateUserException();
+			throw new DuplicateException();
 		}
 		userRepository.save(user);
 	}
@@ -109,11 +109,11 @@ public class UserManagementService {
 
 	@Transactional
 	public void updateUser(Long userId, UserEventEdit userEvent)
-			throws DuplicateUserException {
+			throws DuplicateException {
 
 		if (null != userRepository.findByIdNotAndUsername(userId,
 				userEvent.getUsername())) {
-			throw new DuplicateUserException();
+			throw new DuplicateException();
 		}
 
 		User user = userRepository.findOne(userId);

@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateUserException;
+import de.hs.furtwangen.bam.jee.configurator.Exception.DuplicateException;
 import de.hs.furtwangen.bam.jee.configurator.service.UserManagementService;
+import de.hs.furtwangen.bam.jee.configurator.util.BooleanArray;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.Password;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventAdd;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.UserEventEdit;
@@ -85,7 +86,7 @@ public class UserManagementController {
 		// Username not unique
 		try {
 			userManagementService.addUser(user);
-		} catch (DuplicateUserException e) {
+		} catch (DuplicateException e) {
 			model.addAttribute("usernameError",
 					"management.user.form.add.error.username.unique");
 			return "/management/user/form";
@@ -159,7 +160,7 @@ public class UserManagementController {
 
 			return "redirect:/management/user/table/edit";
 			// Username not unique
-		} catch (DuplicateUserException e) {
+		} catch (DuplicateException e) {
 			model.addAttribute("usernameError",
 					"management.user.edit.error.username.unique");
 
@@ -187,10 +188,7 @@ public class UserManagementController {
 
 		model.addAttribute("user", userManagementService.findUserbyId(userId));
 		model.addAttribute("action", "/management/user/enable/" + userId);
-		boolean[] array = new boolean[2];
-		array[0] = true;
-		array[1] = false;
-		model.addAttribute("enabledOptions", array);
+		model.addAttribute("enabledOptions", BooleanArray.getBooleanArray());
 
 		return "/management/user/enable";
 	}
@@ -205,10 +203,7 @@ public class UserManagementController {
 			userManagementService.updateUserStatus(userId, user);
 
 		} catch (ObjectOptimisticLockingFailureException ol) {
-			boolean[] array = new boolean[2];
-			array[0] = true;
-			array[1] = false;
-			model.addAttribute("enabledOptions", array);
+			model.addAttribute("enabledOptions", BooleanArray.getBooleanArray());
 			model.addAttribute("action", "/management/user/enable/" + userId);
 			model.addAttribute("formError",
 					"management.user.enable.optimisticLocking");

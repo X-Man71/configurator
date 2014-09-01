@@ -7,5 +7,11 @@ import de.hs.furtwangen.bam.jee.configurator.model.Product;
 
 public interface ProductRepository extends CrudRepository<Product, Long>,
 		PagingAndSortingRepository<Product, Long> {
+	
+	public Product findByProductnameAndSize(String productname,String size);
+	
+	
+	
+	//public User findByIdNotAndUsername(Long id, String username);
 
 }

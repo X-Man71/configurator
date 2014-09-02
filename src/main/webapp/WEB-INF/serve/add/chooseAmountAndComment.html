@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<head th:include="layouts/standard :: headTag">
+
+</head>
+
+<head>
+<title>Bestellung erfassen</title>
+<style type="text/css">
+body {
+	min-height: 2000px;
+	padding-top: 70px;
+}
+.text-danger {
+	color: #D9534F;
+}
+
+.alert-danger {
+	color: #D9534F;
+}
+
+.alert {
+
+	margin-top: 15px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+
+	<div class="container">
+		<div class="page-header">
+			<h1 th:text="#{${pageHeader}}">Benutzer anlegen</h1>		
+		</div>	
+		
+
+		<form role="form" action="add" th:action="@{${'/serve/add/chooseTable/' + tableCustomer.id + '/chooseProduct/' + product.id}}" th:object="${productAmountAndComment}" method="post">
+	
+			<div class="form-group">
+    			<label>Produktname</label>
+    			<input type="text" th:value="${product.productname}" class="form-control" readonly="readonly"></input>
+  			</div>
+  			
+  			<div class="form-group">
+    			<label>Tischnummer</label>
+    			<input type="text" th:value="${tableCustomer.tableNumber}" class="form-control" readonly="readonly"></input>
+  			</div>			
+						
+			<div class="form-group">
+    			<label th:text="#{serve.add.chooseAmountAndComment.comment}" for="${comment}">Comment</label>
+    			<input type="text" th:field="*{comment}" class="form-control" th:placeholder="#{serve.add.chooseAmountAndComment.comment}"></input>
+  			</div>
+  			
+  			<div class="form-group">
+				<label class="control-label" th:text="#{serve.add.chooseAmountAndComment.commentForAll}"></label>	
+				<select class="form-control" th:field="*{forall}">
+					<option th:each="option : ${forAllOptions}" th:value="${option}" th:text="#{${'serve.add.chooseAmountAndComment.forAllOptions.'+option}}">Dropdown</option>
+				</select>
+			</div>
+  			
+  			<div class="form-group">
+    			<label th:text="#{serve.add.chooseAmountAndComment.amount}" for="${amount}">Comment</label>
+    			<input type="number" th:field="*{amount}" class="form-control" th:placeholder="#{serve.add.chooseAmountAndComment.amount}" min="1" step="1" max="100"></input>
+  			</div>
+  			
+  			<button type="submit" class="btn btn-default">Senden</button>
+  		</form>	
+		<div class="alert alert-danger" th:if="${formError}" th:text="#{${formError}}">Username Error</div>   
+		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
+	</div>
+	
+<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

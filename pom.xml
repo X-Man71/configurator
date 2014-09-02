@@ -23,7 +23,7 @@
 		<spring.webflow>2.4.0.RELEASE</spring.webflow>
 
 		<!-- Query DSL -->
-		<querydsl.version>3.4.2</querydsl.version>
+		<querydsl.version>3.4.3</querydsl.version>
 
 		<!-- AOP -->
 		<aspectj.version>1.8.1</aspectj.version>

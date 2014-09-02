@@ -2,6 +2,7 @@ package de.hs.furtwangen.bam.jee.configurator.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -53,6 +55,10 @@ public class Product extends BaseEntity implements Serializable {
 	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
 	@JoinColumn(name="producttype_id")
 	private ProductType productType;	
+	
+	
+	@OneToMany(mappedBy="product")
+	private List<OrderPosition> orderPositionList;
 
 
 	public String getProductname() {
@@ -94,6 +100,20 @@ public class Product extends BaseEntity implements Serializable {
 	public void setAvailable(boolean available) {
 		this.available = available;
 	}
+
+	public List<OrderPosition> getOrderPositionList() {
+		return orderPositionList;
+	}
+
+	public void setOrderPositionList(List<OrderPosition> orderPositionList) {
+		this.orderPositionList = orderPositionList;
+	}
+	
+	public void addOrderPosition(OrderPosition orderPosition){
+		orderPositionList.add(orderPosition);
+	}
+	
+	
 	
 	
 	

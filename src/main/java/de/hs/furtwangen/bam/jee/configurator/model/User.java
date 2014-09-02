@@ -13,6 +13,7 @@ import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -20,7 +21,7 @@ import javax.validation.constraints.Size;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
+@Table
 @Entity(name = "users")
 public class User extends BaseEntity implements Serializable, UserDetails {
 
@@ -45,7 +46,12 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 	@JoinTable(name = "user_roles",
 		joinColumns 		= { @JoinColumn(name = "user_id", referencedColumnName = "id") },
 		inverseJoinColumns 	= { @JoinColumn(name = "role_id", referencedColumnName = "id") })
-	private List<Role> rolesUser;
+	private List<Role> rolesUser;	
+	
+	@OneToMany(mappedBy="user")
+	private List<OrderPosition> orderPositionList;
+	
+	public User() {}
 	
 	public String getUsername() {
 		return username;
@@ -120,5 +126,15 @@ public class User extends BaseEntity implements Serializable, UserDetails {
 	public boolean isEnabled() {
 		return this.getEnabled();
 	}
+
+	public List<OrderPosition> getOrderPositionList() {
+		return orderPositionList;
+	}
+
+	public void setOrderPositionList(List<OrderPosition> orderPositionList) {
+		this.orderPositionList = orderPositionList;
+	}
+	
+	
 
 }

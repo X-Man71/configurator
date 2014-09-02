@@ -40,10 +40,13 @@
 					p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
 			</property>
 
-			<!-- <property name="jpaProperties"> <props> <prop key="hibernate.hbm2ddl.auto">create</prop> 
-				</props> </property> -->
+		<!--  	<property name="jpaProperties">
+				<props>
+					<prop key="hibernate.hbm2ddl.auto">create</prop>
+				</props>
+			</property>-->
 
-			<property name="persistenceUnitName" value="EventConfigurator" />
+			<property name="persistenceUnitName" value="OrderPersistenceUnit" />
 			<property name="packagesToScan" value="de.hs.furtwangen.bam.jee.configurator" />
 		</bean>
 
@@ -53,7 +56,7 @@
 			p:entityManagerFactory-ref="entityManagerFactory" />
 
 		<bean id="auditorAwareImpl"
-			class="de.hs.furtwangen.bam.jee.configurator.util.AuditorAwareImpl"></bean>  
+			class="de.hs.furtwangen.bam.jee.configurator.util.AuditorAwareImpl"></bean>
 	</beans>
 
 

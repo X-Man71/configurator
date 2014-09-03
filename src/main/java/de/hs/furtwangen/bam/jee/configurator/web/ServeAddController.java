@@ -1,5 +1,8 @@
 package de.hs.furtwangen.bam.jee.configurator.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import de.hs.furtwangen.bam.jee.configurator.model.Product;
 import de.hs.furtwangen.bam.jee.configurator.service.ServeService;
 import de.hs.furtwangen.bam.jee.configurator.util.BooleanArray;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.ProductAmountAndComment;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.ProductOrder;
 
 @Controller
 @RequestMapping(value = "/serve/add")
@@ -34,7 +39,20 @@ public class ServeAddController {
 	@RequestMapping(value = "/chooseTable/{tableId}",method = RequestMethod.GET)
 	public String chooseProductPage(@PathVariable Long tableId, Model model){
 		model.addAttribute("pageHeader", "serve.add.chooseProduct.pageHeader");
-		model.addAttribute("products", serveService.findAllProduct());
+		List<ProductOrder> productOrderList = new ArrayList<>();
+		
+		for(Product product :serveService.findAllProduct())
+		{
+			ProductOrder productOrder = new ProductOrder();
+			productOrder.setId(product.getId());
+			productOrder.setProductname(product.getProductname());
+			productOrder.setPrice(product.getPrice());
+			productOrder.setSize(product.getSize());
+			productOrder.setTableId(tableId);
+			productOrder.setAmount(1);
+			productOrderList.add(productOrder);
+		}
+		model.addAttribute("products", productOrderList);
 		model.addAttribute("tableId", tableId);
 		
 		return "serve/add/chooseProduct"; 
@@ -84,6 +102,19 @@ public class ServeAddController {
 		productAmountAndComment.setForall(true);
 		
 		serveService.saveOrderPosition(productId,tableId, productAmountAndComment);
+		
+		return "redirect:/serve/add/chooseTable";
+	}
+	
+	
+	@RequestMapping(value = "/saveOrderPosition/default",method = RequestMethod.POST)
+	public String saveOrder(@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model){
+		
+		System.out.println(productOrder.getId()+" "+productOrder.getTableId()+" "+productOrder.getAmount());
+		
+	
 		
 		return "redirect:/serve/add/chooseTable";
 	}

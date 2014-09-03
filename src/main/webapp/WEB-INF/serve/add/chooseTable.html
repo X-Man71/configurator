@@ -31,15 +31,15 @@ body {
 		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
 	
 	<table class="table">
-		<thead>
+	<!-- 	<thead>
 			<tr>			
-				<th th:text="#{serve.add.chooseTable.chooseProductsForTable}"></th>
+				<th></th>
 			</tr>
-		</thead>		
+		</thead> -->		
 		<tbody>
 			 <tr th:each="tableCustomer : ${tableCustomers}">
 				<td>
-					<a th:href="@{${'chooseTable/' + tableCustomer.id}}" class="btn btn-default" role="button" th:text="${'Produkt f&uuml;r Tisch ' + tableCustomer.tableNumber + ' erfassen '}">Button Text</a>
+					<a th:href="@{${'chooseTable/' + tableCustomer.id}}" class="btn btn-default btn-lg btn-block" role="button" th:text="${'Tisch ' + tableCustomer.tableNumber}">Button Text</a>
 				</td>
 			</tr>
 		</tbody>

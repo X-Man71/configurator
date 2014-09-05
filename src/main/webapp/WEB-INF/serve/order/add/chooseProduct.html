@@ -13,7 +13,7 @@
 <style type="text/css">
 body {
 	min-height: 2000px;
-	padding-top: 70px;
+	padding-top: 35px;
 }
 </style>
 
@@ -25,7 +25,7 @@ body {
 
 	<div class="container">
 		<div class="page-header">
-			<h1 th:text="#{${pageHeader}}">Bestellung erfassen</h1>		
+			<h1>Bestellung erfassen</h1>		
 		</div>	
 		
 		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
@@ -35,51 +35,55 @@ body {
 	<table class="table">
 		<thead>
 			<tr>
-				<th th:text="#{serve.add.chooseProduct.productname}"></th>				
-				<th th:text="#{serve.add.chooseProduct.orderProductAditionalInfo}"></th>
-
+				<th th:text="#{serve.add.chooseProduct.productname}"></th>
+				<th th:text="#{serve.add.chooseProduct.amount}"></th>				
+				<!--  <th th:text="#{serve.add.chooseProduct.orderProductAditionalInfo}"></th>
+				<th th:text="#{serve.add.chooseProduct.amount}"></th>	-->
 			</tr>
 		</thead>		
 		<tbody>
 		
 			 <tr th:each="product : ${products}">
-			 	
+		
+			 	 <form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/add'}}" method="post">
 				<td>
-			 		 <form class="form-inline"  role="form" action="/serve/add/saveOrderPosition/default" method="post">
+			 		
 			 			<div class="form-group">
 			 				<input type="submit" class="btn btn-default btn-lg" th:value="${product.productname+' '+product.size}"/>
 			 			</div>
 			 			<input id="id" name="id" th:value="${product.id}" type="hidden" readonly="readonly" /> 						 	
 			 			<input id="tableId" name="tableId" th:value="${product.tableId}" type="hidden" readonly="readonly" />	
-			 		</form>					 		
+			 					 		
 			 	</td>
 			 	<td>
-			 		<form class="form-inline"  role="form" action="/serve/add/saveOrderPosition/default" method="post">
 			 		<div class="form-group">	
 			 				<select id="amount" name="amount" th:value="${product.amount}" class="input-group">
-							 	<option>1</option>
-  								<option>2</option>
- 								<option>3</option>
-  								<option>4</option>
-  								<option>5</option>
+							 	<option th:each="avai : ${amountOptions}" th:text="${avai}">Dropdown</option>
 							</select>
 						</div>	
-					</form>			
-			 	
+						
 			 	</td>
-			 	
+			 	</form>	
+			 		
+			 	<!--  <form role="form" action="/serve/add/saveOrderPosition/default" method="post">
 				<td>
-			 		<form role="form" action="/serve/add/saveOrderPosition/default" method="post">
-			 			<input id="id" name="id" th:value="${product.id}" type="hidden" readonly="readonly" />
-			 			<input id="amount" name="amount" th:value="${product.amount}" type="hidden" />
-			 			<input id="tableId" name="tableId" th:value="${product.tableId}" type="hidden" readonly="readonly" />			 	
+			 		
 			 			<div class="form-group">
 			 				<input type="submit" class="btn btn-default btn-lg" th:value="Sonderwunsch"/>
 			 			</div>
-			 		</form>
-			 	
+			 			<input id="id" name="id" th:value="${product.id}" type="hidden" readonly="readonly" /> 						 	
+			 			<input id="tableId" name="tableId" th:value="${product.tableId}" type="hidden" readonly="readonly" />	
+			 					 		
 			 	</td>
-			
+			 	<td>
+			 		<div class="form-group">	
+			 				<select id="amount" name="amount" th:value="${product.amount}" class="input-group">
+							 	<option th:each="avai : ${amountOptions}" th:text="${avai}">Dropdown</option>
+							</select>
+						</div>	
+						
+			 	</td>
+				</form>-->
 			</tr>
 		</tbody>
 	</table>	

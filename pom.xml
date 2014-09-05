@@ -42,10 +42,9 @@
 		<jaxb-impl.version>2.2.7-b53</jaxb-impl.version>
 
 		<!-- Hibernate / JPA -->
-		<hibernate.version>4.3.5.Final</hibernate.version>
-		<hibernate-validator.version>5.0.3.Final</hibernate-validator.version>
-		<hibernate-jpa.version>1.0.1.Final</hibernate-jpa.version>
-		<hibernate-jpa-version>1.0.0.Final</hibernate-jpa-version>
+		<hibernate.version>4.3.6.Final</hibernate.version>
+		<hibernate-validator.version>5.1.2.Final</hibernate-validator.version>
+		<hibernate-jpa.version>1.0.0.Final</hibernate-jpa.version>
 
 		<!-- Bean validation -->
 		<validation.version>1.1.0.Final</validation.version>
@@ -363,7 +362,7 @@
 		<dependency>
 			<groupId>org.hibernate.javax.persistence</groupId>
 			<artifactId>hibernate-jpa-2.1-api</artifactId>
-			<version>${hibernate-jpa-version}</version>
+			<version>${hibernate-jpa.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>

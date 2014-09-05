@@ -34,7 +34,7 @@
 	});
 </script>
 
-<link href="/webjars/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet"
+<link href="../../resources/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}">
 </link>
 
@@ -73,15 +73,6 @@
 										<li><a th:href="@{/management/product/table}" th:text="#{management.product.table.pageHeader}">Produkt anzeigen</a></li>
 										<li><a th:href="@{/management/product/add}" th:text="#{management.product.form.add.pageHeader}">Produkt anlegen</a></li>
 								</ul>								
-							</li>
-							<li>
-								<a th:href="@{/serve/add/chooseTable}">Bestellung erfassen</a>
-							</li>
-							<li>
-								<a th:href="@{/serve}">Kassieren</a>
-							</li>
-							<li>
-								<a th:href="@{/serve}">Bestellung erfassen direkt kassieren</a>
 							</li>
 						</ul>
 						<ul class="nav navbar-nav navbar-right" sec:authorize="isAuthenticated()">

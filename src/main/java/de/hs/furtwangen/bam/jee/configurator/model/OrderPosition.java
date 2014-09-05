@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
 @Table(name = "orderPositions")
@@ -29,22 +30,32 @@ public class OrderPosition extends BaseEntity {
 	private Product product;
 	
 	/**
-	 * Changed to true if orderPosition is payed
+	 * True when waiter has the Order complete
 	 */
-	private boolean done;
+	
+	private boolean registered;
 	
 	/**
 	 * By cook or Barkeeper
 	 */	
 	private boolean provided;
 	
+	/**
+	 * Changed to true if orderPosition is payed
+	 */
+	private boolean done;
+	
+
+	
 	private String comment;
 	
 	
 	@CreatedDate
+	@DateTimeFormat(pattern = "HH.mm.ss dd.MM.yyyy")
 	private LocalDateTime createdDate;
 	
 	@LastModifiedDate
+	@DateTimeFormat(pattern = "HH.mm.ss dd.MM.yyyy")
 	private LocalDateTime modifiedDate;
 
 	public User getUser() {
@@ -102,6 +113,16 @@ public class OrderPosition extends BaseEntity {
 	public LocalDateTime getModifiedDate() {
 		return modifiedDate;
 	}
+
+	public boolean isRegistered() {
+		return registered;
+	}
+
+	public void setRegistered(boolean registered) {
+		this.registered = registered;
+	}
+	
+	
 	
 	
 

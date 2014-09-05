@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:include="layouts/standard :: headTag"></head>
+
+<body>
+
+   <div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+   
+   <div class="container">
+   		<div class="page-header"></div>	
+   		
+   		<table class="table">	
+			<tbody>
+				<tr>
+					<td>					
+						<a th:href="@{${'/serve/order/table/' + tableId + '/add'}}" class="btn btn-default btn-lg btn-block" role="button">Bestellung erfassen</a>
+						<a th:href="@{${'/serve/order/table/' + tableId + '/delete'}}" class="btn btn-default btn-lg btn-block" role="button">Erfasste Bestellungen</a>
+						<a th:href="@{${'/serve/order/table/' + tableId + '/cash'}}" class="btn btn-default btn-lg btn-block" role="button">Kassieren</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+   		
+	</div>
+	
+	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

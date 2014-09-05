@@ -14,7 +14,6 @@ import de.hs.furtwangen.bam.jee.configurator.springdatajpa.OrderPositionReposito
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.ProductRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.TableCustomerRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
-import de.hs.furtwangen.bam.jee.configurator.web.domain.ProductAmountAndComment;
 
 @Service
 @Transactional
@@ -59,22 +58,11 @@ public class ServeService {
 	}
 	
 	@Transactional
-	public void saveOrderPosition(Long productId, Long tableId,ProductAmountAndComment productAmountAndComment){		
-		for(int i = 1;i <= productAmountAndComment.getAmount();i++)
+	public void saveOrderPosition(Long productId, Long tableId, Integer amount){				
+		for(int i = 1;i <= amount;i++)
 		{
 			OrderPosition orderPosition = new OrderPosition();
 			
-			if(productAmountAndComment.isForall())
-			{
-				orderPosition.setComment(productAmountAndComment.getComment());
-			}
-			else
-			{
-				if(i==1)
-				{
-					orderPosition.setComment(productAmountAndComment.getComment());
-				}
-			}
 			orderPosition.setDone(false);	
 			orderPosition.setProvided(false);		
 		
@@ -83,10 +71,9 @@ public class ServeService {
 		
 			orderPosition.setProduct(product);
 			orderPosition.setTableCustomer(findOneTableCustomer(tableId));		
-		
-			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-			String name = auth.getName();
-			orderPosition.setUser(findOneUser(name));
+			//TODO
+			
+			orderPosition.setUser(getCurrentUser());
 		
 			orderPositionRepository.save(orderPosition);
 		}
@@ -94,6 +81,18 @@ public class ServeService {
 		for(OrderPosition position : orderPositionRepository.findAll()){
 			System.out.println(position.getCreatedDate()+" "+position.getModifiedDate()+" "+position.getComment()+" "+position.getProduct().getProductname());
 		}
+	}
+	
+	@Transactional(readOnly=true)
+	public Iterable<OrderPosition> findByTableCustomerAndDoneFalse(Long tableId)
+	{
+		return orderPositionRepository.findByTableCustomerAndDoneFalse(findOneTableCustomer(tableId));
+	}
+	
+	private User getCurrentUser(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String name = auth.getName();
+		return findOneUser(name);
 	}
 
 }

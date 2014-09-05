@@ -4,23 +4,26 @@
 	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
 
 <head th:include="layouts/standard :: headTag">
-
-
-<style type="text/css">
-body 
-{
-	min-height: 2000px;
-	padding-top: 70px;
-} 
-</style>
-
 </head>
 
 <body>
 
-   <div th:replace="layouts/standard :: navbar" th:remove="tag">
-   </div>
-	
+   <div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+   
+   <div class="container">
+   		<div class="page-header"></div>	
+   		
+   		<table class="table" sec:authorize="hasRole('Waiter')">	
+			<tbody>
+				<tr th:each="tableCustomer : ${tableCustomers}">
+					<td>
+						<a th:href="@{${'/serve/order/table/' + tableCustomer.id}}" class="btn btn-default btn-lg btn-block" role="button" th:text="${'Tisch ' + tableCustomer.tableNumber}">Button Text</a>
+					</td>
+				</tr>
+			</tbody>
+		</table>	
+   		
+	</div>
 	
 	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
 </body>

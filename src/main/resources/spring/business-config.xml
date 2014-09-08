@@ -12,10 +12,6 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
-	
-	<context:property-placeholder location="classpath:spring/config.properties" />
-		
-	
 	<import resource="datasource-config.xml" />
 
 	<import resource="security-config.xml" />
@@ -25,42 +21,22 @@
 	<jpa:repositories base-package="de.hs.furtwangen.bam.jee.configurator.springdatajpa" />
 
 	<jpa:auditing auditor-aware-ref="auditorAwareImpl" />
-	
+
 	<context:component-scan base-package="de.hs.furtwangen.bam.jee.configurator.service" />
 
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven />
-	
-	<bean id="gitProperties"
-      class="org.springframework.beans.factory.config.PropertiesFactoryBean">
-  <property name="locations">
-    <list>
-      <value>classpath:git.properties</value>
-    </list>
-  </property>
-</bean>
 
+	<bean id="gitProperties"
+		class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+		<property name="locations">
+			<list>
+				<value>classpath:git.properties</value>
+			</list>
+		</property>
+	</bean>
 
 	<beans>
-		<!-- JPA EntityManagerFactory -->
-		<bean id="entityManagerFactory"
-			class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean"
-			p:dataSource-ref="dataSource">
-			<property name="jpaVendorAdapter">
-				<bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter"
-					p:database="${jpa.database}" p:showSql="${jpa.showSql}" />
-			</property>
-
-		<!--  	<property name="jpaProperties">
-				<props>
-					<prop key="hibernate.hbm2ddl.auto">create</prop>
-				</props>
-			</property>-->
-
-			<property name="persistenceUnitName" value="OrderPersistenceUnit" />
-			<property name="packagesToScan" value="de.hs.furtwangen.bam.jee.configurator" />
-		</bean>
-
 		<!-- Transaction manager for a single JPA EntityManagerFactory (alternative 
 			to JTA) -->
 		<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager"

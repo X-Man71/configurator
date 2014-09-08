@@ -23,98 +23,113 @@ import de.hs.furtwangen.bam.jee.configurator.web.domain.ProductOrder;
 @Controller
 @RequestMapping(value = "/serve/order")
 public class ServeController {
-	
+
 	@Autowired
-	private ServeService serveService;	
-	
+	private ServeService serveService;
+
 	@RequestMapping(value = "/table/{tableId}", method = RequestMethod.GET)
-	public String selectActionPage(@PathVariable Long tableId,Model model) 
-	{		
+	public String selectActionPage(@PathVariable Long tableId, Model model) {
 		model.addAttribute("tableId", tableId);
 		return "serve/order/select";
-	}	
-	
-	
-	@RequestMapping(value = "/table/{tableId}/add",method = RequestMethod.GET)
-	public String chooseProductPage(@PathVariable Long tableId, Model model)
-	{
-		List<ProductOrder> productOrderList = new ArrayList<>();
+	}
+
+	@RequestMapping(value = "/table/{tableId}/add", method = RequestMethod.GET)
+	public String chooseProductPage(@PathVariable Long tableId, Model model) {
+		List<ProductOrder> products = new ArrayList<>();
 		
-		for(Product product :serveService.findAllProduct())
-		{
+		model.addAttribute("pageHeader", "serve.order.add.chooseProduct.pageHeader");
+
+		for (Product product : serveService.findAllProduct()) {
 			ProductOrder productOrder = new ProductOrder();
 			productOrder.setId(product.getId());
 			productOrder.setProductname(product.getProductname());
 			productOrder.setPrice(product.getPrice());
 			productOrder.setSize(product.getSize());
 			productOrder.setTableId(tableId);
-			productOrder.setAmount(1);
-			productOrderList.add(productOrder);
+			products.add(productOrder);
 		}
-		model.addAttribute("products", productOrderList);
+		
+		for(ProductOrder productOrder : products)
+		{
+			System.out.println("tableId,productOrder.getId() "+tableId+" "+productOrder.getId());
+			Integer amount =serveService.countByTableCustomerAndProductAndRegisteredFalse(tableId,productOrder.getId());
+			System.out.println("Amount "+amount);			
+		
+			productOrder.setAmount(amount);
+			
+		}
+			
+		
+		model.addAttribute("products", products);
 		model.addAttribute("tableId", tableId);
 		model.addAttribute("amountOptions", amountOption());
-		
-		return "serve/order/add/chooseProduct"; 
+
+		return "serve/order/add/chooseProduct";
 	}
-	
-	public Integer[] amountOption()
-	{
+
+	public Integer[] amountOption() {
 		Integer[] amountOptions = new Integer[100];
-		
-		for(int i = 1; i<=100;i++)
-		{
-			amountOptions[i-1] = i;
+
+		for (int i = 1; i <= 100; i++) {
+			amountOptions[i - 1] = i;
 		}
 		return amountOptions;
 	}
-	
-	@RequestMapping(value = "/table/{tableId}/add",method = RequestMethod.POST)
-	public String saveOrder(@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
+
+	@RequestMapping(value = "/table/{tableId}/add", method = RequestMethod.POST)
+	public String saveOrder(@PathVariable Long tableId,
+			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model){
+			Model model) {
 		
-		System.out.println("ProductId "+productOrder.getId()+" "+productOrder.getTableId()+" "+productOrder.getAmount());
-		
-		serveService.saveOrderPosition(productOrder.getId(), productOrder.getTableId(), productOrder.getAmount());
-		
-		redirectAttributes.addFlashAttribute("changeSuccessful", "serve.add.chooseTable.productSaved");
-	
-		
+
+		System.out.println("ProductId " + productOrder.getId() + " " + tableId
+				+ " " + productOrder.getAmount());
+
+		serveService.saveOrderPosition(productOrder.getId(), tableId);
+
+		redirectAttributes.addFlashAttribute("addSuccessful",
+				"serve.add.chooseTable.productSaved");
+
 		return "redirect:/serve/order/table/{tableId}/add";
-	}	
+	}
 	
-	
-	@RequestMapping(value = "/table/{tableId}/delete",method = RequestMethod.GET)
-	public String deleteOrderTable(@PathVariable Long tableId, Model model)
-	{
-		model.addAttribute("orderPositions", serveService.findByTableCustomerAndDoneFalse(tableId));
-		model.addAttribute("tableId", tableId);
-	
-		
-		return "serve/order/delete/table";
-	}	
-	
-	@RequestMapping(value = "/table/{tableId}/delete",method = RequestMethod.POST)
-	public String deleteOrder(@PathVariable Long tableId, @Valid @ModelAttribute("orderPosition") OrderPosition orderPosition,
+	@RequestMapping(value = "/table/{tableId}/delete", method = RequestMethod.POST)
+	public String deleteOrder(@PathVariable Long tableId,
+			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model)
-	{
-		System.out.println("orderPosition "+orderPosition.getId());
+			Model model) {
+
+		System.out.println("ProductId " + productOrder.getId() + " " + tableId
+				+ " " + productOrder.getAmount());
+
+		serveService.deleteOrderPosition(productOrder.getId(), tableId);
+
+		redirectAttributes.addFlashAttribute("deleteSuccessful",
+				"serve.order.add.chooseProduct.deleteSuccessful");
+
+		return "redirect:/serve/order/table/{tableId}/add";
+	}
+	
+	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.GET)
+	public String submitOrderPage(@PathVariable Long tableId, Model model) {
+
+
+		return "serve/order/add/aggregationComment";
+	}
+
+	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.POST)
+	public String submitOrder(@PathVariable Long tableId,
+			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) {
 		
-		model.addAttribute("orderPositions", serveService.findByTableCustomerAndDoneFalse(tableId));
-		model.addAttribute("tableId", tableId);
-	
-		
-		return "serve/order/delete/table";
-	}	
-	
-	
-	
-	
-	
-	
-		
+		serveService.submitOrderFromTable(tableId);
+
+
+		return "redirect:/";
+	}
+
 	@RequestMapping(value = "/delete/chooseTable", method = RequestMethod.GET)
 	public String chooseTablePage(Model model) {
 		model.addAttribute("pageHeader",
@@ -129,8 +144,10 @@ public class ServeController {
 	public String chooseOrderPositionPage(@PathVariable Long tableId,
 			Model model) {
 		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");
-		/*model.addAttribute("orderPositions",
-				serveService.findByTableCustomerAndUser(tableId));*/
+		/*
+		 * model.addAttribute("orderPositions",
+		 * serveService.findByTableCustomerAndUser(tableId));
+		 */
 		model.addAttribute("tableId", tableId);
 		return "serve/order/delete/table";
 	}
@@ -142,9 +159,9 @@ public class ServeController {
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
 		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");
-	
-		System.out.println("OrderPosition "+orderPosition.getId());
-		
+
+		System.out.println("OrderPosition " + orderPosition.getId());
+
 		return "serve/order/delete/table";
 	}
 }

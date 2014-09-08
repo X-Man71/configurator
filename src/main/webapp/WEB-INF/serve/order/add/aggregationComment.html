@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<head th:include="layouts/standard :: headTag">
+
+</head>
+
+<head>
+<title>Bestellung erfassen</title>
+<style type="text/css">
+body {
+	min-height: 2000px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+
+	<div class="container">
+		<div class="page-header"></div>
+		<h3 th:text="#{serve.order.add.aggreationComment.pageHeader}">Bestellung speichern</h3>	
+	
+	
+	 <form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/aggregationComment'}}" method="post">
+			<input type="submit" class="btn btn-primary btn-lg btn-block" role="button" th:value="#{serve.order.add.aggreationComment.saveOrderWithoutComment}"/>	
+	</form>	
+		
+	
+	</div>
+	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

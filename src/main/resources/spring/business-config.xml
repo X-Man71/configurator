@@ -12,22 +12,33 @@
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
 
 	<!-- ========================= RESOURCE DEFINITIONS ========================= -->
+	
+	<context:property-placeholder location="classpath:spring/config.properties" />
+		
+	
 	<import resource="datasource-config.xml" />
 
 	<import resource="security-config.xml" />
 
 	<import resource="mvc-core-config.xml" />
 
-	<context:component-scan base-package="de.hs.furtwangen.bam.jee.configurator.service" />
-
 	<jpa:repositories base-package="de.hs.furtwangen.bam.jee.configurator.springdatajpa" />
 
 	<jpa:auditing auditor-aware-ref="auditorAwareImpl" />
-
-	<context:property-placeholder location="classpath:spring/config.properties" />
+	
+	<context:component-scan base-package="de.hs.furtwangen.bam.jee.configurator.service" />
 
 	<!-- enables scanning for @Transactional annotations -->
 	<tx:annotation-driven />
+	
+	<bean id="gitProperties"
+      class="org.springframework.beans.factory.config.PropertiesFactoryBean">
+  <property name="locations">
+    <list>
+      <value>classpath:git.properties</value>
+    </list>
+  </property>
+</bean>
 
 
 	<beans>

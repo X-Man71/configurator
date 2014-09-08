@@ -17,15 +17,15 @@ import org.springframework.format.annotation.DateTimeFormat;
 @Table(name = "orderPositions")
 public class OrderPosition extends BaseEntity {
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
+	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="user_id")
 	private User user;
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
+	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="table_id")
 	private TableCustomer tableCustomer;
 	
-	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
+	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="product_id")
 	private Product product;
 	

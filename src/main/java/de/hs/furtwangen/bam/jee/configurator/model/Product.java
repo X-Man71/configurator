@@ -52,7 +52,7 @@ public class Product extends BaseEntity implements Serializable {
 	 * Types are Eating and Drinking
 	 * This variable deciedes if we send the Product to Cook or Barkeeper
 	 */
-	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.ALL})
+	@ManyToOne(fetch=FetchType.EAGER,cascade = {CascadeType.PERSIST})
 	@JoinColumn(name="producttype_id")
 	private ProductType productType;	
 	

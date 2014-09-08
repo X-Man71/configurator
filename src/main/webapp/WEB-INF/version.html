@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3" lang="en">
+
+<head th:include="layouts/standard :: headTag">
+</head>
+
+<body>
+
+   <div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+   
+   <div class="container">
+   		<div class="page-header"></div>	
+   		
+   		<table class="table">
+			<thead>
+				<tr>
+					<th>Key</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="propertyBean : ${listPropertyBean}">
+					<td th:text="${propertyBean.key}"></td>
+					<td th:text="${propertyBean.value}"></td>
+					
+					
+				</tr>
+			
+			
+			</tbody>
+		</table>
+   		
+	</div>
+	
+	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

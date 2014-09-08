@@ -5,5 +5,5 @@ bin/
 .settings/
 .idea/
 *.iml
-git.properties
+src/main/resources/git.properties
 

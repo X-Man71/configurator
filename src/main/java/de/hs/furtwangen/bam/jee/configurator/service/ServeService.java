@@ -161,5 +161,10 @@ public class ServeService {
 				.findByTableCustomerAndRegisteredFalse(tableCustomerRepository
 						.findOne(tableCustomerId));
 	}
+	
+	@Transactional
+	public void deleteOrderPosition(OrderPosition orderPosition){
+		orderPositionRepository.delete(orderPosition.getId());
+	}
 
 }

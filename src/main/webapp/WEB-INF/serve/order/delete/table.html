@@ -13,7 +13,6 @@
 <style type="text/css">
 body {
 	min-height: 2000px;
-	padding-top: 35px;
 }
 </style>
 
@@ -24,36 +23,36 @@ body {
 	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
 
 	<div class="container">
-		<div class="page-header">
-			<h1>Erfasste Bestellungen</h1>		
-		</div>	
+		<div class="page-header"></div>	
+		<h3>Erfasste Bestellungen</h3>		
 		
-		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>
-		
-		
+		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>		
 	
 	<table class="table">
 		<thead>
 			<tr>
 				<th th:text="#{serve.add.chooseProduct.productname}"></th>
 				<th>Gr&ouml;ße</th>	
+				<th>Kommentar</th>
 				<th>Erfasst</th>
 				<th>Erfasst</th>	
 				<th>Bereitgstellt</th>	
-				<th>Erledigt</th>				
+				<th>Erledigt</th>	
+				<th>L&ouml;schen</th>					
 			</tr>
 		</thead>		
 		<tbody>		
 			 <tr th:each="orderPosition : ${orderPositions}">
 			 	<td th:text="${orderPosition.product.productname}"> </td>
 			 	<td th:text="${orderPosition.product.size}"> </td>
+			 	<td th:text="${orderPosition.comment}"> </td>
 			 	<td th:text="${orderPosition.createdDate}"> </td>
 			 	<td th:text="${orderPosition.registered}"> </td>
 				<td th:text="${orderPosition.provided}"> </td>
 				<td th:text="${orderPosition.done}"> </td>
 				
 				<td>
-					<form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/delete'}}" method="post">			 		
+					<form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/delete/deleteOrderPosition'}}" method="post">			 		
 			 			<input id="id" name="id" th:value="${orderPosition.id}" type="hidden" readonly="readonly" /> 						 				 			
 			 			<div class="form-group">
 			 				<input type="submit" class="btn btn-default btn-lg" value="Löschen"/>

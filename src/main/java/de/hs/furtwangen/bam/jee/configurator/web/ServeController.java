@@ -40,7 +40,8 @@ public class ServeController {
 		
 		model.addAttribute("pageHeader", "serve.order.add.chooseProduct.pageHeader");
 
-		for (Product product : serveService.findAllProduct()) {
+		for (Product product : serveService.findAllProduct()) 
+		{
 			ProductOrder productOrder = new ProductOrder();
 			productOrder.setId(product.getId());
 			productOrder.setProductname(product.getProductname());
@@ -52,12 +53,8 @@ public class ServeController {
 		
 		for(ProductOrder productOrder : products)
 		{
-			System.out.println("tableId,productOrder.getId() "+tableId+" "+productOrder.getId());
 			Integer amount =serveService.countByTableCustomerAndProductAndRegisteredFalse(tableId,productOrder.getId());
-			System.out.println("Amount "+amount);			
-		
-			productOrder.setAmount(amount);
-			
+			productOrder.setAmount(amount);			
 		}
 			
 		
@@ -83,10 +80,6 @@ public class ServeController {
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
 		
-
-		System.out.println("ProductId " + productOrder.getId() + " " + tableId
-				+ " " + productOrder.getAmount());
-
 		serveService.saveOrderPosition(productOrder.getId(), tableId);
 
 		redirectAttributes.addFlashAttribute("addSuccessful",
@@ -100,9 +93,6 @@ public class ServeController {
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-
-		System.out.println("ProductId " + productOrder.getId() + " " + tableId
-				+ " " + productOrder.getAmount());
 
 		serveService.deleteOrderPosition(productOrder.getId(), tableId);
 
@@ -149,50 +139,35 @@ public class ServeController {
 	public String submitOrderWithComment(@PathVariable Long tableId,
 			@Valid @ModelAttribute("orderPositionModel") OrderPositionModel orderPositionModel,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {
-		
-		for(OrderPosition orderPosition : orderPositionModel.getListOrderPositions()){
-			System.out.println(orderPosition.getId()+" "+orderPosition.getComment());
-		}
+			Model model) {	
 		
 		serveService.submitOrderFromTableWithComment(tableId, orderPositionModel);
-
 
 		return "redirect:/";
 	}
 
-	@RequestMapping(value = "/delete/chooseTable", method = RequestMethod.GET)
-	public String chooseTablePage(Model model) {
-		model.addAttribute("pageHeader",
-				"serve.order.delete.chooseTable.pageHeader");
-		model.addAttribute("tableCustomers",
-				serveService.findAllTableCustomer());
-
-		return "serve/order/delete/chooseTable";
-	}
-
-	@RequestMapping(value = "/delete/chooseTable/{tableId}", method = RequestMethod.GET)
+	@RequestMapping(value = "/table/{tableId}/delete", method = RequestMethod.GET)
 	public String chooseOrderPositionPage(@PathVariable Long tableId,
 			Model model) {
 		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");
-		/*
-		 * model.addAttribute("orderPositions",
-		 * serveService.findByTableCustomerAndUser(tableId));
-		 */
+		
+		 model.addAttribute("orderPositions",
+		  serveService.findByTableCustomerAndDoneFalse(tableId));
+	
 		model.addAttribute("tableId", tableId);
 		return "serve/order/delete/table";
 	}
 
-	@RequestMapping(value = "/delete/chooseTable/{tableId}/deleteOrderPosition", method = RequestMethod.POST)
+	@RequestMapping(value = "/table/{tableId}/delete/deleteOrderPosition", method = RequestMethod.POST)
 	public String deleteOrderPosition(
 			@PathVariable Long tableId,
 			@Valid @ModelAttribute("orderPosition") OrderPosition orderPosition,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");
 
-		System.out.println("OrderPosition " + orderPosition.getId());
+		serveService.deleteOrderPosition(orderPosition);
+		
+		return "redirect:/serve/order/table/{tableId}/delete";
 
-		return "serve/order/delete/table";
 	}
 }

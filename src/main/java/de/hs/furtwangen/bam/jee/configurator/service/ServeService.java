@@ -125,5 +125,13 @@ public class ServeService {
 						tableCustomerRepository.findOne(tableCustomerId),
 						productRepository.findOne(productId));
 	}
+	
+	@Transactional(readOnly = true)
+	public Iterable<OrderPosition> findByTableCustomerAndRegisteredFalse(Long tableCustomerId)
+	{
+		return orderPositionRepository
+				.findByTableCustomerAndRegisteredFalse(tableCustomerRepository
+						.findOne(tableCustomerId));
+	}
 
 }

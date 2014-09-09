@@ -113,18 +113,61 @@ public class ServeController {
 	
 	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.GET)
 	public String submitOrderPage(@PathVariable Long tableId, Model model) {
-
+		/*model.addAttribute("orderPositions", serveService
+				.findByTableCustomerAndRegisteredFalse(tableId));*/
+		
+		List<OrderPosition> orderPositionList = new ArrayList<OrderPosition>();
+		
+		for(OrderPosition orderPosition : serveService
+				.findByTableCustomerAndRegisteredFalse(tableId))
+		{
+			orderPositionList.add(orderPosition);
+		}
+		
+		OrderPositionModel orderPositionModel = new OrderPositionModel();
+		orderPositionModel.setListOrderPositions(orderPositionList);
+		
+		model.addAttribute("orderPositionModel", orderPositionModel);		
 
 		return "serve/order/add/aggregationComment";
 	}
+	
+	class OrderPositionModel
+	{
+		public OrderPositionModel(){}
+		
+		private List<OrderPosition> listOrderPositions;
 
-	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.POST)
-	public String submitOrder(@PathVariable Long tableId,
+		public List<OrderPosition> getListOrderPositions() {
+			return listOrderPositions;
+		}
+
+		public void setListOrderPositions(List<OrderPosition> listOrderPositions) {
+			this.listOrderPositions = listOrderPositions;
+		}
+	}
+
+	@RequestMapping(value = "/table/{tableId}/aggregationComment/withoutComment", method = RequestMethod.POST)
+	public String submitOrderWithoutComment(@PathVariable Long tableId,
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
 		
 		serveService.submitOrderFromTable(tableId);
+
+
+		return "redirect:/";
+	}
+	
+	@RequestMapping(value = "/table/{tableId}/aggregationComment/withComment", method = RequestMethod.POST)
+	public String submitOrderWithComment(@PathVariable Long tableId,
+			@Valid @ModelAttribute("orderPositionModel") OrderPositionModel orderPositionModel,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) {
+		
+		for(OrderPosition orderPosition : orderPositionModel.getListOrderPositions()){
+			System.out.println(orderPosition.getId()+" "+orderPosition.getProduct().getProductname());
+		}
 
 
 		return "redirect:/";

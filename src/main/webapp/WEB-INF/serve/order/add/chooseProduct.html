@@ -45,22 +45,20 @@ body {
 		
 				<td>
 						<form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/add'}}" method="post"  th:object="${products[__${productIndex}__]}">
-			 		
 			 				<div class="form-group">
 			 					<input type="submit" class="btn btn-default btn-lg" th:value="${products[__${productIndex}__].productname+' '+products[__${productIndex}__].size}"/>
 			 				</div>
-			 				<input id="id" name="id" th:value="${products[__${productIndex}__].id}" type="hidden" readonly="readonly" />
+			 					<input id="id" name="id" th:value="${products[__${productIndex}__].id}" type="hidden" readonly="readonly" />
 			 			 </form>	 						 				 					 		
 			 	</td>
 			 	<td th:text="${products[__${productIndex}__].amount}"></td>
 			 	<td>
 			 		<form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/delete'}}" method="post"  th:object="${products[__${productIndex}__]}">
-			 		
-			 				<div class="form-group">
+			 			<div class="form-group">
 			 					<input type="submit" class="btn btn-default btn-lg" th:value="#{serve.order.add.chooseProduct.deleteButton}"/>
-			 				</div>
+			 			</div>
 			 				<input id="id" name="id" th:value="${products[__${productIndex}__].id}" type="hidden" readonly="readonly" />
-			 			 </form>	 
+			 		</form>	 
 			 	</td>
 			</tr>
 		</tbody>

@@ -27,9 +27,29 @@ body {
 		<h3 th:text="#{serve.order.add.aggreationComment.pageHeader}">Bestellung speichern</h3>	
 	
 	
-	 <form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/aggregationComment'}}" method="post">
+	 <form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/aggregationComment/withoutComment'}}" method="post">
 			<input type="submit" class="btn btn-primary btn-lg btn-block" role="button" th:value="#{serve.order.add.aggreationComment.saveOrderWithoutComment}"/>	
 	</form>	
+	
+	
+	<form class="form-inline"  role="form" th:action="@{${'/serve/order/table/' + tableId + '/aggregationComment/withComment'}}" method="post" th:object="${orderPositionModel}">
+	<table class="table">	
+		<tbody>		
+			
+			 <tr th:each="orderPosition : *{listOrderPositions}">		
+				<td>
+			 		<div class="form-group">
+    					<label th:text="${orderPosition.product.productname}">Productname</label>
+    					<input type="text" th:value="${orderPosition.comment}" class="form-control" th:id="${orderPosition.comment}" placeholder="Comment"></input>
+ 						</div>
+			 			<input id="id" name="id" th:value="${orderPosition.id}" type="hidden" readonly="readonly" />			 		
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	<input type="submit" class="btn btn-primary btn-lg btn-block" value="Senden mit Kommentar"/>
+	</form>	
+	
 		
 	
 	</div>

@@ -18,6 +18,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import de.hs.furtwangen.bam.jee.configurator.model.OrderPosition;
 import de.hs.furtwangen.bam.jee.configurator.model.Product;
 import de.hs.furtwangen.bam.jee.configurator.service.ServeService;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.OrderPositionModel;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.ProductOrder;
 
 @Controller
@@ -113,9 +114,7 @@ public class ServeController {
 	
 	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.GET)
 	public String submitOrderPage(@PathVariable Long tableId, Model model) {
-		/*model.addAttribute("orderPositions", serveService
-				.findByTableCustomerAndRegisteredFalse(tableId));*/
-		
+				
 		List<OrderPosition> orderPositionList = new ArrayList<OrderPosition>();
 		
 		for(OrderPosition orderPosition : serveService
@@ -132,20 +131,7 @@ public class ServeController {
 		return "serve/order/add/aggregationComment";
 	}
 	
-	class OrderPositionModel
-	{
-		public OrderPositionModel(){}
-		
-		private List<OrderPosition> listOrderPositions;
-
-		public List<OrderPosition> getListOrderPositions() {
-			return listOrderPositions;
-		}
-
-		public void setListOrderPositions(List<OrderPosition> listOrderPositions) {
-			this.listOrderPositions = listOrderPositions;
-		}
-	}
+	
 
 	@RequestMapping(value = "/table/{tableId}/aggregationComment/withoutComment", method = RequestMethod.POST)
 	public String submitOrderWithoutComment(@PathVariable Long tableId,
@@ -166,8 +152,10 @@ public class ServeController {
 			Model model) {
 		
 		for(OrderPosition orderPosition : orderPositionModel.getListOrderPositions()){
-			System.out.println(orderPosition.getId()+" "+orderPosition.getProduct().getProductname());
+			System.out.println(orderPosition.getId()+" "+orderPosition.getComment());
 		}
+		
+		serveService.submitOrderFromTableWithComment(tableId, orderPositionModel);
 
 
 		return "redirect:/";

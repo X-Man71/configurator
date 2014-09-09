@@ -1,5 +1,7 @@
 package de.hs.furtwangen.bam.jee.configurator.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,6 +16,7 @@ import de.hs.furtwangen.bam.jee.configurator.springdatajpa.OrderPositionReposito
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.ProductRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.TableCustomerRepository;
 import de.hs.furtwangen.bam.jee.configurator.springdatajpa.UserRepository;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.OrderPositionModel;
 
 @Service
 @Transactional
@@ -107,6 +110,31 @@ public class ServeService {
 			orderPosition.setRegistered(registered);
 		}
 		orderPositionRepository.save(orderPositionList);
+	}
+	
+	@Transactional
+	public void submitOrderFromTableWithComment(Long tableId, OrderPositionModel orderPositionModel)
+	{
+		boolean registered = true;
+		
+		Iterable<OrderPosition> orderPositionList = orderPositionRepository
+				.findByTableCustomerAndRegisteredFalse(tableCustomerRepository
+						.findOne(tableId));
+		
+		HashMap<Long, String> commentMap = new HashMap<Long, String>();
+		
+		for(OrderPosition orderPositionWeb : orderPositionModel.getListOrderPositions())
+		{
+			commentMap.put(orderPositionWeb.getId(), orderPositionWeb.getComment());			
+		}
+		
+		for (OrderPosition orderPosition : orderPositionList) {
+			orderPosition.setRegistered(registered);			
+			orderPosition.setComment(commentMap.get(orderPosition.getId()));
+		}
+		
+		orderPositionRepository.save(orderPositionList);
+		
 	}
 
 	private User getCurrentUser() {

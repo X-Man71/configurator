@@ -36,13 +36,14 @@ body {
 	<table class="table">	
 		<tbody>		
 			
-			 <tr th:each="orderPosition : *{listOrderPositions}">		
+			 <tr th:each="orderPosition : ${#numbers.sequence(0,(orderPositionModel.listOrderPositions.size() - 1))}">
+					
 				<td>
 			 		<div class="form-group">
-    					<label th:text="${orderPosition.product.productname}">Productname</label>
-    					<input type="text" th:value="${orderPosition.comment}" class="form-control" th:id="${orderPosition.comment}" placeholder="Comment"></input>
+    					<label th:text="${orderPositionModel.listOrderPositions[__${orderPosition}__].product.productname+' '+orderPositionModel.listOrderPositions[__${orderPosition}__].product.size}">Productname</label>    					
+    					<input type="text" th:field="${orderPositionModel.listOrderPositions[__${orderPosition}__].comment}" class="form-control" th:id="${orderPositionModel.listOrderPositions[__${orderPosition}__].comment}" placeholder="Comment"></input>
  						</div>
-			 			<input id="id" name="id" th:value="${orderPosition.id}" type="hidden" readonly="readonly" />			 		
+			 			<input id="id" name="id" th:field="${orderPositionModel.listOrderPositions[__${orderPosition}__].id}" type="hidden" readonly="readonly" />	 		
 				</td>
 			</tr>
 		</tbody>

@@ -15,6 +15,9 @@ public class ProductTypeRepositoryImpl implements ProductRepositoryCustom {
 	@PersistenceContext
 	private EntityManager entityManager;
 
+	
+	
+	@SuppressWarnings("unused")
 	private QueryDslJpaRepository<ProductType, Long> productTypeRepository;
 	
 	

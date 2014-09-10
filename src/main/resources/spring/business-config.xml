@@ -17,6 +17,8 @@
 	<import resource="security-config.xml" />
 
 	<import resource="mvc-core-config.xml" />
+	
+	<import resource="websocket-config.xml" />
 
 	<jpa:repositories base-package="de.hs.furtwangen.bam.jee.configurator.springdatajpa" />
 

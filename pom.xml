@@ -139,6 +139,13 @@
 			<version>${spring-framework.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${spring-framework.version}</version>
+		</dependency>
+
+
 		<!-- used for EhCacheCacheManager -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -453,6 +460,13 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.4.2</version>
+		</dependency>
+
+
 
 		<!-- Jetty -->
 
@@ -481,12 +495,23 @@
 			<version>${jetty.version}</version>
 		</dependency>
 
+		<dependency>
+			<groupId>javax.websocket</groupId>
+			<artifactId>javax.websocket-api</artifactId>
+			<version>1.0</version>
+		</dependency>
+		<!-- To run javax.websocket in embedded server -->
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>javax-websocket-server-impl</artifactId>
+			<version>9.2.2.v20140723</version>
+		</dependency>
 
-
-
-
-
-
+		<dependency>
+			<groupId>org.eclipse.jetty.websocket</groupId>
+			<artifactId>javax-websocket-client-impl</artifactId>
+			<version>9.2.2.v20140723</version>
+		</dependency>
 
 	</dependencies>
 

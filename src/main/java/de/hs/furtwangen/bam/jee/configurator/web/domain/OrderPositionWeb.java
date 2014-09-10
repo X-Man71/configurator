@@ -24,6 +24,9 @@ public class OrderPositionWeb extends BaseEntity {
 	private String comment;
 	
 	private LocalDateTime createdDate;
+	
+	private String createdDateString;
+	
 
 	public String getProductname() {
 		return productname;
@@ -92,9 +95,14 @@ public class OrderPositionWeb extends BaseEntity {
 	public LocalDateTime getCreatedDate() {
 		return createdDate;
 	}
+	
+	public String getCreatedDateString() {
+		return createdDateString;
+	}
 
 	public void setCreatedDate(LocalDateTime createdDate) {
 		this.createdDate = createdDate;
+		this.createdDateString = createdDate.toString();
 	}
 	
 	

@@ -14,6 +14,8 @@ public interface OrderPositionRepository extends CrudRepository<OrderPosition, L
 	
 	public Iterable<OrderPosition> findByTableCustomerAndRegisteredFalse(TableCustomer tableCustomer);
 	
-	public Integer countByTableCustomerAndProductAndRegisteredFalse(TableCustomer tableCustomer, Product product);
+	public Integer countByTableCustomerAndProductAndRegisteredFalse(TableCustomer tableCustomer, Product product);	
+	
+	public Iterable<OrderPosition> findByRegisteredTrueOrderByIdDesc();
 	
 }

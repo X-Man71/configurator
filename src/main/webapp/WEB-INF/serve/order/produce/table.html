@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	lang="en">
+
+<head th:include="layouts/standard :: headTag">
+
+</head>
+
+<head>
+<title>Bestellungen zur Bearbeitung</title>
+<style type="text/css">
+body {
+	min-height: 2000px;
+}
+</style>
+
+</head>
+
+<body>
+
+	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
+
+	<div class="container">
+		<div class="page-header"></div>	
+		<h3>Bestellungen zur Bearbeitung</h3>		
+		
+		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>		
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th th:text="#{serve.add.chooseProduct.productname}"></th>
+				<th>Gr&ouml;ße</th>	
+				<th>Bedienung</th>
+				<th>Kommentar</th>
+				<th>Erfasst</th>
+				<th>Erfasst</th>	
+				<th>Bereitgstellt</th>	
+				<th>Erledigt</th>	
+				<th>Erledigt</th>					
+			</tr>
+		</thead>		
+		<tbody>		
+			 <tr th:each="orderPosition : ${orderPositions}">
+			 	<td th:text="${orderPosition.productname}"></td>
+			 	<td th:text="${orderPosition.size}"></td>
+			 	<td th:text="${orderPosition.username}"> </td>
+			 	<td th:text="${orderPosition.comment}"> </td>
+			 	<td th:text="${orderPosition.createdDate}"> </td>
+			 	<td th:text="${orderPosition.registered}"> </td>
+				<td th:text="${orderPosition.provided}"> </td>
+				<td th:text="${orderPosition.done}"> </td>			 	
+			</tr>
+		</tbody>
+	</table>	
+
+	</div>
+	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>
+</body>
+</html>

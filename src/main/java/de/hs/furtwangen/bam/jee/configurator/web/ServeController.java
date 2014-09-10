@@ -19,6 +19,7 @@ import de.hs.furtwangen.bam.jee.configurator.model.OrderPosition;
 import de.hs.furtwangen.bam.jee.configurator.model.Product;
 import de.hs.furtwangen.bam.jee.configurator.service.ServeService;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.OrderPositionModel;
+import de.hs.furtwangen.bam.jee.configurator.web.domain.OrderPositionWeb;
 import de.hs.furtwangen.bam.jee.configurator.web.domain.ProductOrder;
 
 @Controller
@@ -36,10 +37,8 @@ public class ServeController {
 
 	@RequestMapping(value = "/table/{tableId}/add", method = RequestMethod.GET)
 	public String chooseProductPage(@PathVariable Long tableId, Model model) {
-		List<ProductOrder> products = new ArrayList<>();
-		
+		List<ProductOrder> products = new ArrayList<>();		
 		model.addAttribute("pageHeader", "serve.order.add.chooseProduct.pageHeader");
-
 		for (Product product : serveService.findAllProduct()) 
 		{
 			ProductOrder productOrder = new ProductOrder();
@@ -49,14 +48,12 @@ public class ServeController {
 			productOrder.setSize(product.getSize());
 			productOrder.setTableId(tableId);
 			products.add(productOrder);
-		}
-		
+		}		
 		for(ProductOrder productOrder : products)
 		{
 			Integer amount =serveService.countByTableCustomerAndProductAndRegisteredFalse(tableId,productOrder.getId());
 			productOrder.setAmount(amount);			
-		}
-			
+		}			
 		
 		model.addAttribute("products", products);
 		model.addAttribute("tableId", tableId);
@@ -67,7 +64,6 @@ public class ServeController {
 
 	public Integer[] amountOption() {
 		Integer[] amountOptions = new Integer[100];
-
 		for (int i = 1; i <= 100; i++) {
 			amountOptions[i - 1] = i;
 		}
@@ -78,13 +74,10 @@ public class ServeController {
 	public String saveOrder(@PathVariable Long tableId,
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {
-		
+			Model model) {		
 		serveService.saveOrderPosition(productOrder.getId(), tableId);
-
 		redirectAttributes.addFlashAttribute("addSuccessful",
 				"serve.add.chooseTable.productSaved");
-
 		return "redirect:/serve/order/table/{tableId}/add";
 	}
 	
@@ -93,20 +86,15 @@ public class ServeController {
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-
 		serveService.deleteOrderPosition(productOrder.getId(), tableId);
-
 		redirectAttributes.addFlashAttribute("deleteSuccessful",
 				"serve.order.add.chooseProduct.deleteSuccessful");
-
 		return "redirect:/serve/order/table/{tableId}/add";
 	}
 	
 	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.GET)
-	public String submitOrderPage(@PathVariable Long tableId, Model model) {
-				
-		List<OrderPosition> orderPositionList = new ArrayList<OrderPosition>();
-		
+	public String submitOrderPage(@PathVariable Long tableId, Model model) {				
+		List<OrderPosition> orderPositionList = new ArrayList<OrderPosition>();		
 		for(OrderPosition orderPosition : serveService
 				.findByTableCustomerAndRegisteredFalse(tableId))
 		{
@@ -127,11 +115,8 @@ public class ServeController {
 	public String submitOrderWithoutComment(@PathVariable Long tableId,
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {
-		
+			Model model) {		
 		serveService.submitOrderFromTable(tableId);
-
-
 		return "redirect:/";
 	}
 	
@@ -139,21 +124,17 @@ public class ServeController {
 	public String submitOrderWithComment(@PathVariable Long tableId,
 			@Valid @ModelAttribute("orderPositionModel") OrderPositionModel orderPositionModel,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {	
-		
+			Model model) {			
 		serveService.submitOrderFromTableWithComment(tableId, orderPositionModel);
-
 		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/table/{tableId}/delete", method = RequestMethod.GET)
 	public String chooseOrderPositionPage(@PathVariable Long tableId,
 			Model model) {
-		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");
-		
-		 model.addAttribute("orderPositions",
-		  serveService.findByTableCustomerAndDoneFalse(tableId));
-	
+		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");		
+		model.addAttribute("orderPositions",
+		  serveService.findByTableCustomerAndDoneFalse(tableId));	
 		model.addAttribute("tableId", tableId);
 		return "serve/order/delete/table";
 	}
@@ -164,10 +145,40 @@ public class ServeController {
 			@Valid @ModelAttribute("orderPosition") OrderPosition orderPosition,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-
-		serveService.deleteOrderPosition(orderPosition);
-		
+		serveService.deleteOrderPosition(orderPosition);		
 		return "redirect:/serve/order/table/{tableId}/delete";
-
+	}
+	
+	@RequestMapping(value = "/produce", method = RequestMethod.GET)
+	public String producePage(Model model)
+	{
+		List<OrderPositionWeb> listOrderPositionWeb = new ArrayList<OrderPositionWeb>();
+		
+		for(OrderPosition orderPosition : serveService.findByRegisteredTrueOrderByIdDesc()){
+			OrderPositionWeb orderPositionWeb = new  OrderPositionWeb();
+			orderPositionWeb.setComment(orderPosition.getComment());
+			orderPositionWeb.setCreatedDate(orderPosition.getCreatedDate());
+			orderPositionWeb.setDone(orderPosition.isDone());
+			orderPositionWeb.setId(orderPosition.getId());
+			orderPositionWeb.setPrice(orderPosition.getProduct().getPrice());
+			orderPositionWeb.setProductname(orderPosition.getProduct().getProductname());
+			orderPositionWeb.setProvided(orderPosition.isProvided());
+			orderPositionWeb.setRegistered(orderPosition.isRegistered());
+			orderPositionWeb.setSize(orderPosition.getProduct().getSize());
+			orderPositionWeb.setUsername(orderPosition.getUser().getUsername());
+			orderPositionWeb.setVersion(orderPosition.getVersion());
+			listOrderPositionWeb.add(orderPositionWeb);
+		}
+		
+		model.addAttribute("orderPositions", listOrderPositionWeb);
+		
+		return "serve/order/produce/table";
+	}
+	
+	
+	@RequestMapping(value = "/produce/done", method = RequestMethod.POST)
+	public String produceDone(Model model)
+	{
+		return "redirect:serve/order/produce";
 	}
 }

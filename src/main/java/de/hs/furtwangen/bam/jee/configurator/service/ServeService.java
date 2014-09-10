@@ -166,5 +166,12 @@ public class ServeService {
 	public void deleteOrderPosition(OrderPosition orderPosition){
 		orderPositionRepository.delete(orderPosition.getId());
 	}
+	
+	@Transactional
+	public Iterable<OrderPosition> findByRegisteredTrueOrderByIdDesc(){
+		//TODO When User has Role cook get Food
+		//TODO When User has Role Barkeeper getDrinks
+		return orderPositionRepository.findByRegisteredTrueOrderByIdDesc();
+	}
 
 }

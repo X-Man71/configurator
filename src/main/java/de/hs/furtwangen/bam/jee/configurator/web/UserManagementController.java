@@ -50,7 +50,7 @@ public class UserManagementController {
 				userManagementService.getNewUserWithAllRoles());
 		model.addAttribute("action", "add");
 
-		return "/management/user/form";
+		return "management/user/form";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -68,19 +68,19 @@ public class UserManagementController {
 			model.addAttribute("passwordError",
 					"management.user.form.add.error.pasword.equals");
 			// Alle Rollen für Form setzen
-			return "/management/user/form";
+			return "management/user/form";
 		}
 		if (bindingResult.hasErrors()) {
 			// Problem with username Variable ex: to Long
 			// Problem with password Variable ex: to Long, to Short, not Equals
-			return "/management/user/form";
+			return "management/user/form";
 		}
 
 		// No Role Selected
 		if (null == user.getRolesChecked()) {
 			model.addAttribute("roleError",
 					"management.user.form.add.error.role.notSelected");
-			return "/management/user/form";
+			return "management/user/form";
 		}
 
 		// Username not unique
@@ -89,7 +89,7 @@ public class UserManagementController {
 		} catch (DuplicateException e) {
 			model.addAttribute("usernameError",
 					"management.user.form.add.error.username.unique");
-			return "/management/user/form";
+			return "management/user/form";
 		}
 
 		// Succesfully saved
@@ -97,7 +97,7 @@ public class UserManagementController {
 				userManagementService.getNewUserWithAllRoles());
 		model.addAttribute("changeSuccessful",
 				"management.user.form.add.changeSuccessful");
-		return "/management/user/form";
+		return "management/user/form";
 	}
 
 	@RequestMapping(value = "/table", method = RequestMethod.GET)
@@ -105,7 +105,7 @@ public class UserManagementController {
 		model.addAttribute("pageHeader", "management.user.table.pageHeader");
 		model.addAttribute("users", userManagementService.findAllUser());
 
-		return "/management/user/table";
+		return "management/user/table";
 	}
 
 	@RequestMapping(value = "/table/edit", method = RequestMethod.GET)
@@ -114,7 +114,7 @@ public class UserManagementController {
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("edit", true);
 
-		return "/management/user/table";
+		return "management/user/table";
 	}
 
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.GET)
@@ -124,7 +124,7 @@ public class UserManagementController {
 		model.addAttribute("passwordField", false);
 		model.addAttribute("action", "/management/user/edit/" + userId);
 
-		return "/management/user/form";
+		return "management/user/form";
 	}
 
 	@RequestMapping(value = "/edit/{userId}", method = RequestMethod.POST)
@@ -143,14 +143,14 @@ public class UserManagementController {
 		if (bindingResult.hasErrors()) {
 			// Problem with username Variable ex: to Long
 			// Problem with password Variable ex: to Long, to Short, not Equals
-			return "/management/user/form";
+			return "management/user/form";
 		}
 
 		// No Role Selected
 		if (null == user.getRolesChecked()) {
 			model.addAttribute("roleError",
 					"management.user.edit.error.role.notSelected");
-			return "/management/user/form";
+			return "management/user/form";
 		}
 
 		try {
@@ -164,13 +164,13 @@ public class UserManagementController {
 			model.addAttribute("usernameError",
 					"management.user.edit.error.username.unique");
 
-			return "/management/user/form";
+			return "management/user/form";
 		} catch (ObjectOptimisticLockingFailureException ol) {
 			model.addAttribute("formError",
 					"management.user.edit.error.optimisticLocking");
 		}
 
-		return "/management/user/form";
+		return "management/user/form";
 	}
 
 	@RequestMapping(value = "/table/enable", method = RequestMethod.GET)
@@ -180,7 +180,7 @@ public class UserManagementController {
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
 
-		return "/management/user/table";
+		return "management/user/table";
 	}
 
 	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.GET)
@@ -190,7 +190,7 @@ public class UserManagementController {
 		model.addAttribute("action", "/management/user/enable/" + userId);
 		model.addAttribute("enabledOptions", BooleanArray.getBooleanArray());
 
-		return "/management/user/enable";
+		return "management/user/enable";
 	}
 
 	@RequestMapping(value = "/enable/{userId}", method = RequestMethod.POST)
@@ -209,7 +209,7 @@ public class UserManagementController {
 					"management.user.enable.optimisticLocking");
 			model.addAttribute("user",
 					userManagementService.findUserbyId(userId));
-			return "/management/user/enable";
+			return "management/user/enable";
 		}
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("enable", true);
@@ -226,7 +226,7 @@ public class UserManagementController {
 		model.addAttribute("users", userManagementService.findAllUser());
 		model.addAttribute("password", true);
 
-		return "/management/user/table";
+		return "management/user/table";
 	}
 
 	@RequestMapping(value = "/password/{userId}", method = RequestMethod.GET)
@@ -240,7 +240,7 @@ public class UserManagementController {
 		model.addAttribute("password", password);
 		model.addAttribute("action", "/management/user/password/" + userId);
 
-		return "/management/user/password";
+		return "management/user/password";
 	}
 
 	@RequestMapping(value = "/password/{userId}", method = RequestMethod.POST)
@@ -255,20 +255,20 @@ public class UserManagementController {
 		if (bindingResult.hasErrors()) {
 			// Problem with username Variable ex: to Long
 			// Problem with password Variable ex: to Long, to Short, not Equals
-			return "/management/user/password";
+			return "management/user/password";
 		}
 
 		if (!password.passwordEquals()) {
 			model.addAttribute("passwordError",
 					"management.user.form.add.error.pasword.equals");
-			return "/management/user/password";
+			return "management/user/password";
 		}
 		try {
 			userManagementService.updateUserPassword(userId, password);
 		} catch (ObjectOptimisticLockingFailureException ol) {
 			model.addAttribute("formError",
 					"management.user.password.optimisticLocking");
-			return "/management/user/password";
+			return "management/user/password";
 		}
 
 		redirectAttributes.addFlashAttribute("changeSuccessful",

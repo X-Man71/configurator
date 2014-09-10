@@ -31,7 +31,7 @@ public class ProductManagementController {
 		
 		model.addAttribute("products", productManagementService.findAllProduct().getContent());
 
-		return "/management/product/table";
+		return "management/product/table";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
@@ -44,7 +44,7 @@ public class ProductManagementController {
 		model.addAttribute("productTypeOptions", productManagementService.findAllProductType());
 		model.addAttribute("availableOptions", BooleanArray.getBooleanArray());
 
-		return "/management/product/form";
+		return "management/product/form";
 	}
 
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
@@ -57,19 +57,19 @@ public class ProductManagementController {
 		model.addAttribute("availableOptions", BooleanArray.getBooleanArray());		
 		
 		if (bindingResult.hasErrors()) {
-			return "/management/product/form";
+			return "management/product/form";
 		}
 		
 		try {
 			productManagementService.add(product);
 		} catch (DuplicateException e) {
 			model.addAttribute("formError", "management.product.form.add.duplicateException");
-			return "/management/product/form";
+			return "management/product/form";
 		}
 		
 		model.addAttribute("formSuccessful", "management.product.form.add.formSuccessful");
 
-		return "/management/product/form";
+		return "management/product/form";
 	}
 	
 	@RequestMapping(value = "/edit",method = RequestMethod.GET)

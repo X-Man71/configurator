@@ -83,6 +83,8 @@
 
 		<mysql.version>5.1.22</mysql.version>
 
+		<jetty.version>9.2.2.v20140723</jetty.version>
+
 	</properties>
 
 	<dependencies>
@@ -452,6 +454,40 @@
 		</dependency>
 
 
+		<!-- Jetty -->
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-server</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-webapp</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlet</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.eclipse.jetty</groupId>
+			<artifactId>jetty-servlets</artifactId>
+			<version>${jetty.version}</version>
+		</dependency>
+
+
+
+
+
+
+
+
 	</dependencies>
 
 	<!-- all Maven plugin versions are mentioned in order to guarantee the build 
@@ -532,7 +568,7 @@
 						<projectnature>org.springframework.ide.eclipse.core.springnature</projectnature>
 						<projectnature>org.eclipse.m2e.core.maven2Nature</projectnature>
 					</additionalProjectnatures>
-						<encoding>${project.build.sourceEncoding}</encoding>
+					<encoding>${project.build.sourceEncoding}</encoding>
 					<sourceEncoding>${project.build.sourceEncoding}</sourceEncoding>
 				</configuration>
 			</plugin>

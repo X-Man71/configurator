@@ -25,8 +25,14 @@
 		<intercept-url pattern="/login-error" access="permitAll" />
 		<intercept-url pattern="/webjars/**" access="permitAll" />
 		<intercept-url pattern="/resources/**" access="permitAll" />
-		<intercept-url pattern="/**" access="isAuthenticated()" />
+		<intercept-url pattern="/" access="isAuthenticated()" />
 		<intercept-url pattern="/favicon.ico" access="permitAll" />
+		
+		
+		<intercept-url pattern="/management/**" access="hasRole('Manager')" />
+		<intercept-url pattern="/serve/order/produce/**" access="hasAnyRole('Cook', 'Barkeeper')" />		
+		<intercept-url pattern="/serve/order/table/**" access="hasRole('Waiter')" />
+		
 	</http>
 
 </beans:beans>

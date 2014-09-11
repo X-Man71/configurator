@@ -16,6 +16,116 @@ body {
 }
 </style>
 
+<script src="/resources/sockjs-0.3.4.js"></script>
+<script src="/resources/stomp.js"></script>
+<script type="text/javascript">
+	var stompClient = null;
+
+	function setConnected(connected) {
+		document.getElementById('connect').disabled = connected;
+		document.getElementById('disconnect').disabled = !connected;
+		document.getElementById('conversationDiv').style.visibility = connected ? 'visible'
+				: 'hidden';
+		document.getElementById('response').innerHTML = '';
+	}
+
+	function connect() {
+		var socket = new SockJS('/hello');
+		stompClient = Stomp.over(socket);
+		stompClient.connect({}, function(frame) {
+			setConnected(true);
+			console.log('Connected: ' + frame);
+			stompClient.subscribe('/topic/greetings', function(orderPosition) {
+				showGreeting(JSON.parse(orderPosition.body).productname, JSON
+						.parse(orderPosition.body).size, JSON
+						.parse(orderPosition.body).username, JSON
+						.parse(orderPosition.body).comment, JSON
+						.parse(orderPosition.body).createdDateString, JSON
+						.parse(orderPosition.body).registered, JSON
+						.parse(orderPosition.body).provided, JSON
+						.parse(orderPosition.body).done);
+			});
+		});
+	}
+
+	function disconnect() {
+		stompClient.disconnect();
+		setConnected(false);
+		console.log("Disconnected");
+	}
+
+	function sendName() {
+		var name = document.getElementById('name').value;
+		stompClient.send("/app/hello", {}, JSON.stringify({
+			'name' : name
+		}));
+	}
+
+	function showGreeting(productname, size, username, comment,
+			createdDateString, registered, provided, done) {
+
+		addTableRow();
+
+		var productnameVar = document.getElementById('productname');
+		var sizeVar = document.getElementById('size');
+		var usernameVar = document.getElementById('username');
+		var commentVar = document.getElementById('comment');
+		var createdDateStringVar = document.getElementById('createdDateString');
+		var registeredVar = document.getElementById('registered');
+		var providedVar = document.getElementById('provided');
+		var doneVar = document.getElementById('done');
+
+		var tdproductname = document.createElement('td');
+		var tdsize = document.createElement('td');
+		var tdusername = document.createElement('td');
+		var tdcomment = document.createElement('td');
+		var tdcreatedDateString = document.createElement('td');
+		var tdregistered = document.createElement('td');
+		var tdprovided = document.createElement('td');
+		var tddone = document.createElement('td');
+
+		tdproductname.appendChild(document.createTextNode(productname));
+		tdsize.appendChild(document.createTextNode(size));
+		tdusername.appendChild(document.createTextNode(username));
+		tdcomment.appendChild(document.createTextNode(comment));
+		tdcreatedDateString.appendChild(document
+				.createTextNode(createdDateString));
+		tdregistered.appendChild(document.createTextNode(registered));
+		tdprovided.appendChild(document.createTextNode(provided));
+		tddone.appendChild(document.createTextNode(done));
+
+		productnameVar.appendChild(tdproductname);
+		sizeVar.appendChild(tdsize);
+		usernameVar.appendChild(tdusername);
+		commentVar.appendChild(tdcomment);
+		createdDateStringVar.appendChild(tdcreatedDateString);
+		registeredVar.appendChild(tdregistered);
+		providedVar.appendChild(tdprovided);
+		doneVar.appendChild(tddone);
+
+	}
+
+	function addTableRow() {
+
+		var oldParent = document.getElementById('row');
+
+		document.getElementById("nextRow").removeAttribute("id");
+
+		var table = document.getElementById("body");
+		var row = table.insertRow(0);
+
+		var att = document.createAttribute("id");
+		att.value = "nextRow";
+		row.setAttributeNode(att);
+
+		var newParent = document.getElementById('nextRow');
+
+		newParent.innerHTML = oldParent.innerHTML;
+
+	}
+</script>
+
+
 </head>
 
 <body>
@@ -23,38 +133,76 @@ body {
 	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
 
 	<div class="container">
-		<div class="page-header"></div>	
-		<h3>Bestellungen zur Bearbeitung</h3>		
-		
-		<div class="alert alert-success" th:if="${changeSuccessful}" th:text="#{${changeSuccessful}}">Passwörter müssen übereinstimmen</div>		
-	
-	<table class="table">
-		<thead>
-			<tr>
-				<th th:text="#{serve.add.chooseProduct.productname}"></th>
-				<th>Gr&ouml;ße</th>	
-				<th>Bedienung</th>
-				<th>Kommentar</th>
-				<th>Erfasst</th>
-				<th>Erfasst</th>	
-				<th>Bereitgstellt</th>	
-				<th>Erledigt</th>	
-				<th>Erledigt</th>					
-			</tr>
-		</thead>		
-		<tbody>		
-			 <tr th:each="orderPosition : ${orderPositions}">
-			 	<td th:text="${orderPosition.productname}"></td>
-			 	<td th:text="${orderPosition.size}"></td>
-			 	<td th:text="${orderPosition.username}"> </td>
-			 	<td th:text="${orderPosition.comment}"> </td>
-			 	<td th:text="${orderPosition.createdDate}"> </td>
-			 	<td th:text="${orderPosition.registered}"> </td>
-				<td th:text="${orderPosition.provided}"> </td>
-				<td th:text="${orderPosition.done}"> </td>			 	
-			</tr>
-		</tbody>
-	</table>	
+		<div class="page-header"></div>
+		<h3>Bestellungen zur Bearbeitung</h3>
+
+		<div class="alert alert-success" th:if="${changeSuccessful}"
+			th:text="#{${changeSuccessful}}">Passwörter müssen
+			übereinstimmen</div>
+
+		<div>
+			<button id="connect" onclick="connect();">Connect</button>
+			<button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
+		</div>
+		<div id="conversationDiv">
+			<label>What is your name?</label><input type="text" id="name" />
+			<button id="sendName" onclick="sendName();">Send</button>
+			<p id="response"></p>
+		</div>
+
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th th:text="#{serve.add.chooseProduct.productname}"></th>
+					<th>Gr&ouml;ße</th>
+					<th>Bedienung</th>
+					<th>Kommentar</th>
+					<th>Erfasst</th>
+					<th>Erfasst</th>
+					<th>Bereitgstellt</th>
+					<th>Erledigt</th>
+					<th>Erledigt</th>
+				</tr>
+			</thead>
+			<tbody id="body">
+				<tr id="nextRow">
+				
+					<td id="orderPositionId"></td>
+					<td id="productname"></td>
+					<td id="size"></td>
+					<td id="username"></td>
+					<td id="comment"></td>
+					<td id="createdDateString"></td>
+					<td id="registered"></td>
+					<td id="provided"></td>
+					<td id="done"></td>
+				</tr>
+			
+				<tr th:each="orderPosition : ${orderPositions}">
+					<td id="orderPositionId" th:text="${orderPosition.id}"></td>
+					<td id="productname" th:text="${orderPosition.productname}"></td>
+					<td id="size" th:text="${orderPosition.size}"></td>
+					<td id="username" th:text="${orderPosition.username}"></td>
+					<td id="comment" th:text="${orderPosition.comment}"></td>
+					<td id="createdDateString" th:text="${orderPosition.createdDate}"></td>
+					<td id="registered" th:text="${orderPosition.registered}"></td>
+					<td id="provided" th:text="${orderPosition.provided}"></td>
+					<td id="done" th:text="${orderPosition.done}"></td>
+				</tr>
+				<tr id="row">
+					<td id="orderPositionId"></td>
+					<td id="productname"></td>
+					<td id="size"></td>
+					<td id="username"></td>
+					<td id="comment"></td>
+					<td id="createdDateString"></td>
+					<td id="registered"></td>
+					<td id="provided"></td>
+					<td id="done"></td>
+				</tr>
+			</tbody>
+		</table>
 
 	</div>
 	<div th:replace="layouts/standard :: js-lib" th:remove="tag"></div>

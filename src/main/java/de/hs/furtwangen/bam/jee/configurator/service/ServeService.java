@@ -167,11 +167,16 @@ public class ServeService {
 		orderPositionRepository.delete(orderPosition.getId());
 	}
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public Iterable<OrderPosition> findByRegisteredTrueOrderByIdDesc(){
 		//TODO When User has Role cook get Food
 		//TODO When User has Role Barkeeper getDrinks
 		return orderPositionRepository.findByRegisteredTrueOrderByIdDesc();
+	}
+	
+	@Transactional(readOnly = true)
+	public Iterable<OrderPosition> findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long id){
+		return orderPositionRepository.findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(id);
 	}
 
 }

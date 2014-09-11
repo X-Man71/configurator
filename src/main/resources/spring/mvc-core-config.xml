@@ -16,7 +16,7 @@
 
 	<mvc:resources mapping="/favicon.ico" location="/resources/favicon.ico" />
 	
-	<mvc:resources mapping="/**" location="/**" />
+	<mvc:resources mapping="/resources/**" location="/resources/**" />
 
 	<!-- uses WebJars so Javascript and CSS libs can be declared as Maven dependencies 
 		(Bootstrap, jQuery...) -->

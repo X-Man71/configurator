@@ -2,8 +2,8 @@
 <html>
 <head>
     <title>Hello WebSocket</title>
-    <script src="sockjs-0.3.4.js"></script>
-    <script src="stomp.js"></script>
+    <script src="/resources/sockjs-0.3.4.js"></script>
+    <script src="/resources/stomp.js"></script>
     <script type="text/javascript">
         var stompClient = null;
         
@@ -47,7 +47,7 @@
         
         function showGreeting(productname, size, username, comment, createdDateString, registered, provided, done) {
         	
-        	
+        	addTableRow();
         	
             var productnameVar = document.getElementById('productname');
             var sizeVar = document.getElementById('size');
@@ -86,7 +86,7 @@
             providedVar.appendChild(tdprovided);
             doneVar.appendChild(tddone);        
             
-            addTableRow();
+            
         }
       
         
@@ -110,6 +110,11 @@
         	
         }
     </script>
+    
+    <link href="../../resources/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet"
+	th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}">
+</link>
+    
 </head>
 <body>
 <noscript><h2 style="color: #ff0000">Seems your browser doesn't support Javascript! Websocket relies on Javascript being enabled. Please enable

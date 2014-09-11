@@ -18,4 +18,11 @@ public interface OrderPositionRepository extends CrudRepository<OrderPosition, L
 	
 	public Iterable<OrderPosition> findByRegisteredTrueOrderByIdDesc();
 	
+	
+	/*
+	 * 
+	 * Called for Websocket update
+	 */
+	public Iterable<OrderPosition> findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long Id);
+	
 }

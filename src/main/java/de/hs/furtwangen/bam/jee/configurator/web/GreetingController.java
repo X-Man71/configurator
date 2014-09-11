@@ -1,5 +1,8 @@
 package de.hs.furtwangen.bam.jee.configurator.web;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
@@ -18,7 +21,7 @@ public class GreetingController {
 
     @MessageMapping("/hello")
     @SendTo("/topic/greetings")
-    public OrderPositionWeb greeting(HelloMessage message) throws Exception {
+    public List<OrderPositionWeb> greeting(HelloMessage message) throws Exception {
         Thread.sleep(3000); // simulated delay
         
         /*OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
@@ -32,11 +35,11 @@ public class GreetingController {
         orderPositionWeb.setSize("size");
         orderPositionWeb.setUsername("username");*/
         
-        OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
+        List<OrderPositionWeb> listOrderPositionWeb = new ArrayList<OrderPositionWeb>();
         
        for(OrderPosition orderPosition : serverService.findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long.parseLong(message.getName())))
        {
-    	   
+    	   OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
            orderPositionWeb.setId(orderPosition.getId());
            orderPositionWeb.setProductname(orderPosition.getProduct().getProductname());
            orderPositionWeb.setComment(orderPosition.getComment());
@@ -46,9 +49,14 @@ public class GreetingController {
            orderPositionWeb.setRegistered(orderPosition.isRegistered());
            orderPositionWeb.setSize(orderPosition.getProduct().getSize());
            orderPositionWeb.setUsername(orderPosition.getUser().getUsername());
+           listOrderPositionWeb.add(orderPositionWeb);
+       }
+       
+       for(OrderPositionWeb positionWeb : listOrderPositionWeb){
+    	   System.out.println(positionWeb.getProductname()+" "+positionWeb.getCreatedDate());
        }
         
-        return orderPositionWeb;
+        return listOrderPositionWeb;
     }
 
 }

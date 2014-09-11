@@ -176,7 +176,7 @@ public class ServeService {
 	
 	@Transactional(readOnly = true)
 	public Iterable<OrderPosition> findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long id){
-		return orderPositionRepository.findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(id);
+		return orderPositionRepository.findByRegisteredTrueAndIdGreaterThanOrderByIdAsc(id);
 	}
 
 }

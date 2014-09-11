@@ -20,16 +20,12 @@
             stompClient.connect({}, function(frame) {
                 setConnected(true);
                 console.log('Connected: ' + frame);
-                stompClient.subscribe('/topic/greetings', function(orderPosition){
-                    showGreeting(
-                    		JSON.parse(orderPosition.body).productname,
-                    		JSON.parse(orderPosition.body).size,
-                    		JSON.parse(orderPosition.body).username,
-                    		JSON.parse(orderPosition.body).comment,
-                    		JSON.parse(orderPosition.body).createdDateString,
-                    		JSON.parse(orderPosition.body).registered,
-                    		JSON.parse(orderPosition.body).provided,
-                    		JSON.parse(orderPosition.body).done);    
+                stompClient.subscribe('/topic/greetings', function(orderPosition){            	
+                  	
+                	var arr = JSON.parse(orderPosition.body);                	
+           
+                	  showGreeting(arr);             	
+               
                 });
             });
         }
@@ -45,10 +41,21 @@
             stompClient.send("/app/hello", {}, JSON.stringify({ 'name': name }));
         }
         
-        function showGreeting(productname, size, username, comment, createdDateString, registered, provided, done) {
-        	
-        	addTableRow();
-        	
+    	function showGreeting(arr) {
+    	   
+    	   var arrayLength = arr.length;
+           for (var i = 0; i < arrayLength; i++) 
+           {
+        	   var productname = arr[i].productname;
+        	   var size = arr[i].size;
+        	   var username = arr[i].username;
+        	   var comment = arr[i].comment;
+        	   var createdDateString = arr[i].createdDateString;
+        	   var registered = arr[i].registered;
+        	   var provided = arr[i].provided;
+        	   var done = arr[i].done;
+        	   
+        	 	
             var productnameVar = document.getElementById('productname');
             var sizeVar = document.getElementById('size');
             var usernameVar = document.getElementById('username');
@@ -84,8 +91,11 @@
             createdDateStringVar.appendChild(tdcreatedDateString);
             registeredVar.appendChild(tdregistered);
             providedVar.appendChild(tdprovided);
-            doneVar.appendChild(tddone);        
+            doneVar.appendChild(tddone);    
             
+            addTableRow();
+            
+        	}
             
         }
       

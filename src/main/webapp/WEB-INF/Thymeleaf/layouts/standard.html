@@ -20,19 +20,7 @@
 <script type="text/javascript" src="/webjars/jquery/1.11.1/jquery.min.js"
 	th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
 
-<script>
-	$(document).on("click", "a", function(event) {
 
-		// Stop the default behavior of the browser, which
-		// is to change the URL of the page.
-		event.preventDefault();
-
-		// Manually change the location of the page to stay in
-		// "Standalone" mode and change the URL at the same time.
-		location.href = $(event.target).attr("href");
-
-	});
-</script>
 
 <link href="../../resources/bootstrap-3.2.0-dist/css/bootstrap.min.css" rel="stylesheet"
 	th:href="@{/webjars/bootstrap/3.2.0/css/bootstrap.min.css}">

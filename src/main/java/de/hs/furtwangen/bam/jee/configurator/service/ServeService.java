@@ -113,7 +113,7 @@ public class ServeService {
 	}
 	
 	@Transactional
-	public void submitOrderFromTableWithComment(Long tableId, OrderPositionModel orderPositionModel)
+	public Iterable<OrderPosition> submitOrderFromTableWithComment(Long tableId, OrderPositionModel orderPositionModel)
 	{
 		boolean registered = true;
 		
@@ -133,7 +133,7 @@ public class ServeService {
 			orderPosition.setComment(commentMap.get(orderPosition.getId()));
 		}
 		
-		orderPositionRepository.save(orderPositionList);
+		return orderPositionRepository.save(orderPositionList);
 		
 	}
 

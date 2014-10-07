@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,6 +32,9 @@ public class ServeController {
 	@Autowired
 	private ServeService serveService;
 
+	@Autowired
+	private SimpMessagingTemplate simpMessagingTemplate;
+
 	@RequestMapping(value = "/table/{tableId}", method = RequestMethod.GET)
 	public String selectActionPage(@PathVariable Long tableId, Model model) {
 		model.addAttribute("tableId", tableId);
@@ -39,10 +43,10 @@ public class ServeController {
 
 	@RequestMapping(value = "/table/{tableId}/add", method = RequestMethod.GET)
 	public String chooseProductPage(@PathVariable Long tableId, Model model) {
-		List<ProductOrder> products = new ArrayList<>();		
-		model.addAttribute("pageHeader", "serve.order.add.chooseProduct.pageHeader");
-		for (Product product : serveService.findAllProduct()) 
-		{
+		List<ProductOrder> products = new ArrayList<>();
+		model.addAttribute("pageHeader",
+				"serve.order.add.chooseProduct.pageHeader");
+		for (Product product : serveService.findAllProduct()) {
 			ProductOrder productOrder = new ProductOrder();
 			productOrder.setId(product.getId());
 			productOrder.setProductname(product.getProductname());
@@ -50,13 +54,14 @@ public class ServeController {
 			productOrder.setSize(product.getSize());
 			productOrder.setTableId(tableId);
 			products.add(productOrder);
-		}		
-		for(ProductOrder productOrder : products)
-		{
-			Integer amount =serveService.countByTableCustomerAndProductAndRegisteredFalse(tableId,productOrder.getId());
-			productOrder.setAmount(amount);			
-		}			
-		
+		}
+		for (ProductOrder productOrder : products) {
+			Integer amount = serveService
+					.countByTableCustomerAndProductAndRegisteredFalse(tableId,
+							productOrder.getId());
+			productOrder.setAmount(amount);
+		}
+
 		model.addAttribute("products", products);
 		model.addAttribute("tableId", tableId);
 		model.addAttribute("amountOptions", amountOption());
@@ -76,13 +81,13 @@ public class ServeController {
 	public String saveOrder(@PathVariable Long tableId,
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {		
+			Model model) {
 		serveService.saveOrderPosition(productOrder.getId(), tableId);
 		redirectAttributes.addFlashAttribute("addSuccessful",
 				"serve.add.chooseTable.productSaved");
 		return "redirect:/serve/order/table/{tableId}/add";
 	}
-	
+
 	@RequestMapping(value = "/table/{tableId}/delete", method = RequestMethod.POST)
 	public String deleteOrder(@PathVariable Long tableId,
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
@@ -93,52 +98,55 @@ public class ServeController {
 				"serve.order.add.chooseProduct.deleteSuccessful");
 		return "redirect:/serve/order/table/{tableId}/add";
 	}
-	
+
 	@RequestMapping(value = "/table/{tableId}/aggregationComment", method = RequestMethod.GET)
-	public String submitOrderPage(@PathVariable Long tableId, Model model) {				
-		List<OrderPosition> orderPositionList = new ArrayList<OrderPosition>();		
-		for(OrderPosition orderPosition : serveService
-				.findByTableCustomerAndRegisteredFalse(tableId))
-		{
+	public String submitOrderPage(@PathVariable Long tableId, Model model) {
+		List<OrderPosition> orderPositionList = new ArrayList<OrderPosition>();
+		for (OrderPosition orderPosition : serveService
+				.findByTableCustomerAndRegisteredFalse(tableId)) {
 			orderPositionList.add(orderPosition);
 		}
-		
+
 		OrderPositionModel orderPositionModel = new OrderPositionModel();
 		orderPositionModel.setListOrderPositions(orderPositionList);
-		
-		model.addAttribute("orderPositionModel", orderPositionModel);		
+
+		model.addAttribute("orderPositionModel", orderPositionModel);
 
 		return "serve/order/add/aggregationComment";
 	}
-	
-	
 
 	@RequestMapping(value = "/table/{tableId}/aggregationComment/withoutComment", method = RequestMethod.POST)
 	public String submitOrderWithoutComment(@PathVariable Long tableId,
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {		
-		
-			serveService.submitOrderFromTable(tableId);
-		
+			Model model) {
+
+		Iterable<OrderPosition> listOrderIterable = serveService
+				.submitOrderFromTable(tableId);
+		sendNewOrdersOverWebSocket(listOrderIterable);
+
 		return "redirect:/";
 	}
-	
+
 	@RequestMapping(value = "/table/{tableId}/aggregationComment/withComment", method = RequestMethod.POST)
-	public String submitOrderWithComment(@PathVariable Long tableId,
+	public String submitOrderWithComment(
+			@PathVariable Long tableId,
 			@Valid @ModelAttribute("orderPositionModel") OrderPositionModel orderPositionModel,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
-			Model model) {			
-		serveService.submitOrderFromTableWithComment(tableId, orderPositionModel);
+			Model model) {
+		Iterable<OrderPosition> listOrderIterable = serveService
+				.submitOrderFromTableWithComment(tableId, orderPositionModel);
+		sendNewOrdersOverWebSocket(listOrderIterable);
+
 		return "redirect:/";
 	}
 
 	@RequestMapping(value = "/table/{tableId}/delete", method = RequestMethod.GET)
 	public String chooseOrderPositionPage(@PathVariable Long tableId,
 			Model model) {
-		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");		
+		model.addAttribute("pageHeader", "serve.order.delete.table.pageHeader");
 		model.addAttribute("orderPositions",
-		  serveService.findByTableCustomerAndDoneFalse(tableId));	
+				serveService.findByTableCustomerAndDoneFalse(tableId));
 		model.addAttribute("tableId", tableId);
 		return "serve/order/delete/table";
 	}
@@ -149,23 +157,24 @@ public class ServeController {
 			@Valid @ModelAttribute("orderPosition") OrderPosition orderPosition,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-		serveService.deleteOrderPosition(orderPosition);		
+		serveService.deleteOrderPosition(orderPosition);
 		return "redirect:/serve/order/table/{tableId}/delete";
 	}
-	
+
 	@RequestMapping(value = "/produce", method = RequestMethod.GET)
-	public String producePage(Model model)
-	{
+	public String producePage(Model model) {
 		List<OrderPositionWeb> listOrderPositionWeb = new ArrayList<OrderPositionWeb>();
-		
-		for(OrderPosition orderPosition : serveService.findByRegisteredTrueOrderByIdDesc()){
-			OrderPositionWeb orderPositionWeb = new  OrderPositionWeb();
+
+		for (OrderPosition orderPosition : serveService
+				.findByRegisteredTrueOrderByIdDesc()) {
+			OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
 			orderPositionWeb.setComment(orderPosition.getComment());
 			orderPositionWeb.setCreatedDate(orderPosition.getCreatedDate());
 			orderPositionWeb.setDone(orderPosition.isDone());
 			orderPositionWeb.setId(orderPosition.getId());
 			orderPositionWeb.setPrice(orderPosition.getProduct().getPrice());
-			orderPositionWeb.setProductname(orderPosition.getProduct().getProductname());
+			orderPositionWeb.setProductname(orderPosition.getProduct()
+					.getProductname());
 			orderPositionWeb.setProvided(orderPosition.isProvided());
 			orderPositionWeb.setRegistered(orderPosition.isRegistered());
 			orderPositionWeb.setSize(orderPosition.getProduct().getSize());
@@ -173,32 +182,23 @@ public class ServeController {
 			orderPositionWeb.setVersion(orderPosition.getVersion());
 			listOrderPositionWeb.add(orderPositionWeb);
 		}
-		
+
 		model.addAttribute("orderPositions", listOrderPositionWeb);
-		
+
 		return "serve/order/produce/table";
 	}
-	
-	
+
 	@RequestMapping(value = "/produce/done", method = RequestMethod.POST)
-	public String produceDone(Model model)
-	{
-		//TODO
+	public String produceDone(Model model) {
+		// TODO
 		return "redirect:serve/order/produce";
 	}
-	
-	
-	@MessageMapping("/hello")
-	@SendTo("/topic/greetings")
-	//@SubscribeMapping("/topic/greetings")
-	public List<OrderPositionWeb> greeting(HelloMessage message)
-			throws Exception {
+
+	public void sendNewOrdersOverWebSocket(Iterable<OrderPosition> listOrderIterable) {
 
 		List<OrderPositionWeb> listOrderPositionWeb = new ArrayList<OrderPositionWeb>();
 
-		for (OrderPosition orderPosition : serveService
-				.findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long
-						.parseLong(message.getName()))) {
+		for (OrderPosition orderPosition : listOrderIterable) {
 			OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
 			orderPositionWeb.setId(orderPosition.getId());
 			orderPositionWeb.setProductname(orderPosition.getProduct()
@@ -218,6 +218,7 @@ public class ServeController {
 					+ positionWeb.getCreatedDate());
 		}
 
-		return listOrderPositionWeb;
+		this.simpMessagingTemplate.convertAndSend("/topic/greetings",
+				listOrderPositionWeb);
 	}
 }

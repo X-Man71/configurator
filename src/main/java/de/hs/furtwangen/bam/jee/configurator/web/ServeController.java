@@ -6,8 +6,6 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -194,10 +192,8 @@ public class ServeController {
 		return "redirect:serve/order/produce";
 	}
 
-	public void sendNewOrdersOverWebSocket(Iterable<OrderPosition> listOrderIterable) {
-
-		List<OrderPositionWeb> listOrderPositionWeb = new ArrayList<OrderPositionWeb>();
-
+	public void sendNewOrdersOverWebSocket(
+			Iterable<OrderPosition> listOrderIterable) {
 		for (OrderPosition orderPosition : listOrderIterable) {
 			OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
 			orderPositionWeb.setId(orderPosition.getId());
@@ -210,15 +206,9 @@ public class ServeController {
 			orderPositionWeb.setRegistered(orderPosition.isRegistered());
 			orderPositionWeb.setSize(orderPosition.getProduct().getSize());
 			orderPositionWeb.setUsername(orderPosition.getUser().getUsername());
-			listOrderPositionWeb.add(orderPositionWeb);
-		}
 
-		for (OrderPositionWeb positionWeb : listOrderPositionWeb) {
-			System.out.println(positionWeb.getProductname() + " "
-					+ positionWeb.getCreatedDate());
+			this.simpMessagingTemplate.convertAndSend("/topic/greetings",
+					orderPositionWeb);
 		}
-
-		this.simpMessagingTemplate.convertAndSend("/topic/greetings",
-				listOrderPositionWeb);
 	}
 }

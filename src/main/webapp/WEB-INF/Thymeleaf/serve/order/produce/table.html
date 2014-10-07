@@ -16,14 +16,13 @@ body {
 }
 </style>
 
-<script src="/resources/sockjs-0.3.4.js"></script>
-<script src="/resources/stomp.js"></script>
+<script th:src="@{/webjars/sockjs-client/0.3.4/sockjs.min.js}"></script>
+<script th:src="@{/webjars/stomp-websocket/2.3.1/stomp.min.js}"></script>
 <script src="/resources/productionSocket.js"></script>
-
 
 </head>
 
-<body onload="connect123();">
+<body onload="connectToWebsocket();">
 
 	<div th:replace="layouts/standard :: navbar" th:remove="tag"></div>
 
@@ -34,16 +33,6 @@ body {
 		<div class="alert alert-success" th:if="${changeSuccessful}"
 			th:text="#{${changeSuccessful}}">Passwörter müssen
 			übereinstimmen</div>
-
-		<div>
-			<button id="connect123" onclick="connect123();">Connect</button>
-			<button id="disconnect" disabled="disabled" onclick="disconnect();">Disconnect</button>
-		</div>
-		<div id="conversationDiv">
-			<label>What is your name?</label><input type="text" id="name" />
-			<button id="sendName" onclick="sendName();">Send</button>
-			<p id="response"></p>
-		</div>
 
 		<table class="table">
 			<thead>

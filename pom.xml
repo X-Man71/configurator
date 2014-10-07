@@ -17,7 +17,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
 		<!-- Spring -->
-		<spring-framework.version>4.1.0.RELEASE</spring-framework.version>
+		<spring-framework.version>4.1.1.RELEASE</spring-framework.version>
 		<spring-data-jpa.version>1.7.0.M1</spring-data-jpa.version>
 		<springsecurity.version>4.0.0.M2</springsecurity.version>
 		<spring.webflow>2.4.0.RELEASE</spring.webflow>
@@ -79,6 +79,8 @@
 		<!-- Web dependencies -->
 		<webjars-bootstrap.version>3.2.0</webjars-bootstrap.version>
 		<webjars-jquery.version>1.11.1</webjars-jquery.version>
+		<webjars-sockjs-client.version>0.3.4</webjars-sockjs-client.version>
+		<webjars-stomp-websocket.version>2.3.1</webjars-stomp-websocket.version>
 		<dandelion.datatables.version>0.8.7</dandelion.datatables.version>
 
 		<mysql.version>5.1.22</mysql.version>
@@ -405,6 +407,19 @@
 			<artifactId>jquery</artifactId>
 			<version>${webjars-jquery.version}</version>
 		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>sockjs-client</artifactId>
+			<version>${webjars-sockjs-client.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>stomp-websocket</artifactId>
+			<version>${webjars-stomp-websocket.version}</version>
+		</dependency>
+
 		<!-- Test Artifacts -->
 		<dependency>
 			<groupId>org.springframework</groupId>

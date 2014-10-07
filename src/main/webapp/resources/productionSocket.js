@@ -1,58 +1,34 @@
 	var stompClient = null;
 
-	function setConnected(connected) {
-		document.getElementById('connect123').disabled = connected;
-		document.getElementById('disconnect').disabled = !connected;
-		document.getElementById('conversationDiv').style.visibility = connected ? 'visible'
-				: 'hidden';
-		document.getElementById('response').innerHTML = '';
-	}
-
-	function connect123() {
+	function connectToWebsocket() {
 		var socket = new SockJS('/hello');
 		stompClient = Stomp.over(socket);
 		stompClient.connect({}, function(frame) {
-			setConnected(true);
 			console.log('Connected: ' + frame);
-			stompClient.subscribe('/topic/greetings', function(orderPosition) {
-
-				var arr = JSON.parse(orderPosition.body);
-
-				showGreeting(arr);
-
+			stompClient.subscribe('/topic/greetings', function(orderPosition) 
+			{				
+				showOrderPosition(JSON.parse(orderPosition.body));
 			});
 		});
 	}
 
 	function disconnect() {
 		stompClient.disconnect();
-		setConnected(false);
 		console.log("Disconnected");
 	}
 
-	function sendName() {
-		var name = document.getElementById('name').value;
-		stompClient.send("/app/hello", {}, JSON.stringify({
-			'name' : name
-		}));
-	}
-
-	function showGreeting(arr) {
-
-		var arrayLength = arr.length;
+	function showOrderPosition(orderPosition) {
 		
-		  for (var i = 0; i < arrayLength; i++) 
-          {
-			  addTableRow();
+			addTableRow();
 		
-			var productname = arr[i].productname;
-			var size = arr[i].size;
-			var username = arr[i].username;
-			var comment = arr[i].comment;
-			var createdDateString = arr[i].createdDateString;
-			var registered = arr[i].registered;
-			var provided = arr[i].provided;
-			var done = arr[i].done;
+			var productname = orderPosition.productname;
+			var size = orderPosition.size;
+			var username = orderPosition.username;
+			var comment = orderPosition.comment;
+			var createdDateString = orderPosition.createdDateString;
+			var registered = orderPosition.registered;
+			var provided = orderPosition.provided;
+			var done = orderPosition.done;
 
 			var productnameVar = document.getElementById('productname');
 			var sizeVar = document.getElementById('size');
@@ -89,10 +65,6 @@
 			registeredVar.appendChild(tdregistered);
 			providedVar.appendChild(tdprovided);
 			doneVar.appendChild(tddone);
-
-			
-		 }
-
 	}
 
 	function addTableRow() {

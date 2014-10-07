@@ -6,6 +6,8 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -116,7 +118,9 @@ public class ServeController {
 			@Valid @ModelAttribute("productOrder") ProductOrder productOrder,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {		
-		serveService.submitOrderFromTable(tableId);
+		
+			serveService.submitOrderFromTable(tableId);
+		
 		return "redirect:/";
 	}
 	
@@ -179,6 +183,41 @@ public class ServeController {
 	@RequestMapping(value = "/produce/done", method = RequestMethod.POST)
 	public String produceDone(Model model)
 	{
+		//TODO
 		return "redirect:serve/order/produce";
+	}
+	
+	
+	@MessageMapping("/hello")
+	@SendTo("/topic/greetings")
+	//@SubscribeMapping("/topic/greetings")
+	public List<OrderPositionWeb> greeting(HelloMessage message)
+			throws Exception {
+
+		List<OrderPositionWeb> listOrderPositionWeb = new ArrayList<OrderPositionWeb>();
+
+		for (OrderPosition orderPosition : serveService
+				.findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long
+						.parseLong(message.getName()))) {
+			OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
+			orderPositionWeb.setId(orderPosition.getId());
+			orderPositionWeb.setProductname(orderPosition.getProduct()
+					.getProductname());
+			orderPositionWeb.setComment(orderPosition.getComment());
+			orderPositionWeb.setCreatedDate(orderPosition.getCreatedDate());
+			orderPositionWeb.setDone(orderPosition.isDone());
+			orderPositionWeb.setProvided(orderPosition.isProvided());
+			orderPositionWeb.setRegistered(orderPosition.isRegistered());
+			orderPositionWeb.setSize(orderPosition.getProduct().getSize());
+			orderPositionWeb.setUsername(orderPosition.getUser().getUsername());
+			listOrderPositionWeb.add(orderPositionWeb);
+		}
+
+		for (OrderPositionWeb positionWeb : listOrderPositionWeb) {
+			System.out.println(positionWeb.getProductname() + " "
+					+ positionWeb.getCreatedDate());
+		}
+
+		return listOrderPositionWeb;
 	}
 }

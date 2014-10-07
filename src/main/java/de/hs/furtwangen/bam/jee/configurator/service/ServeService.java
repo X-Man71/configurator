@@ -99,7 +99,7 @@ public class ServeService {
 	}
 
 	@Transactional
-	public void submitOrderFromTable(Long tableId) {
+	public Iterable<OrderPosition> submitOrderFromTable(Long tableId) {
 		boolean registered = true;
 
 		Iterable<OrderPosition> orderPositionList = orderPositionRepository
@@ -109,7 +109,7 @@ public class ServeService {
 		for (OrderPosition orderPosition : orderPositionList) {
 			orderPosition.setRegistered(registered);
 		}
-		orderPositionRepository.save(orderPositionList);
+		return orderPositionRepository.save(orderPositionList);
 	}
 	
 	@Transactional

@@ -43,6 +43,7 @@
 		
 		  for (var i = 0; i < arrayLength; i++) 
           {
+			  addTableRow();
 		
 			var productname = arr[i].productname;
 			var size = arr[i].size;
@@ -89,7 +90,7 @@
 			providedVar.appendChild(tdprovided);
 			doneVar.appendChild(tddone);
 
-			addTableRow();
+			
 		 }
 
 	}

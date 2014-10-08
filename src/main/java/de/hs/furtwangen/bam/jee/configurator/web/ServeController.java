@@ -187,9 +187,13 @@ public class ServeController {
 	}
 
 	@RequestMapping(value = "/produce/done", method = RequestMethod.POST)
-	public String produceDone(Model model) {
+	public String produceDone(@Valid @ModelAttribute("orderPosition") OrderPositionWeb orderPositionWeb,
+			BindingResult bindingResult, RedirectAttributes redirectAttributes,
+			Model model) {
 		// TODO
-		return "redirect:serve/order/produce";
+		
+		System.out.println("orderPositionWeb.getProductname() "+orderPositionWeb.getId());
+		return "redirect:/serve/order/produce";
 	}
 
 	public void sendNewOrdersOverWebSocket(

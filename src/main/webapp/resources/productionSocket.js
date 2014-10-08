@@ -19,8 +19,7 @@
 
 	function showOrderPosition(orderPosition) {
 		
-			addTableRow();
-		
+			var id = orderPosition.id
 			var productname = orderPosition.productname;
 			var size = orderPosition.size;
 			var username = orderPosition.username;
@@ -28,7 +27,11 @@
 			var createdDateString = orderPosition.createdDateString;
 			var registered = orderPosition.registered;
 			var provided = orderPosition.provided;
-			var done = orderPosition.done;
+			var done = orderPosition.done;		
+		
+			addTableRow(id);
+		
+		
 
 			var productnameVar = document.getElementById('productname');
 			var sizeVar = document.getElementById('size');
@@ -67,9 +70,9 @@
 			doneVar.appendChild(tddone);
 	}
 
-	function addTableRow() {
+	function addTableRow(id) {
 
-		var oldParent = document.getElementById('row');
+		var oldParent = document.getElementById('template');
 
 		document.getElementById("nextRow").removeAttribute("id");
 
@@ -81,7 +84,12 @@
 		row.setAttributeNode(att);
 
 		var newParent = document.getElementById('nextRow');
-
+		
 		newParent.innerHTML = oldParent.innerHTML;
+								
+		document.getElementById("idDoneFormInput").value = id;		
+		
+		document.getElementById("idDoneButton").type = "submit";
+		
 
 	}

@@ -61,13 +61,17 @@ public class UserManagementControllerIntegrationsTest {
 
 	@Test
 	public void addUserCorrectData() throws Exception {
+
+		long userCountBeforeTest = userRepository.count();
+
 		mockMvc.perform(
 				post("/management/user/add").param("username", testUser)
-						.param("password1", testPassword)
-						.param("password2", testPassword)
+						.param("password.password1", testPassword)
+						.param("password.password2", testPassword)
 						.param("rolesChecked", "1").param("rolesChecked", "3"))
 				.andExpect(model().hasNoErrors());
-		assertEquals("User Should be saved", 1, userRepository.count());
+		assertEquals("User Should be saved", userCountBeforeTest + 1,
+				userRepository.count());
 	}
 
 	@Test
@@ -82,7 +86,7 @@ public class UserManagementControllerIntegrationsTest {
 	}
 
 	@Test
-	public void addUserUniqueUsername() throws Exception {
+	public void addUserUsernameAlreadyExists() throws Exception {
 
 		User user = new User();
 		user.setUsername(testUser);
@@ -92,8 +96,8 @@ public class UserManagementControllerIntegrationsTest {
 
 		mockMvc.perform(
 				post("/management/user/add").param("username", testUser)
-						.param("password1", testPassword)
-						.param("password2", testPassword)
+						.param("password.password1", testPassword)
+						.param("password.password2", testPassword)
 						.param("rolesChecked", "1").param("rolesChecked", "3"))
 				.andExpect(
 						model().attribute("usernameError",
@@ -106,8 +110,8 @@ public class UserManagementControllerIntegrationsTest {
 	public void addUserPasswordNotEquals() throws Exception {
 		mockMvc.perform(
 				post("/management/user/add").param("username", testUser)
-						.param("password1", testPassword)
-						.param("password2", "testPassw")
+						.param("password.password1", testPassword)
+						.param("password.password2", "testPassw")
 						.param("rolesChecked", "1").param("rolesChecked", "3"))
 				.andExpect(
 						model().attribute("passwordError",
@@ -117,9 +121,10 @@ public class UserManagementControllerIntegrationsTest {
 
 	@Test
 	public void addUserNothingSelected() throws Exception {
-		mockMvc.perform(post("/management/user/add")).andExpect(
-				model().attributeHasFieldErrors("user", "username",
-						"password1", "password2"));
+		mockMvc.perform(post("/management/user/add"))
+				.andExpect(
+						model().attributeHasFieldErrors("user", "username",
+								"password"));
 		assertEquals("No User Should be saved", 0, userRepository.count());
 	}
 
@@ -127,8 +132,8 @@ public class UserManagementControllerIntegrationsTest {
 	public void addUserNoRoleSelected() throws Exception {
 		mockMvc.perform(
 				post("/management/user/add").param("username", testUser)
-						.param("password1", testPassword)
-						.param("password2", testPassword)).andExpect(
+						.param("password.password1", testPassword)
+						.param("password.password2", testPassword)).andExpect(
 				model().attribute("roleError",
 						"management.user.form.add.error.role.notSelected"));
 		assertEquals("User Should be saved", 0, userRepository.count());
@@ -137,13 +142,15 @@ public class UserManagementControllerIntegrationsTest {
 	@Test
 	public void editUserPage() throws Exception {
 
+		userRepository.deleteAll();
+
 		User user = new User();
 		user.setUsername(testUser);
 		user.setPassword(new BCryptPasswordEncoder().encode(testPassword));
 
-		userRepository.save(user);
+		User userFromDB = userRepository.save(user);
 
-		mockMvc.perform(get("/management/user/edit/2"))
+		mockMvc.perform(get("/management/user/edit/" + userFromDB.getId()))
 				.andExpect(
 						model().attribute("pageHeader",
 								"management.user.edit.pageHeader"))
@@ -166,25 +173,24 @@ public class UserManagementControllerIntegrationsTest {
 
 		User user = new User();
 		user.setUsername(testUser);
+		user.setVersion(1L);
 		user.setPassword(new BCryptPasswordEncoder().encode(testPassword));
 
 		userRepository.save(user);
 
-		for (User user1 : userRepository.findAll()) {
-			System.out.println(user1.getUsername() + " " + user.getId());
+		long idFromLastUser = 1;
+		for (User userFromDB : userRepository.findAll()) {
+			idFromLastUser = userFromDB.getId();
 		}
-
 		mockMvc.perform(
-				post("/management/user/edit/5").param("username", "testUser1")
-						.param("rolesChecked", "1").param("rolesChecked", "3"))
-				.andDo(MockMvcResultHandlers.print());
-
-		System.out.println(userRepository.findByUsername("testUser1")
-				.getUsername());
+				post("/management/user/edit/" + idFromLastUser)
+						.param("username", "testUser1")
+						.param("rolesChecked", "1").param("rolesChecked", "3")
+						.param("version", "1")).andDo(
+				MockMvcResultHandlers.print());
 
 		assertEquals("One User should exists", "testUser1", userRepository
 				.findByUsername("testUser1").getUsername());
-
 	}
 
 	@Test

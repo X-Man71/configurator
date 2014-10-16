@@ -18,7 +18,8 @@ public class UserEventAdd {
 	@Size(min = 6,max = 20, message = "{error.userevent.password.size}")
 	private String username;
 	
-	private Password password = new Password();
+	@NotNull(message = "{error.userevent.username.notNull}")
+	private Password password;
 		
 	private List<Long> rolesChecked;
 	

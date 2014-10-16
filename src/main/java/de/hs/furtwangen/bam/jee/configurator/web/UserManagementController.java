@@ -64,11 +64,15 @@ public class UserManagementController {
 		user.setAllRoles(userManagementService.findAllRole());
 		model.addAttribute("user", user);
 
-		if (!user.getPassword().passwordEquals()) {
+		if (null != user.getPassword()) {
+			if (!user.getPassword().passwordEquals()) {
+				model.addAttribute("passwordError",
+						"management.user.form.add.error.pasword.equals");
+				// Alle Rollen für Form setzen
+				return "management/user/form";
+			}
 			model.addAttribute("passwordError",
 					"management.user.form.add.error.pasword.equals");
-			// Alle Rollen für Form setzen
-			return "management/user/form";
 		}
 		if (bindingResult.hasErrors()) {
 			// Problem with username Variable ex: to Long

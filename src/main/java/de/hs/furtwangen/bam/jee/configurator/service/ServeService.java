@@ -178,5 +178,15 @@ public class ServeService {
 	public Iterable<OrderPosition> findByRegisteredTrueAndIdGreaterThanOrderByIdDesc(Long id){
 		return orderPositionRepository.findByRegisteredTrueAndIdGreaterThanOrderByIdAsc(id);
 	}
+	
+	@Transactional(readOnly=true)
+	public OrderPosition findOneOrderPosition(long id){
+		return orderPositionRepository.findOne(id);
+	}
+	
+	@Transactional
+	public OrderPosition save(OrderPosition orderPosition){
+		return orderPositionRepository.save(orderPosition);
+	}
 
 }

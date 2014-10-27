@@ -190,9 +190,13 @@ public class ServeController {
 	public String produceDone(@Valid @ModelAttribute("orderPosition") OrderPositionWeb orderPositionWeb,
 			BindingResult bindingResult, RedirectAttributes redirectAttributes,
 			Model model) {
-		// TODO
 		
-		System.out.println("orderPositionWeb.getProductname() "+orderPositionWeb.getId());
+		OrderPosition orderPosition = serveService.findOneOrderPosition(orderPositionWeb.getId());
+		orderPosition.setVersion(orderPositionWeb.getVersion());
+		orderPosition.setProvided(true);
+		
+		serveService.save(orderPosition);
+		
 		return "redirect:/serve/order/produce";
 	}
 
@@ -201,6 +205,7 @@ public class ServeController {
 		for (OrderPosition orderPosition : listOrderIterable) {
 			OrderPositionWeb orderPositionWeb = new OrderPositionWeb();
 			orderPositionWeb.setId(orderPosition.getId());
+			orderPositionWeb.setVersion(orderPosition.getVersion());
 			orderPositionWeb.setProductname(orderPosition.getProduct()
 					.getProductname());
 			orderPositionWeb.setComment(orderPosition.getComment());

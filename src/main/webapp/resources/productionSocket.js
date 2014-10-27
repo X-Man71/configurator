@@ -27,9 +27,10 @@
 			var createdDateString = orderPosition.createdDateString;
 			var registered = orderPosition.registered;
 			var provided = orderPosition.provided;
-			var done = orderPosition.done;		
+			var done = orderPosition.done;
+			var version = orderPosition.version;
 		
-			addTableRow(id);
+			addTableRow(id,version);
 		
 		
 
@@ -70,7 +71,7 @@
 			doneVar.appendChild(tddone);
 	}
 
-	function addTableRow(id) {
+	function addTableRow(id,version) {
 
 		var oldParent = document.getElementById('template');
 
@@ -88,8 +89,11 @@
 		newParent.innerHTML = oldParent.innerHTML;
 								
 		document.getElementById("idDoneFormInput").value = id;		
+		document.getElementById("versionDoneFormInput").value = version;	
 		
 		document.getElementById("idDoneButton").type = "submit";
+		
+		
 		
 
 	}
